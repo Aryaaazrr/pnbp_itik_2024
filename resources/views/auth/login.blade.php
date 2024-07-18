@@ -1,28 +1,21 @@
 @extends('layouts.guest')
 
+@section('title', 'Login')
+
 @section('content')
-    {{-- <div class="container"> --}}
     <div class="bg-white py-6 rounded-xl border-2 border-primary w-full md:w-7/12 lg:w-6/12 xl:w-3/12 m-5">
         <div class="flex flex-col justify-center items-center text-center my-6">
             <div class="flex mb-6 justify-center items-center">
                 <img src="{{ asset('assets//img/logo_polije.png') }}" alt="logo" width="120px">
                 <img src="{{ asset('assets//img/logo_sitik.png') }}" alt="logo" width="150px">
             </div>
-            {{-- <div class="w-1/3 h-auto bg-white p-6 rounded border-2 border-slate-100"> --}}
-            {{-- <div class="flex justify-center items-center">
-                        </div> --}}
             <div class="w-10/12">
-                {{-- <div class="flex flex-col justify-center items-center"> --}}
                 <h3 class="font-semibold text-2xl">Masuk</h3>
                 <p class="w-full mt-2 text-primary">Masukkan email dan kata sandi Anda di bawah
                     ini
                 </p>
-                {{-- </div> --}}
 
                 @if (session('status'))
-                    {{-- <div class="text-center font-normal p-2 text-red-950 mt-4 bg-red-300 rounded-md">
-                        {{ session('message') }}
-                    </div> --}}
                     <div id="alert-2" class="flex p-4 mt-4 text-red-950 rounded-lg bg-red-300" role="alert">
                         <div class="ml-3 font-normal">
                             {{ session('message') }}
@@ -50,7 +43,7 @@
                     </div>
                     <div class="grid grid-cols-2 mt-5">
                         <label for="password" class="text-primary font-semibold text-start self-center">Kata Sandi</label>
-                        <a href=""
+                        <a href="{{ route('forgot') }}"
                             class="text-slate-400 text-xs text-end outline-none mt-2 hover:text-primary self-center duration-500">Lupa
                             Kata
                             Sandi?</a>
@@ -64,7 +57,8 @@
                         <div class="flex mt-3 items-center flex-row justify-center">
                             <div class="flex mt-2 items-center flex-row justify-center">
                                 <p class="text-xs mr-2">Tidak mempunyai akun?</p>
-                                <a href="{{ route('register') }}" class="text-xs text-primary outline-none underline duration-500">Daftar
+                                <a href="{{ route('register') }}"
+                                    class="text-xs text-primary outline-none underline duration-500">Daftar
                                     Disini</a>
                             </div>
                         </div>
@@ -72,8 +66,5 @@
                 </form>
             </div>
         </div>
-        {{-- </div> --}}
     </div>
-    {{-- </div> --}}
-    {{-- </div> --}}
 @endsection

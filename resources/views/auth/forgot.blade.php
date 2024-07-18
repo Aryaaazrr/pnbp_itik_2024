@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', 'Register')
+@section('title', 'Forgot Password')
 
 @section('content')
     <div class="bg-white py-6 rounded-xl border-2 border-primary w-full md:w-7/12 lg:w-6/12 xl:w-3/12 m-5">
@@ -10,9 +10,8 @@
                 <img src="{{ asset('assets//img/logo_sitik.png') }}" alt="logo" width="150px">
             </div>
             <div class="w-10/12">
-                <h3 class="font-semibold text-2xl">Daftar Akun</h3>
-                <p class="w-full mt-2 text-primary">Masukkan email dan kata sandi Anda di bawah
-                    ini
+                <h3 class="font-semibold text-2xl">Lupa Kata Sandi</h3>
+                <p class="w-full mt-2 text-primary">Masukkan email anda di bawah ini
                 </p>
 
                 @if (session('status'))
@@ -36,31 +35,22 @@
                 <form action="" method="post">
                     @csrf
                     <div class="flex mt-4 items-start flex-col">
-                        <label for="name" class="text-primary font-semibold">Nama</label>
-                        <input type="text" name="nama" id="nama" placeholder="Masukkan Nama"
-                            value="{{ old('email') }}" required
-                            class="w-full h-12 mt-2 border border-gray-400 rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500">
-                    </div>
-                    <div class="flex mt-4 items-start flex-col">
                         <label for="email" class="text-primary font-semibold">Email</label>
                         <input type="email" name="email" id="email" placeholder="Masukkan Email"
                             value="{{ old('email') }}" required
                             class="w-full h-12 mt-2 border border-gray-400 rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500">
                     </div>
-                    <div class="grid grid-cols-2 mt-5">
-                        <label for="password" class="text-primary font-semibold text-start self-center">Kata Sandi</label>
-                    </div>
-                    <input type="password" name="password" id="password" placeholder="Masukkan Kata Sandi" required
-                        class="w-full h-12 mt-2 border border-gray-400 rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500">
 
                     <div class="flex flex-col mt-5 mb-2">
                         <button type="submit"
-                            class="w w-full bg-primary rounded-md mb-2 h-12 text-white hover:bg-hover duration-500">Daftar</button>
+                            class="w w-full bg-primary rounded-md mb-2 h-12 text-white hover:bg-hover duration-500">Kirim
+                            Link</button>
                         <div class="flex mt-3 items-center flex-row justify-center">
                             <div class="flex mt-2 items-center flex-row justify-center">
-                                <p class="text-xs mr-2">Sudah memiliki akun?</p>
-                                <a href="{{ route('login') }}"
-                                    class="text-xs text-primary outline-none underline duration-500">Masuk</a>
+                                <p class="text-xs mr-2">Tidak mempunyai akun?</p>
+                                <a href="{{ route('register') }}"
+                                    class="text-xs text-primary outline-none underline duration-500">Daftar
+                                    Disini</a>
                             </div>
                         </div>
                     </div>

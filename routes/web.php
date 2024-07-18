@@ -21,3 +21,4 @@ Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('login', [AuthController::class, 'authenticate']);
 
 Route::get('register', [AuthController::class, 'create'])->name('register');
+Route::get('forgot-password', [AuthController::class, 'edit'])->name('forgot');

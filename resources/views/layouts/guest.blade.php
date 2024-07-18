@@ -6,13 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font cdn link js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <Title>Login | Tosepatu - Anda Untung Kami Berkah</Title>
-
-    <!-- Link eksternal file CSS -->
-    {{-- <link rel="stylesheet" href="css/style.css" /> --}}
+    <Title>@yield('title') | Tosepatu - Anda Untung Kami Berkah</Title>
 
     <!-- Icon -->
-    <link rel="shortcut icon" href="/img/icon-tab.jpg" />
+    <link rel="shortcut icon" href="{{ asset('assets/img/logo_sitik.png') }}" />
 
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
