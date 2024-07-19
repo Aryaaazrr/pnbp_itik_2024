@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,5 @@ Route::post('login', [AuthController::class, 'authenticate']);
 
 Route::get('register', [AuthController::class, 'create'])->name('register');
 Route::get('forgot-password', [AuthController::class, 'edit'])->name('forgot');
+
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

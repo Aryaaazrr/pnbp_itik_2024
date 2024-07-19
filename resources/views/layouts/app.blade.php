@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <Title>@yield('title') | Tosepatu - Anda Untung Kami Berkah</Title>
 
+    <!-- Link eksternal file CSS -->
+    {{-- <link rel="stylesheet" href="css/style.css" /> --}}
+
     <!-- Icon -->
-    <link rel="shortcut icon" href="{{ asset('assets/img/logo_sitik.png') }}" />
+    <link rel="shortcut icon" href="/img/icon-tab.jpg" />
 
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,13 +23,16 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-secondary">
+<body class="bg-slate-50">
+    {{-- @include('sweetalert::alert') --}}
+
+    @include('partials.app.navbar')
+    @include('partials.app.sidebar')
     {{-- <h1 class="text-3xl font-bold underline"> --}}
-    <div class="w-full flex min-h-screen items-center justify-center">
-        @yield('content')
-    </div>
+    @yield('content')
     {{-- </h1> --}}
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+
 </body>
 
 </html>
