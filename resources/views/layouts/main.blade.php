@@ -33,7 +33,6 @@
 
     @include('partials.footer')
 
-    <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 </body>
 

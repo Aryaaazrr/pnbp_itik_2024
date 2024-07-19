@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <Title>@yield('title') | Tosepatu - Anda Untung Kami Berkah</Title>
 
-    <!-- Link eksternal file CSS -->
-    {{-- <link rel="stylesheet" href="css/style.css" /> --}}
-
     <!-- Icon -->
     <link rel="shortcut icon" href="/img/icon-tab.jpg" />
 
@@ -31,6 +28,7 @@
     {{-- <h1 class="text-3xl font-bold underline"> --}}
     @yield('content')
     {{-- </h1> --}}
+
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 
 </body>
