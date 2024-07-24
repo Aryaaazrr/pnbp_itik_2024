@@ -31,15 +31,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('logout', [AuthController::class, 'destroy'])->name('logout');
 
-    Route::middleware('superadmin')->prefix('superadmin')->group(function () {
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        Route::get('setting', [SettingController::class, 'index'])->name('superadmin.setting');
-    });
-
-    Route::middleware('users')->group(function () {
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-        Route::get('setting', [SettingController::class, 'index'])->name('setting');
-    });
+    Route::get('setting', [SettingController::class, 'index'])->name('setting');
 });
