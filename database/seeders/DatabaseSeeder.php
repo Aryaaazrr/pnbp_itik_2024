@@ -17,31 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::enableForeignKeyConstraints();
-
-        $data = [
-            'Superadmin', 'Peternak'
-        ];
-
-        foreach ($data as $value) {
-            Role::insert([
-                'nama_role' => $value
-            ]);
-        }
-
         User::factory()->create([
-            'username'          => 'superadmin',
-            'email'          => 'pnbpitik2024@gmail.com',
-            'password'          => Hash::make('superadmin'),
-            'id_role'          => 1,
-        ]);
-
-        User::factory()->create([
-            'username'          => 'peternak',
-            'email'          => 'testpeternak@gmail.com',
+            'username'          => 'pnbp2024',
+            'email'          => 'pnbp2024@gmail.com',
             'password'          => Hash::make('peternak'),
-            'id_role'          => 2,
         ]);
 
         \App\Models\User::factory(10)->create();
