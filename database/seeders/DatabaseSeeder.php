@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'username'          => 'pnbp2024',
-            'email'          => 'pnbp2024@gmail.com',
-            'password'          => Hash::make('pnbp2024'),
+            'username'          => 'pnbpitik2024',
+            'email'          => 'pnbpitik2024@gmail.com',
+            'password'          => Hash::make('1234321'),
         ]);
 
         \App\Models\User::factory(10)->create();

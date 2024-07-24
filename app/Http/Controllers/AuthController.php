@@ -51,11 +51,7 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
 
-                if (Auth::user()->id_role == '1') {
-                    return redirect('superadmin/dashboard');
-                } else {
-                    return redirect('dashboard');
-                }
+                return redirect('dashboard');
             } else {
                 return back()->withInput()->withErrors(['error' => 'Email dan Password yang dimasukkan tidak sesuai']);
             }
