@@ -9,7 +9,7 @@
     <Title>@yield('title') | SI ITIK POLIJE</Title>
 
     <!-- Icon -->
-    <link rel="shortcut icon" href="/img/icon-tab.jpg" />
+    <link rel="shortcut icon" href="{{ asset('assets/img/logo_sitik.png') }}" />
 
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
