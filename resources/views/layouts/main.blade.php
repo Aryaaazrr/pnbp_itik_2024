@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" id="#">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>Tosepatu - Anda Untung Kami Berkah</title>
+    <title>SI ITIK POLIJE</title>
 
 
     <!-- Font cdn link js -->
@@ -15,7 +15,7 @@
     {{-- <link rel="stylesheet" href="css/style.css" /> --}}
 
     <!-- Icon -->
-    <link rel="shortcut icon" href="img/icon-tab.jpg" />
+    <link rel="shortcut icon" href="{{ asset('assets/img/logo_sitik.png') }}" />
 
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
