@@ -2,20 +2,21 @@
     <div class="container">
         <div class="flex flex-wrap justify-between w-full lg:flex-nowrap">
             <div class="flex items-center justify-center w-full lg:w-1/3">
-                <img src="/img/icon-tab.jpg" alt="logo" width="300px" class="flex items-center justify-center " />
+                <img src="{{ asset('assets//img/logo_sitik.png') }}" alt="logo" width="200px"
+                    class="flex items-center justify-center " />
             </div>
             <div class="flex flex-col items-center justify-between w-full lg:flex-row">
                 <div class="w-full px-4 mb-12 md:w-1/3 lg:h-32">
                     <h3 class="font-semibold text-xl text-dark mb-5 text-center">Social Media</h3>
                     <ul class="text-dark text-center">
                         <li>
-                            <a href="https://wa.me/message/TJHCXV2IHL45I1"
+                            <a href="#"
                                 class="inline-block text-base hover:text-primary mb-3 duration-500">WhatsApp</a>
                         </li>
                     </ul>
                     <ul class="text-dark text-center">
                         <li>
-                            <a href="https://www.instagram.com/tosepatu.kc"
+                            <a href="#"
                                 class="inline-block text-base hover:text-primary mb-3 duration-500">Instagram</a>
                         </li>
                     </ul>
@@ -24,8 +25,9 @@
                     <h3 class="font-semibold text-xl text-dark mb-5 text-center">Location</h3>
                     <ul class="text-dark text-center">
                         <li>
-                            <a href="/" class="inline-block text-base hover:text-primary mb-3 duration-500">Jl. Tawang Mangu
-                                Gg 3 No 20 (Gang Buntu Kontrakan Pak Ribut)</a>
+                            <a href="/" class="inline-block text-base hover:text-primary mb-3 duration-500">Jl.
+                                Jl. Mastrip No.164, Lingkungan Panji, Tegalgede, Kec. Sumbersari, Kabupaten Jember, Jawa
+                                Timur 68121</a>
                         </li>
                     </ul>
                 </div>
@@ -33,14 +35,15 @@
                     <h3 class="font-semibold text-xl text-dark mb-5 text-center">New</h3>
                     <ul class="text-dark text-center">
                         <li>
-                            <a href="/" class="inline-block text-base hover:text-primary mb-3 duration-500">Ingin Update
-                                Diskon, Promo Silahkan Klik Dibawah Ini</a>
+                            <a href="/" class="inline-block text-base hover:text-primary mb-3 duration-500">Ingin
+                                Upadte ternak usaha itik? Kik berikut</a>
                         </li>
                     </ul>
                     <ul class="text-dark text-center">
                         <li>
-                            <a href="https://www.instagram.com/tosepatu.kc"
-                                class="inline-block text-base bg-primary p-2 rounded-lg text-white hover:bg-transparent hover:border-2 hover:border-primary hover:text-primary mb-3 duration-500">Follow It</a>
+                            <a href="#"
+                                class="inline-block text-base bg-primary p-2 rounded-lg text-white hover:bg-transparent hover:border-2 hover:border-primary hover:text-primary mb-3 duration-500">Follow
+                                It</a>
                         </li>
                     </ul>
                 </div>
@@ -50,7 +53,7 @@
         <div class="w-full pt-10 border-t border-slate-700">
             <div class="flex items-center justify-center mb-5">
                 {{-- instagram --}}
-                <a href="https://www.instagram.com/tosepatu.kc" target="_blank"
+                <a href="#" target="_blank"
                     class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-dark hover:border-primary hover:bg-primary hover:text-white">
                     <svg role="img" width="20" class="fill-current text-dark" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +64,7 @@
                 </a>
 
                 {{-- whatsapp --}}
-                <a href="https://wa.me/message/TJHCXV2IHL45I1" target="_blank"
+                <a href="#" target="_blank"
                     class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-dark hover:border-primary hover:bg-primary hover:text-white">
                     <svg role="img" width="20" class="fill-current text-dark" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
@@ -72,9 +75,9 @@
                 </a>
 
             </div>
-            <p class="font-medium text-sm text-slate-500 text-center">@copyright 2022 | <a
-                    href="https://www.instagram.com/tosepatu.kc" target="_blank"
-                    class="font-bold text-navy">Tosepatu.kc</a></p>
+            <p class="font-medium text-sm text-black text-center">@copyright 2024 | <a href="#" target="_blank"
+                    class="font-bold text-primary">SI ITIK
+                    POLIJE</a></p>
         </div>
     </div>
 </footer>

@@ -17,8 +17,7 @@
                     class="hidden absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none">
                     <ul class="block lg:flex">
                         <li class="group">
-                            <a href="#home"
-                                class="text-base text-primary py-2 mx-5 flex">Beranda</a>
+                            <a href="#home" class="text-base text-primary py-2 mx-5 flex">Beranda</a>
                         </li>
                         <li class="group">
                             <a href="#tentang"
