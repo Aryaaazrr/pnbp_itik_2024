@@ -15,10 +15,12 @@
                     ini
                 </p>
 
-                @if (session('status'))
+                @if ($errors->any())
                     <div id="alert-2" class="flex p-4 mt-4 text-red-950 rounded-lg bg-red-300" role="alert">
                         <div class="ml-3 font-normal">
-                            {{ session('message') }}
+                            @foreach ($errors->all() as $item)
+                                {{ $item }}
+                            @endforeach
                         </div>
                         <button type="button"
                             class="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
@@ -39,7 +41,7 @@
                         <label for="email" class="text-primary font-semibold">Email</label>
                         <input type="email" name="email" id="email" placeholder="Masukkan Email"
                             value="{{ old('email') }}" required
-                            class="w-full h-12 mt-2 border border-gray-400 rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500">
+                            class="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500">
                     </div>
                     <div class="grid grid-cols-2 mt-5">
                         <label for="password" class="text-primary font-semibold text-start self-center">Kata Sandi</label>
@@ -49,7 +51,7 @@
                             Sandi?</a>
                     </div>
                     <input type="password" name="password" id="password" placeholder="Masukkan Kata Sandi" required
-                        class="w-full h-12 mt-2 border border-gray-400 rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500">
+                        class="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500">
 
                     <div class="flex flex-col mt-5 mb-2">
                         <button type="submit"

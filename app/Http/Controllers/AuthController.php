@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -33,9 +35,29 @@ class AuthController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ], [
+            'email.required' => 'Email harus diisi.',
+            'password.required' => 'Kata sandi harus diisi.',
+        ]);
+
+        $registeredUser = User::where('email', $request->email)->first();
+
+        if ($registeredUser) {
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+
+                return redirect('dashboard');
+            } else {
+                return back()->withInput()->withErrors(['error' => 'Email dan Password yang dimasukkan tidak sesuai']);
+            }
+        }
+
+        return back()->withInput()->withErrors(['error' => 'Akun tidak ditemukan!']);
     }
 
     /**
@@ -57,8 +79,11 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }

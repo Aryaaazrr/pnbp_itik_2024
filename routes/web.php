@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,13 +16,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('guest')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::get('login', [AuthController::class, 'index'])->name('login');
+    Route::post('login', [AuthController::class, 'show']);
+
+    Route::get('register', [AuthController::class, 'create'])->name('register');
+    Route::post('register', [AuthController::class, 'store']);
+    Route::get('forgot-password', [AuthController::class, 'edit'])->name('forgot');
 });
-Route::get('login', [AuthController::class, 'index'])->name('login');
-Route::post('login', [AuthController::class, 'authenticate']);
 
-Route::get('register', [AuthController::class, 'create'])->name('register');
-Route::get('forgot-password', [AuthController::class, 'edit'])->name('forgot');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('logout', [AuthController::class, 'destroy'])->name('logout');
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('setting', [SettingController::class, 'index'])->name('setting');
+});

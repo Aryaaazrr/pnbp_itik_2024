@@ -38,7 +38,7 @@
                         <label for="email" class="text-primary font-semibold">Email</label>
                         <input type="email" name="email" id="email" placeholder="Masukkan Email"
                             value="{{ old('email') }}" required
-                            class="w-full h-12 mt-2 border border-gray-400 rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500">
+                            class="w-full h-12 mt-2 border border-primary rounded-md py-2 px-4 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary duration-500">
                     </div>
 
                     <div class="flex flex-col mt-5 mb-2">
