@@ -1,7 +1,7 @@
 <footer class="bg-white pt-20 pb-12" id="footer">
     <div class="container">
         <div class="flex flex-wrap justify-between w-full lg:flex-nowrap">
-            <div class="flex items-center justify-center w-full lg:w-1/3">
+            <div class="flex items-center justify-center w-full mb-10 lg:-mt-16 lg:w-1/3">
                 <img src="{{ asset('assets//img/logo_sitik.png') }}" alt="logo" width="200px"
                     class="flex items-center justify-center " />
             </div>

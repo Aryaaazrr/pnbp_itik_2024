@@ -31,7 +31,7 @@ module.exports = {
           wiggle: 'wiggle 3s linear infinite',
         },
         dropShadow: {
-          '2xl' : '0px 10px 50px rgba(95, 211, 208, 0.20)'
+          '2xl' : '0px 10px 50px rgba(195, 173, 114, 100)'
         }
       },
     },

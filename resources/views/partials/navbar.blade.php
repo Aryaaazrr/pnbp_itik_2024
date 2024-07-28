@@ -1,9 +1,12 @@
 <header class="bg-transparent absolute top-0 left-0 w-full flex items-center z-10">
     <div class="container">
-        <div class="flex items-center justify-between relative">
-            <div class="px-4">
+        <div class="flex justify-between">
+            <div class="flex items-center px-4">
                 <a href="" class="logo">
-                    <img src="/img/Logo_ToSepatu_no_bg.png" alt="Logo Tosepatu" width="100" />
+                    <img src="{{ asset('assets/img/logo_panjang_polije.png') }}" alt="Logo SITIK" width="300" />
+                </a>
+                <a href="" class="logo">
+                    <img src="{{ asset('assets/img/logo_sitik.png') }}" alt="Logo SITIK" width="100" />
                 </a>
             </div>
 
