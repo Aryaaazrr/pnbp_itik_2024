@@ -22,12 +22,16 @@
 
 <body class="bg-secondary">
     {{-- @include('sweetalert::alert') --}}
-
-    @include('partials.app.navbar')
-    @include('partials.app.sidebar')
-    {{-- <h1 class="text-3xl font-bold underline"> --}}
-    @yield('content')
-    {{-- </h1> --}}
+    <div class="antialiased  dark:bg-gray-900">
+        <main class="p-4 md:ml-64 h-auto pt-20">
+            @include('partials.app.navbar')
+            @include('partials.app.sidebar')
+            {{-- <h1 class="text-3xl font-bold underline"> --}}
+                {{-- </h1> --}}
+                @yield('content')
+                @include('partials.app.footer')
+            </main>
+        </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 
