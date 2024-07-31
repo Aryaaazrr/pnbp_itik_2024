@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LayerController;
 use App\Http\Controllers\PenetasanController;
 use App\Http\Controllers\PenggemukanController;
+use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('analisis-penggemukan', [PenggemukanController::class, 'index'])->name('penggemukan');
 
     Route::get('analisis-layer', [LayerController::class, 'index'])->name('layer');
+
+    Route::get('riwayat', [RiwayatController::class, 'index'])->name('riwayat');
 
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
 });
