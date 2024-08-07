@@ -37,28 +37,31 @@
                         <form action="#" onsubmit="handleSubmit(event, {{ $i }})">
                             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                                 <div class="sm:col-span-2">
-                                    <label for="name-{{ $i }}"
+                                    <label for="jumlah-telur-{{ $i }}"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah Telur
                                         (Butir)</label>
-                                    <input type="text" name="name" id="name-{{ $i }}"
+                                    <input type="text" name="jumlah-telur-{{ $i }}"
+                                        id="jumlah-telur-{{ $i }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Jumlah telur per butir" required="">
                                 </div>
                                 <div class="w-full">
-                                    <label for="brand-{{ $i }}"
+                                    <label for="presentase-menetas-{{ $i }}"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Presentase
                                         Menetas</label>
-                                    <input type="text" name="brand" id="brand-{{ $i }}"
+                                    <input type="text" name="presentase-menetas-{{ $i }}"
+                                        id="presentase-menetas-{{ $i }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Presentase telur menetas" required="">
+                                        placeholder="Presentase telur menetas" required=""
+                                        oninput="formatPresentase(this)">
                                 </div>
                                 <div class="w-full">
-                                    <label for="price-{{ $i }}"
+                                    <label for="harga-{{ $i }}"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
                                         DOD</label>
-                                    <input type="text" name="price" id="price-{{ $i }}"
+                                    <input type="text" name="harga-{{ $i }}" id="harga-{{ $i }}"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Rp 12.000" required="">
+                                        placeholder="Rp 12.000" required="" oninput="formatRupiah(this)">
                                 </div>
                             </div>
                             <button type="submit" id="submit-button-{{ $i }}"
@@ -73,6 +76,16 @@
             </div>
         @endfor
 
+        <div id="analisis" class="hidden">
+            <section class="bg-white dark:bg-gray-900">
+                <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+                    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Hasil Analisis</h2>
+                    <div id="analisis-content">
+                        <!-- Konten analisis akan ditambahkan di sini -->
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 
     <script>
@@ -99,9 +112,64 @@
         function handleSubmit(event, periode) {
             event.preventDefault();
             document.getElementById(`success-message-${periode}`).classList.remove('hidden');
-            if (periode === 6) {
-                document.getElementById('tab-6').innerText = 'Analisis';
+            setTimeout(() => {
+                document.getElementById(`success-message-${periode}`).classList.add('hidden');
+                if (periode < 6) {
+                    document.getElementById(`tab-${periode + 1}`).click();
+                } else {
+                    var allPeriodsFilled = true;
+                    var analisisContent = "";
+                    for (var i = 1; i <= 6; i++) {
+                        var jumlahTelur = document.getElementById(`jumlah-telur-${i}`).value;
+                        var presentaseMenetas = document.getElementById(`presentase-menetas-${i}`).value;
+                        var harga = document.getElementById(`harga-${i}`).value;
+                        if (!jumlahTelur || !presentaseMenetas || !harga) {
+                            allPeriodsFilled = false;
+                            break;
+                        }
+                        analisisContent += `
+                            <div>
+                                <h3>Periode ${i}</h3>
+                                <p>Jumlah Telur: ${jumlahTelur}</p>
+                                <p>Presentase Menetas: ${presentaseMenetas}</p>
+                                <p>Harga DOD: ${harga}</p>
+                            </div>
+                        `;
+                    }
+                    if (allPeriodsFilled) {
+                        document.getElementById('analisis-content').innerHTML = analisisContent;
+                        document.getElementById('analisis').classList.remove('hidden');
+                    } else {
+                        alert('Harap isi semua data periode sebelum melanjutkan.');
+                    }
+                }
+            }, 1000);
+        }
+
+        function formatRupiah(input) {
+            var value = input.value.replace(/[^,\d]/g, '').toString();
+            var split = value.split(',');
+            var sisa = split[0].length % 3;
+            var rupiah = split[0].substr(0, sisa);
+            var ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            if (ribuan) {
+                var separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
             }
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            input.value = 'Rp ' + rupiah;
+        }
+
+        function formatPresentase(element) {
+            let value = parseInt(element.value.replace(/[^0-9]/g, ''), 10);
+
+            if (isNaN(value) || value < 0) {
+                value = 0;
+            } else if (value > 100) {
+                value = 100;
+            }
+
+            element.value = value + '%';
         }
 
         document.getElementById("tab-1").click();
