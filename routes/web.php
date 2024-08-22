@@ -37,11 +37,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('analisis-penetasan', [PenetasanController::class, 'index'])->name('penetasan');
+    Route::get('penetasan', [PenetasanController::class, 'index'])->name('penetasan');
 
-    Route::get('analisis-penggemukan', [PenggemukanController::class, 'index'])->name('penggemukan');
+    Route::get('penggemukan', [PenggemukanController::class, 'index'])->name('penggemukan');
 
-    Route::get('analisis-layer', [LayerController::class, 'index'])->name('layer');
+    Route::get('layer', [LayerController::class, 'index'])->name('layer');
 
     Route::get('riwayat', [RiwayatController::class, 'index'])->name('riwayat');
 
