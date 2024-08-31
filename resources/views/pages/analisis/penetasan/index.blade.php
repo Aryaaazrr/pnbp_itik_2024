@@ -31,431 +31,437 @@
         </div>
 
         @for ($i = 1; $i <= 6; $i++)
-            <div id="periode{{ $i }}" class="tab-content hidden">
-                <div id="accordion-collapse-periode-{{ $i }}" data-accordion="collapse" class="py-8">
+            <form action="" method="POST">
+                <div id="periode{{ $i }}" class="tab-content hidden">
+                    <div id="accordion-collapse-periode-{{ $i }}" data-accordion="collapse" class="py-8">
 
-                    {{-- Penerimaan --}}
-                    <h2 id="accordion-collapse-heading-penerimaan-{{ $i }}">
-                        <button type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-collapse-body-penerimaan-{{ $i }}"
-                            aria-expanded="true" aria-controls="accordion-collapse-body-penerimaan-{{ $i }}">
-                            <span>I. PENERIMAAN (R = REVENUE)</span>
-                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5 5 1 1 5" />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div id="accordion-collapse-body-penerimaan-{{ $i }}" class="hidden"
-                        aria-labelledby="accordion-collapse-heading-penerimaan-{{ $i }}">
-                        <section class="bg-white dark:bg-gray-900">
-                            <div class="py-8 px-4 mx-auto max-w-3xl lg:py-16">
-                                <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Penerimaan Periode
-                                    {{ $i }}</h2>
-                                <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
-                                    <div class="w-full">
-                                        <label for="jumlah-telur-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                            Telur (Butir)</label>
-                                        <input type="text" name="jumlah-telur-{{ $i }}"
-                                            id="jumlah-telur-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Jumlah telur per butir" required>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="presentase-menetas-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Presentase
-                                            Menetas</label>
-                                        <input type="text" name="presentase-menetas-{{ $i }}"
-                                            id="presentase-menetas-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Presentase telur menetas" required
-                                            oninput="formatPresentase(this)">
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="jumlah-dod-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                            DOD</label>
-                                        <input type="text" name="jumlah-dod-{{ $i }}"
-                                            id="jumlah-dod-{{ $i }}"
-                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="jumlah-dod-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                            DOD</label>
-                                        <input type="text" name="jumlah-dod-{{ $i }}"
-                                            id="jumlah-dod-{{ $i }}"
-                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="harga-dod-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
-                                            DOD</label>
-                                        <input type="text" name="harga-dod-{{ $i }}"
-                                            id="harga-dod-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Rp. 12.000" required oninput="formatRupiah(this)">
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-revenue-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Revenue</label>
-                                        <input type="text" name="total-revenue-{{ $i }}"
-                                            id="total-revenue-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
+                        {{-- Penerimaan --}}
+                        <h2 id="accordion-collapse-heading-penerimaan-{{ $i }}">
+                            <button type="button"
+                                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                data-accordion-target="#accordion-collapse-body-penerimaan-{{ $i }}"
+                                aria-expanded="true" aria-controls="accordion-collapse-body-penerimaan-{{ $i }}">
+                                <span>I. PENERIMAAN (R = REVENUE)</span>
+                                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M9 5 5 1 1 5" />
+                                </svg>
+                            </button>
+                        </h2>
+                        <div id="accordion-collapse-body-penerimaan-{{ $i }}" class="hidden"
+                            aria-labelledby="accordion-collapse-heading-penerimaan-{{ $i }}">
+                            <section class="bg-white dark:bg-gray-900">
+                                <div class="py-8 px-4 mx-auto max-w-3xl lg:py-16">
+                                    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Penerimaan Periode
+                                        {{ $i }}</h2>
+                                    <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                                        <div class="w-full">
+                                            <label for="jumlah-telur-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                Telur (Butir)</label>
+                                            <input type="text" name="jumlah-telur-{{ $i }}"
+                                                id="jumlah-telur-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Jumlah telur per butir" required>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="presentase-menetas-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Presentase
+                                                Menetas</label>
+                                            <input type="text" name="presentase-menetas-{{ $i }}"
+                                                id="presentase-menetas-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Presentase telur menetas" required
+                                                oninput="formatPresentase(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="jumlah-dod-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                DOD</label>
+                                            <input type="text" name="jumlah-dod-{{ $i }}"
+                                                id="jumlah-dod-{{ $i }}"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="jumlah-dod-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                DOD</label>
+                                            <input type="text" name="jumlah-dod-{{ $i }}"
+                                                id="jumlah-dod-{{ $i }}"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="harga-dod-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
+                                                DOD</label>
+                                            <input type="text" name="harga-dod-{{ $i }}"
+                                                id="harga-dod-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 12.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-revenue-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Revenue</label>
+                                            <input type="text" name="total-revenue-{{ $i }}"
+                                                id="total-revenue-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
+                        </div>
+
+                        {{-- Pengeluaran --}}
+                        <h2 id="accordion-collapse-heading-pengeluaran-{{ $i }}">
+                            <button type="button"
+                                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                data-accordion-target="#accordion-collapse-body-pengeluaran-{{ $i }}"
+                                aria-expanded="false"
+                                aria-controls="accordion-collapse-body-pengeluaran-{{ $i }}">
+                                <span>II. PENGELUARAN (C = COST)</span>
+                                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M9 5 5 1 1 5" />
+                                </svg>
+                            </button>
+                        </h2>
+                        <div id="accordion-collapse-body-pengeluaran-{{ $i }}" class="hidden"
+                            aria-labelledby="accordion-collapse-heading-pengeluaran-{{ $i }}">
+                            <section class="bg-white dark:bg-gray-900">
+                                <div class="py-8 px-4 mx-auto max-w-3xl lg:py-16">
+                                    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Pengeluaran
+                                        Periode
+                                        {{ $i }}</h2>
+                                    <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                                        <div class="w-full">
+                                            <label for="total-revenue-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Variable Cost</label>
+                                            <input type="text" name="total-revenue-{{ $i }}"
+                                                id="total-revenue-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Jumlah obat" required>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-fixed-cost-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Fixed Cost</label>
+                                            <input type="text" name="total-fixed-cost-{{ $i }}"
+                                                id="total-fixed-cost-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-cost-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Cost</label>
+                                            <input type="text" name="total-cost-{{ $i }}"
+                                                id="total-cost-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                    </div>
+                                    <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">A. Variable Cost
+                                        Periode
+                                        {{ $i }}</h2>
+                                    <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                                        <div class="w-full">
+                                            <label for="total-bo-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Biaya Operasional</label>
+                                            <input type="text" name="total-bo-{{ $i }}"
+                                                id="total-bo-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Jumlah obat" required>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-pembelian-telur-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Pembelian Telur</label>
+                                            <input type="text" name="total-pembelian-telur-{{ $i }}"
+                                                id="total-pembelian-telur-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-variable-cost-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Variable Cost</label>
+                                            <input type="text" name="total-variable-cost-{{ $i }}"
+                                                id="total-variable-cost-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                    </div>
+                                    <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">1. Jumlah Pembelian
+                                        Telur
+                                        Periode
+                                        {{ $i }}</h2>
+                                    <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                                        <div class="w-full">
+                                            <label for="jumlah-telur-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                Telur (Butir)</label>
+                                            <input type="text" name="jumlah-telur-{{ $i }}"
+                                                id="jumlah-telur-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Jumlah obat" required>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="harga-telur-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
+                                                Telur</label>
+                                            <input type="text" name="harga-telur-{{ $i }}"
+                                                id="harga-telur-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-biaya-pembelian-telur-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Biaya Pembelian Telur</label>
+                                            <input type="text" name="total-biaya-pembelian-telur-{{ $i }}"
+                                                id="total-biaya-pembelian-telur-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                    </div>
+                                    <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">2. Jumlah Biaya
+                                        Operasional Periode {{ $i }}</h2>
+                                    <div class="grid gap-4 sm:grid-cols-4 sm:gap-6">
+                                        <div class="w-full">
+                                            <label for="biaya-tenaga-kerja-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                Tenaga Kerja</label>
+                                            <input type="text" name="biaya-tenaga-kerja-{{ $i }}"
+                                                id="biaya-tenaga-kerja-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="biaya-listrik-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                Listrik</label>
+                                            <input type="text" name="biaya-listrik-{{ $i }}"
+                                                id="biaya-listrik-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="biaya-ovk-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                OVK</label>
+                                            <input type="text" name="biaya-ovk-{{ $i }}"
+                                                id="biaya-ovk-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="biaya-op-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                Operasional</label>
+                                            <input type="text" name="biaya-op-{{ $i }}"
+                                                id="biaya-op-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="biaya-op-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                Operasional</label>
+                                            <input type="text" name="biaya-op-{{ $i }}"
+                                                id="biaya-op-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="jumlah-telur-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                Telur</label>
+                                            <input type="text" name="jumlah-telur-{{ $i }}"
+                                                id="jumlah-telur-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="jumlah-hari-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                Hari</label>
+                                            <input type="text" name="jumlah-hari-{{ $i }}"
+                                                id="jumlah-hari-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-biaya-op-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Biaya Operasional</label>
+                                            <input type="text" name="total-biaya-op-{{ $i }}"
+                                                id="total-biaya-op-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                    </div>
+                                    <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">B. Fixed Cost Periode
+                                        {{ $i }}</h2>
+                                    <div class="grid gap-4 sm:grid-cols-3 sm:gap-6 mb-4">
+                                        <div class="w-full">
+                                            <label for="sewa-kandang-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sewa
+                                                Kandang</label>
+                                            <input type="text" name="sewa-kandang-{{ $i }}"
+                                                id="sewa-kandang-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="harga-obat-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sewa
+                                                Kandang</label>
+                                            <input type="text" name="harga-obat-{{ $i }}"
+                                                id="harga-obat-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-biaya-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Biaya</label>
+                                            <input type="text" name="total-biaya-{{ $i }}"
+                                                id="total-biaya-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="grid gap-4 sm:grid-cols-4 sm:gap-6">
+                                        <div class="w-full">
+                                            <label for="jumlah-obat-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Biaya</label>
+                                            <input type="text" name="jumlah-obat-{{ $i }}"
+                                                id="jumlah-obat-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="harga-obat-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                Telur</label>
+                                            <input type="text" name="harga-obat-{{ $i }}"
+                                                id="harga-obat-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-cost-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                Hari</label>
+                                            <input type="text" name="total-cost-{{ $i }}"
+                                                id="total-cost-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-cost-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                Fixed Cost</label>
+                                            <input type="text" name="total-cost-{{ $i }}"
+                                                id="total-cost-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        {{-- Hasil --}}
+                        <h2 id="accordion-collapse-heading-hasil-{{ $i }}">
+                            <button type="button"
+                                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                data-accordion-target="#accordion-collapse-body-hasil-{{ $i }}"
+                                aria-expanded="false" aria-controls="accordion-collapse-body-hasil-{{ $i }}">
+                                <span>III. HASIL ANALISIS</span>
+                                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M9 5 5 1 1 5" />
+                                </svg>
+                            </button>
+                        </h2>
+                        <div id="accordion-collapse-body-hasil-{{ $i }}" class="hidden"
+                            aria-labelledby="accordion-collapse-heading-hasil-{{ $i }}">
+                            <section class="bg-white dark:bg-gray-900">
+                                <div class="py-8 px-4 mx-auto max-w-3xl lg:py-16">
+                                    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Hasil Analisis
+                                        Periode
+                                        {{ $i }}</h2>
+                                    <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                                        <div class="w-full">
+                                            <label for="jumlah-obat-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Margin
+                                                Of
+                                                Safety (MOS)</label>
+                                            <input type="text" name="jumlah-obat-{{ $i }}"
+                                                id="jumlah-obat-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Jumlah obat" required>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="harga-obat-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">R/C
+                                                Ratio</label>
+                                            <input type="text" name="harga-obat-{{ $i }}"
+                                                id="harga-obat-{{ $i }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-cost-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
+                                                Harga</label>
+                                            <input type="text" name="total-cost-{{ $i }}"
+                                                id="total-cost-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-cost-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
+                                                Hasil</label>
+                                            <input type="text" name="total-cost-{{ $i }}"
+                                                id="total-cost-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                        <div class="w-full">
+                                            <label for="total-cost-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Laba</label>
+                                            <input type="text" name="total-cost-{{ $i }}"
+                                                id="total-cost-{{ $i }}"
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
                     </div>
 
-                    {{-- Pengeluaran --}}
-                    <h2 id="accordion-collapse-heading-pengeluaran-{{ $i }}">
-                        <button type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-collapse-body-pengeluaran-{{ $i }}"
-                            aria-expanded="false" aria-controls="accordion-collapse-body-pengeluaran-{{ $i }}">
-                            <span>II. PENGELUARAN (C = COST)</span>
-                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M9 5 5 1 1 5" />
-                            </svg>
+                    <div class="flex justify-center">
+                        <button type="submit" id="submit-button-{{ $i }}"
+                            class="submit-button inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                            Simpan dan Lanjutkan
                         </button>
-                    </h2>
-                    <div id="accordion-collapse-body-pengeluaran-{{ $i }}" class="hidden"
-                        aria-labelledby="accordion-collapse-heading-pengeluaran-{{ $i }}">
-                        <section class="bg-white dark:bg-gray-900">
-                            <div class="py-8 px-4 mx-auto max-w-3xl lg:py-16">
-                                <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Pengeluaran Periode
-                                    {{ $i }}</h2>
-                                <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
-                                    <div class="w-full">
-                                        <label for="jumlah-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Variable Cost</label>
-                                        <input type="text" name="jumlah-obat-{{ $i }}"
-                                            id="jumlah-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Jumlah obat" required>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="harga-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Fixed Cost</label>
-                                        <input type="text" name="harga-obat-{{ $i }}"
-                                            id="harga-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Cost</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                </div>
-                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">A. Variable Cost Periode
-                                    {{ $i }}</h2>
-                                <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
-                                    <div class="w-full">
-                                        <label for="jumlah-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Biaya Operasional</label>
-                                        <input type="text" name="jumlah-obat-{{ $i }}"
-                                            id="jumlah-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Jumlah obat" required>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="harga-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Pembelian Telur</label>
-                                        <input type="text" name="harga-obat-{{ $i }}"
-                                            id="harga-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Variable Cost</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                </div>
-                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">1. Jumlah Pembelian Telur
-                                    Periode
-                                    {{ $i }}</h2>
-                                <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
-                                    <div class="w-full">
-                                        <label for="jumlah-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                            Telur (Butir)</label>
-                                        <input type="text" name="jumlah-obat-{{ $i }}"
-                                            id="jumlah-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Jumlah obat" required>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="harga-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
-                                            Telur</label>
-                                        <input type="text" name="harga-obat-{{ $i }}"
-                                            id="harga-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Biaya Pembelian Telur</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                </div>
-                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">2. Jumlah Biaya
-                                    Operasional Periode {{ $i }}</h2>
-                                <div class="grid gap-4 sm:grid-cols-4 sm:gap-6">
-                                    <div class="w-full">
-                                        <label for="jumlah-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                            Tenaga Kerja</label>
-                                        <input type="text" name="jumlah-obat-{{ $i }}"
-                                            id="jumlah-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Jumlah obat" required>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="harga-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                            Listrik</label>
-                                        <input type="text" name="harga-obat-{{ $i }}"
-                                            id="harga-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                            OVK</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                            Operasional</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="jumlah-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                            Tenaga Kerja</label>
-                                        <input type="text" name="jumlah-obat-{{ $i }}"
-                                            id="jumlah-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Jumlah obat" required>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="harga-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                            Listrik</label>
-                                        <input type="text" name="harga-obat-{{ $i }}"
-                                            id="harga-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                            OVK</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                            Operasional</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                </div>
-                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">B. Fixed Cost Periode
-                                    {{ $i }}</h2>
-                                <div class="grid gap-4 sm:grid-cols-3 sm:gap-6 mb-4">
-                                    <div class="w-full">
-                                        <label for="jumlah-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sewa
-                                            Kandang</label>
-                                        <input type="text" name="jumlah-obat-{{ $i }}"
-                                            id="jumlah-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Jumlah obat" required>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="harga-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sewa
-                                            Kandang</label>
-                                        <input type="text" name="harga-obat-{{ $i }}"
-                                            id="harga-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Biaya</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                </div>
-                                <div class="grid gap-4 sm:grid-cols-4 sm:gap-6">
-                                    <div class="w-full">
-                                        <label for="jumlah-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Biaya</label>
-                                        <input type="text" name="jumlah-obat-{{ $i }}"
-                                            id="jumlah-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Jumlah obat" required>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="harga-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                            Telur</label>
-                                        <input type="text" name="harga-obat-{{ $i }}"
-                                            id="harga-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                            Hari</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                            Fixed Cost</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-
-                    {{-- Hasil --}}
-                    <h2 id="accordion-collapse-heading-hasil-{{ $i }}">
-                        <button type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-collapse-body-hasil-{{ $i }}"
-                            aria-expanded="false" aria-controls="accordion-collapse-body-hasil-{{ $i }}">
-                            <span>III. HASIL ANALISIS</span>
-                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M9 5 5 1 1 5" />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div id="accordion-collapse-body-hasil-{{ $i }}" class="hidden"
-                        aria-labelledby="accordion-collapse-heading-hasil-{{ $i }}">
-                        <section class="bg-white dark:bg-gray-900">
-                            <div class="py-8 px-4 mx-auto max-w-3xl lg:py-16">
-                                <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Hasil Analisis
-                                    Periode
-                                    {{ $i }}</h2>
-                                <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
-                                    <div class="w-full">
-                                        <label for="jumlah-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Margin Of
-                                            Safety</label>
-                                        <input type="text" name="jumlah-obat-{{ $i }}"
-                                            id="jumlah-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Jumlah obat" required>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="harga-obat-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">R/C
-                                            Ratio</label>
-                                        <input type="text" name="harga-obat-{{ $i }}"
-                                            id="harga-obat-{{ $i }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
-                                            Harga</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
-                                            Hasil</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                    <div class="w-full">
-                                        <label for="total-cost-{{ $i }}"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Laba</label>
-                                        <input type="text" name="total-cost-{{ $i }}"
-                                            id="total-cost-{{ $i }}"
-                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="-" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
                     </div>
                 </div>
-
-                <div class="flex justify-center">
-                    <button type="submit" id="submit-button-{{ $i }}"
-                        class="submit-button inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                        Simpan dan Lanjutkan
-                    </button>
-                </div>
-
-            </div>
+            </form>
         @endfor
     </div>
 
