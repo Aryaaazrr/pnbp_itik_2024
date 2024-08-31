@@ -145,8 +145,8 @@
                                                 Variable Cost</label>
                                             <input type="text" name="total-revenue-{{ $i }}"
                                                 id="total-revenue-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Jumlah obat" required>
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" required readonly>
                                         </div>
                                         <div class="w-full">
                                             <label for="total-fixed-cost-{{ $i }}"
@@ -154,8 +154,8 @@
                                                 Fixed Cost</label>
                                             <input type="text" name="total-fixed-cost-{{ $i }}"
                                                 id="total-fixed-cost-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" required oninput="formatRupiah(this)">
                                         </div>
                                         <div class="w-full">
                                             <label for="total-cost-{{ $i }}"
@@ -177,8 +177,8 @@
                                                 Biaya Operasional</label>
                                             <input type="text" name="total-bo-{{ $i }}"
                                                 id="total-bo-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Jumlah obat" required>
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="-" required readonly>
                                         </div>
                                         <div class="w-full">
                                             <label for="total-pembelian-telur-{{ $i }}"
@@ -186,7 +186,7 @@
                                                 Pembelian Telur</label>
                                             <input type="text" name="total-pembelian-telur-{{ $i }}"
                                                 id="total-pembelian-telur-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
                                         </div>
                                         <div class="w-full">
@@ -195,7 +195,7 @@
                                                 Variable Cost</label>
                                             <input type="text" name="total-variable-cost-{{ $i }}"
                                                 id="total-variable-cost-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                     </div>
@@ -210,8 +210,8 @@
                                                 Telur (Butir)</label>
                                             <input type="text" name="jumlah-telur-{{ $i }}"
                                                 id="jumlah-telur-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Jumlah obat" required>
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Jumlah telur" required readonly>
                                         </div>
                                         <div class="w-full">
                                             <label for="harga-telur-{{ $i }}"
@@ -219,7 +219,7 @@
                                                 Telur</label>
                                             <input type="text" name="harga-telur-{{ $i }}"
                                                 id="harga-telur-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
                                         </div>
                                         <div class="w-full">
@@ -228,7 +228,7 @@
                                                 Biaya Pembelian Telur</label>
                                             <input type="text" name="total-biaya-pembelian-telur-{{ $i }}"
                                                 id="total-biaya-pembelian-telur-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                     </div>
@@ -259,7 +259,7 @@
                                                 OVK</label>
                                             <input type="text" name="biaya-ovk-{{ $i }}"
                                                 id="biaya-ovk-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                         <div class="w-full">
@@ -268,7 +268,7 @@
                                                 Operasional</label>
                                             <input type="text" name="biaya-op-{{ $i }}"
                                                 id="biaya-op-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                         <div class="w-full">
@@ -277,7 +277,7 @@
                                                 Operasional</label>
                                             <input type="text" name="biaya-op-{{ $i }}"
                                                 id="biaya-op-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                         <div class="w-full">
@@ -286,7 +286,7 @@
                                                 Telur</label>
                                             <input type="text" name="jumlah-telur-{{ $i }}"
                                                 id="jumlah-telur-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
                                         </div>
                                         <div class="w-full">
@@ -295,7 +295,7 @@
                                                 Hari</label>
                                             <input type="text" name="jumlah-hari-{{ $i }}"
                                                 id="jumlah-hari-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                         <div class="w-full">
@@ -304,7 +304,7 @@
                                                 Biaya Operasional</label>
                                             <input type="text" name="total-biaya-op-{{ $i }}"
                                                 id="total-biaya-op-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                     </div>
@@ -335,7 +335,7 @@
                                                 Biaya</label>
                                             <input type="text" name="total-biaya-{{ $i }}"
                                                 id="total-biaya-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                     </div>
@@ -346,7 +346,7 @@
                                                 Biaya</label>
                                             <input type="text" name="jumlah-obat-{{ $i }}"
                                                 id="jumlah-obat-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
                                         </div>
                                         <div class="w-full">
@@ -355,7 +355,7 @@
                                                 Telur</label>
                                             <input type="text" name="harga-obat-{{ $i }}"
                                                 id="harga-obat-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
                                         </div>
                                         <div class="w-full">
@@ -364,7 +364,7 @@
                                                 Hari</label>
                                             <input type="text" name="total-cost-{{ $i }}"
                                                 id="total-cost-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                         <div class="w-full">
@@ -373,7 +373,7 @@
                                                 Fixed Cost</label>
                                             <input type="text" name="total-cost-{{ $i }}"
                                                 id="total-cost-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                     </div>
@@ -410,8 +410,8 @@
                                                 Safety (MOS)</label>
                                             <input type="text" name="jumlah-obat-{{ $i }}"
                                                 id="jumlah-obat-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Jumlah obat" required>
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Margin Of Safety" required readonly>
                                         </div>
                                         <div class="w-full">
                                             <label for="harga-obat-{{ $i }}"
@@ -419,8 +419,8 @@
                                                 Ratio</label>
                                             <input type="text" name="harga-obat-{{ $i }}"
                                                 id="harga-obat-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)">
+                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)" readonly>
                                         </div>
                                         <div class="w-full">
                                             <label for="total-cost-{{ $i }}"

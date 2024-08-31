@@ -1807,6 +1807,9 @@ input:checked + .toggle-bg {
 .bg-opacity-0 {
   --tw-bg-opacity: 0;
 }
+.bg-opacity-40 {
+  --tw-bg-opacity: 0.4;
+}
 .fill-current {
   fill: currentColor;
 }
