@@ -52,7 +52,7 @@
                         <div id="accordion-collapse-body-penerimaan-{{ $i }}" class="hidden"
                             aria-labelledby="accordion-collapse-heading-penerimaan-{{ $i }}">
                             <section class="bg-white dark:bg-gray-900">
-                                <div class="py-8 px-4 mx-auto max-w-3xl lg:py-16">
+                                <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
                                     <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Penerimaan Periode
                                         {{ $i }}</h2>
                                     <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
@@ -134,7 +134,7 @@
                         <div id="accordion-collapse-body-pengeluaran-{{ $i }}" class="hidden"
                             aria-labelledby="accordion-collapse-heading-pengeluaran-{{ $i }}">
                             <section class="bg-white dark:bg-gray-900">
-                                <div class="py-8 px-4 mx-auto max-w-3xl lg:py-16">
+                                <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
                                     <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Pengeluaran
                                         Periode
                                         {{ $i }}</h2>
@@ -398,7 +398,7 @@
                         <div id="accordion-collapse-body-hasil-{{ $i }}" class="hidden"
                             aria-labelledby="accordion-collapse-heading-hasil-{{ $i }}">
                             <section class="bg-white dark:bg-gray-900">
-                                <div class="py-8 px-4 mx-auto max-w-3xl lg:py-16">
+                                <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
                                     <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Hasil Analisis
                                         Periode
                                         {{ $i }}</h2>
