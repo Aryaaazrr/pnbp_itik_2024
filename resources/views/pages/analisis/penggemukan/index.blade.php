@@ -122,6 +122,8 @@
                                 </svg>
                             </button>
                         </h2>
+
+                        {{-- TOTAL PENGELUARAN --}}
                         <div id="accordion-collapse-body-pengeluaran-{{ $i }}" class="hidden"
                             aria-labelledby="accordion-collapse-heading-pengeluaran-{{ $i }}">
                             <section class="bg-white dark:bg-gray-900">
@@ -158,6 +160,8 @@
                                                 placeholder="-" readonly>
                                         </div>
                                     </div>
+
+                                    {{-- VAR COST --}}
                                     <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">A. Variable Cost
                                         Periode
                                         {{ $i }}</h2>
@@ -190,66 +194,79 @@
                                                 placeholder="-" readonly>
                                         </div>
                                     </div>
+
+                                    {{-- PEMBELIAN PAKAN --}}
                                     <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">1. Jumlah Pembelian
                                         Pakan
                                         Periode
                                         {{ $i }}</h2>
                                     <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                                        <!-- Standard Pakan (Gram) -->
                                         <div class="w-full">
                                             <label for="standard-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Standard
-                                                Pakan (Gram)</label>
-                                            <input type="text" name="standard-pakan-{{ $i }}"
-                                                id="standard-pakan-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Standard Pakan (Gram)
+                                            </label>
+                                            <input type="text" id="standard-pakan-{{ $i }}" value="70"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="standard pakan" readonly>
+                                                readonly>
                                         </div>
+
+                                        <!-- Jumlah Hari -->
                                         <div class="w-full">
                                             <label for="jumlah-hari-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Hari </label>
-                                            <input type="text" name="jumlah-hari-{{ $i }}"
-                                                id="jumlah-hari-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Jumlah Hari
+                                            </label>
+                                            <input type="text" id="jumlah-hari-{{ $i }}" value="80"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="jumlah hari" readonly>
+                                                readonly>
                                         </div>
+
+                                        <!-- Jumlah Itik -->
                                         <div class="w-full">
-                                            <label for="jumlah-itik-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Itik </label>
-                                            <input type="text" name="jumlah-itik-{{ $i }}"
-                                                id="jumlah-itik-{{ $i }}"
+                                            <label for="jumlah-itik-pembelian-pakan-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Jumlah Itik
+                                            </label>
+                                            <input type="number" id="jumlah-itik-pembelian-pakan-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="jumlah itik" readonly>
+                                                placeholder="jumlah itik" readonly
+                                                oninput="calculateJumlahPakan({{ $i }})">
                                         </div>
                                         <div class="w-full">
                                             <label for="jumlah-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Pakan </label>
-                                            <input type="text" name="jumlah-itik-{{ $i }}"
-                                                id="jumlah-pakan-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Jumlah Pakan (Gram)
+                                            </label>
+                                            <input type="text" id="jumlah-pakan-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="jumlah pakan" readonly>
                                         </div>
+
                                         <div class="w-full">
                                             <label for="harga-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
-                                                Pakan</label>
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Harga Pakan
+                                            </label>
                                             <input type="text" name="harga-pakan-{{ $i }}"
                                                 id="harga-pakan-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" oninput="formatRupiah(this)">
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. 50.000"
+                                                oninput="formatRupiah(this); calculateJumlahPakan('{{ $i }}')">
                                         </div>
+
                                         <div class="w-full">
-                                            <label for="total-biaya-pakan{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Biaya Pakan</label>
-                                            <input type="text" name="total-biaya-pakan{{ $i }}"
-                                                id="total-biaya-pakan{{ $i }}"
+                                            <label for="total-biaya-pakan-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Total Biaya Pakan (Rp)
+                                            </label>
+                                            <input type="text" id="total-biaya-pakan-pembelian-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                placeholder="Total Biaya" readonly>
                                         </div>
                                     </div>
+
                                     <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">2. Jumlah Biaya
                                         Operasional Periode {{ $i }}</h2>
                                     <div class="grid gap-4 sm:grid-cols-4 sm:gap-6">
@@ -374,7 +391,7 @@
                                             <input type="text" name="jumlah-itik-{{ $i }}"
                                                 id="jumlah-itik-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" oninput="formatRupiah(this)">
+                                                placeholder="" oninput="formatRupiah(this)">
                                         </div>
                                         <div class="w-full">
                                             <label for="jumlah-hari-{{ $i }}"
@@ -413,6 +430,8 @@
                                 </svg>
                             </button>
                         </h2>
+
+                        {{-- Variable cost --}}
                         <div id="accordion-collapse-body-hasil-{{ $i }}" class="hidden"
                             aria-labelledby="accordion-collapse-heading-hasil-{{ $i }}">
                             <section class="bg-white dark:bg-gray-900">
@@ -537,6 +556,12 @@
             updateJumlahItik(element);
         }
 
+        function formatRupiah(number) {
+            let reverse = number.toString().split('').reverse().join('');
+            let ribuan = reverse.match(/\d{1,3}/g);
+            return 'Rp. ' + ribuan.join('.').split('').reverse().join('');
+        }
+
         function updateJumlahItik(input) {
             let index = input.id.split('-').pop();
             let jumlahAwal = parseFloat(document.getElementById(`jumlah-itik-awal-${index}`).value);
@@ -544,6 +569,11 @@
                 '%', ''));
             let hargaItik = parseFloat(document.getElementById(`harga-itik-${index}`).value.replace('Rp. ', '').replace('.',
                 '').replace(',', '.'));
+
+            if (!isNaN(jumlahAwal)) {
+                document.getElementById(`jumlah-itik-pembelian-pakan-${index}`).value = jumlahAwal;
+            }
+
             if (!isNaN(jumlahAwal) && !isNaN(presentaseMortalitas)) {
                 let jumlahItik = jumlahAwal * (1 - (presentaseMortalitas / 100));
                 document.getElementById(`jumlah-itik-${index}`).value = jumlahItik.toFixed(2);
@@ -553,7 +583,85 @@
                 document.getElementById(`jumlah-itik-${index}`).value = '-';
                 document.getElementById(`total-revenue-${index}`).value = '-';
             }
+
+            // Panggil calculateJumlahPakan untuk memperbarui jumlah pakan
+            calculateJumlahPakan(index);
         }
+
+        function formatRupiah(element) {
+            let value = element.value.replace(/[^,\d]/g, '');
+            if (value) {
+                value = parseFloat(value.replace(',', '.'));
+                element.value = 'Rp. ' + value.toLocaleString('id-ID');
+            } else {
+                element.value = '';
+            }
+            calculateJumlahPakan(element.id.split('-').pop()); // Pass the index to calculateJumlahPakan
+        }
+
+        function calculateJumlahPakan(index) {
+            let standardPakan = parseFloat(document.getElementById(`standard-pakan-${index}`).value);
+            let jumlahHari = parseFloat(document.getElementById(`jumlah-hari-${index}`).value);
+            let jumlahItik = parseFloat(document.getElementById(`jumlah-itik-pembelian-pakan-${index}`).value);
+            let hargaPakanElement = document.getElementById(`harga-pakan-${index}`);
+
+            if (hargaPakanElement) {
+                let hargaPakan = parseFloat(hargaPakanElement.value.replace('Rp. ', '').replace('.', '').replace(',', '.'));
+
+                if (!isNaN(standardPakan) && !isNaN(jumlahHari) && !isNaN(jumlahItik)) {
+                    let jumlahPakan = standardPakan * jumlahHari * jumlahItik;
+                    document.getElementById(`jumlah-pakan-${index}`).value = jumlahPakan.toFixed(0);
+
+                    if (!isNaN(hargaPakan)) {
+                        let totalBiayaPakan = jumlahPakan * hargaPakan;
+                        document.getElementById(`total-biaya-pakan-${index}`).value = formatRupiahNumber(totalBiayaPakan);
+                        document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = formatRupiahNumber(
+                            totalBiayaPakan);
+                    } else {
+                        document.getElementById(`total-biaya-pakan-${index}`).value = '-';
+                        document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = '-';
+
+                    }
+                } else {
+                    document.getElementById(`jumlah-pakan-${index}`).value = '-';
+                    document.getElementById(`total-biaya-pakan-${index}`).value = '-';
+                    document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = '-';
+
+                }
+            } else {
+                console.error(`Element with ID harga-pakan-${index} not found`);
+            }
+        }
+
+        function formatRupiahNumber(number) {
+            return 'Rp. ' + number.toLocaleString('id-ID');
+        }
+
+
+        function formatRupiah(input) {
+            let value = parseFloat(input.value.replace(/[^,\d]/g, ''));
+            if (!isNaN(value)) {
+                input.value = 'Rp. ' + value.toLocaleString('id-ID');
+            }
+            if (input.id.startsWith('harga-pakan-')) {
+                let index = input.id.split('-').pop();
+                calculateJumlahPakan(index);
+            }
+        }
+
+        document.querySelectorAll(
+            'input[id^="jumlah-itik-awal-"], input[id^="presentase-mortalitas-"], input[id^="standard-pakan-"], input[id^="jumlah-hari-"], input[id^="harga-pakan-"]'
+        ).forEach(input => {
+            input.addEventListener('input', function() {
+                let index = this.id.split('-').pop();
+                if (this.id.startsWith('harga-pakan-')) {
+                    formatRupiah(this);
+                } else {
+                    updateJumlahItik(this);
+                }
+            });
+        });
+
 
         function formatRupiah(input) {
             let value = parseFloat(input.value.replace(/[^,\d]/g, ''));
