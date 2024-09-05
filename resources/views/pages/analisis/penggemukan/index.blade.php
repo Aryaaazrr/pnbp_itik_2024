@@ -163,37 +163,82 @@
 
                                     {{-- VAR COST --}}
                                     <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">A. Variable Cost
+                                        Periode {{ $i }}</h2>
+                                    <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                                        <div class="w-full">
+                                            <label for="total-bo-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Total Biaya Operasional
+                                            </label>
+                                            <input type="text" name="total-bo-{{ $i }}"
+                                                id="total-bo-{{ $i }}"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. - " readonly>
+                                        </div>
+
+                                        <div class="w-full">
+                                            <label for="total-biaya-pakan-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Total Biaya Pakan
+                                            </label>
+                                            <input type="text" name="total-biaya-pakan-{{ $i }}"
+                                                id="total-biaya-pakan-{{ $i }}"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. - " readonly>
+                                        </div>
+
+                                        <div class="w-full">
+                                            <label for="total-variable-cost-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Total Variable Cost
+                                            </label>
+                                            <input type="text" name="total-variable-cost-{{ $i }}"
+                                                id="total-variable-cost-{{ $i }}"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. - " readonly>
+                                        </div>
+                                    </div>
+
+                                    {{-- <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">A. Variable Cost
                                         Periode
                                         {{ $i }}</h2>
                                     <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
                                         <div class="w-full">
                                             <label for="total-bo-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Biaya Operasional</label>
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Total Biaya Operasional
+                                            </label>
                                             <input type="text" name="total-bo-{{ $i }}"
                                                 id="total-bo-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                placeholder="Rp. - "
+                                                oninput="updateTotalVariableCost({{ $i }})" readonly>
                                         </div>
+
                                         <div class="w-full">
                                             <label for="total-biaya-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Biaya Pakan</label>
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Total Biaya Pakan
+                                            </label>
                                             <input type="text" name="total-biaya-pakan-{{ $i }}"
                                                 id="total-biaya-pakan-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" oninput="formatRupiah(this)">
+                                                placeholder="Rp. - "
+                                                oninput="updateTotalVariableCost({{ $i }})" readonly>
                                         </div>
+
                                         <div class="w-full">
                                             <label for="total-variable-cost-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Variable Cost</label>
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Total Variable Cost
+                                            </label>
                                             <input type="text" name="total-variable-cost-{{ $i }}"
                                                 id="total-variable-cost-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                placeholder="Rp. - " readonly>
                                         </div>
-                                    </div>
+
+                                    </div> --}}
 
                                     {{-- PEMBELIAN PAKAN --}}
                                     <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">1. Jumlah Pembelian
@@ -237,7 +282,7 @@
                                         <div class="w-full">
                                             <label for="jumlah-pakan-{{ $i }}"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                                Jumlah Pakan (Gram)
+                                                Jumlah Pakan (Kilogram)
                                             </label>
                                             <input type="text" id="jumlah-pakan-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -270,6 +315,7 @@
                                     <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">2. Jumlah Biaya
                                         Operasional Periode {{ $i }}</h2>
                                     <div class="grid gap-4 sm:grid-cols-4 sm:gap-6">
+                                        {{-- Biaya Tenaga Kerja --}}
                                         <div class="w-full">
                                             <label for="biaya-tenaga-kerja-{{ $i }}"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
@@ -277,8 +323,11 @@
                                             <input type="text" name="biaya-tenaga-kerja-{{ $i }}"
                                                 id="biaya-tenaga-kerja-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000">
+                                                placeholder="Rp. 50.000"
+                                                oninput="calculateOperationalCost({{ $i }})">
                                         </div>
+
+                                        {{-- Biaya Listrik --}}
                                         <div class="w-full">
                                             <label for="biaya-listrik-{{ $i }}"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
@@ -286,8 +335,11 @@
                                             <input type="text" name="biaya-listrik-{{ $i }}"
                                                 id="biaya-listrik-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" oninput="formatRupiah(this)">
+                                                placeholder="Rp. 50.000"
+                                                oninput="calculateOperationalCost({{ $i }})">
                                         </div>
+
+                                        {{-- Biaya OVK --}}
                                         <div class="w-full">
                                             <label for="biaya-ovk-{{ $i }}"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
@@ -295,54 +347,65 @@
                                             <input type="text" name="biaya-ovk-{{ $i }}"
                                                 id="biaya-ovk-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                placeholder="Rp. 50.000"
+                                                oninput="calculateOperationalCost({{ $i }})">
                                         </div>
+
                                         <div class="w-full">
                                             <label for="biaya-op-{{ $i }}"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
                                                 Operasional</label>
                                             <input type="text" name="biaya-op-{{ $i }}"
                                                 id="biaya-op-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp. -"
+                                                oninput="calculateOperationalCost({{ $i }})" readonly>
                                         </div>
                                         <div class="w-full">
-                                            <label for="biaya-op-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                                Operasional</label>
-                                            <input type="text" name="biaya-op-{{ $i }}"
-                                                id="biaya-op-{{ $i }}"
+                                            <label for="biaya-op-awal-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Biaya Operasional
+                                            </label>
+                                            <input type="text" name="biaya-op-awal-{{ $i }}"
+                                                id="biaya-op-awal-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                placeholder="Rp. -"
+                                                oninput="calculateTotalOperationalCost({{ $i }})" readonly>
                                         </div>
                                         <div class="w-full">
-                                            <label for="jumlah-telur-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Telur</label>
-                                            <input type="text" name="jumlah-telur-{{ $i }}"
-                                                id="jumlah-telur-{{ $i }}"
+                                            <label for="jumlah-itik-op-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Jumlah Itik
+                                            </label>
+                                            <input type="text" name="jumlah-itik-op-{{ $i }}"
+                                                id="jumlah-itik-op-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" oninput="formatRupiah(this)">
+                                                placeholder="-"
+                                                oninput="calculateTotalOperationalCost({{ $i }})" readonly>
                                         </div>
                                         <div class="w-full">
-                                            <label for="jumlah-hari-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Hari</label>
-                                            <input type="text" name="jumlah-hari-{{ $i }}"
-                                                id="jumlah-hari-{{ $i }}"
+                                            <label for="jumlah-hari-operasional-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Jumlah Hari Operasional
+                                            </label>
+                                            <input type="text" name="jumlah-hari-operasional-{{ $i }}"
+                                                value="80" id="jumlah-hari-operasional-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                placeholder="-"
+                                                oninput="calculateTotalOperationalCost({{ $i }})" readonly>
                                         </div>
                                         <div class="w-full">
-                                            <label for="total-biaya-op-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Biaya Operasional</label>
-                                            <input type="text" name="total-biaya-op-{{ $i }}"
-                                                id="total-biaya-op-{{ $i }}"
+                                            <label for="total-biaya-operasional-{{ $i }}"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Total Biaya Operasional
+                                            </label>
+                                            <input type="text" name="total-biaya-operasional-{{ $i }}"
+                                                id="total-biaya-operasional-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="-" readonly>
                                         </div>
                                     </div>
+
                                     <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">B. Fixed Cost Periode
                                         {{ $i }}</h2>
                                     <div class="grid gap-4 sm:grid-cols-3 sm:gap-6 mb-4">
@@ -502,7 +565,7 @@
         @endfor
     </div>
 
-    <script>
+    {{-- <script>
         function openTab(evt, tabName, periode) {
             var i, tabcontent, tablinks;
 
@@ -574,6 +637,10 @@
                 document.getElementById(`jumlah-itik-pembelian-pakan-${index}`).value = jumlahAwal;
             }
 
+            if (!isNaN(jumlahAwal)) {
+                document.getElementById(`jumlah-itik-op-${index}`).value = jumlahAwal;
+            }
+
             if (!isNaN(jumlahAwal) && !isNaN(presentaseMortalitas)) {
                 let jumlahItik = jumlahAwal * (1 - (presentaseMortalitas / 100));
                 document.getElementById(`jumlah-itik-${index}`).value = jumlahItik.toFixed(2);
@@ -583,8 +650,6 @@
                 document.getElementById(`jumlah-itik-${index}`).value = '-';
                 document.getElementById(`total-revenue-${index}`).value = '-';
             }
-
-            // Panggil calculateJumlahPakan untuk memperbarui jumlah pakan
             calculateJumlahPakan(index);
         }
 
@@ -649,6 +714,32 @@
             }
         }
 
+        function calculateOperationalCost(i) {
+            const tenagaKerja = parseInt(document.getElementById(`biaya-tenaga-kerja-${i}`).value.replace(/\D/g, ''), 10) ||
+                0;
+            const listrik = parseInt(document.getElementById(`biaya-listrik-${i}`).value.replace(/\D/g, ''), 10) || 0;
+            const ovk = parseInt(document.getElementById(`biaya-ovk-${i}`).value.replace(/\D/g, ''), 10) || 0;
+
+            const total = tenagaKerja + listrik + ovk;
+
+            document.getElementById(`biaya-op-${i}`).value = `Rp. ${total}`;
+            document.getElementById(`biaya-op-awal-${i}`).value = `Rp. ${total}`;
+        }
+
+        function calculateTotalOperationalCost(i) {
+            const biayaOperasionalAwal = parseInt(document.getElementById(`biaya-op-awal-${i}`).value.replace(/\D/g, ''),
+                10) || 0;
+            const jumlahItik = parseInt(document.getElementById(`jumlah-itik-op-${i}`).value.replace(/\D/g, ''), 10) || 0;
+            const jumlahHari = parseInt(document.getElementById(`jumlah-hari-operasional-${i}`).value.replace(/\D/g, ''),
+                10) || 0;
+
+            const totalBiayaOperasional = biayaOperasionalAwal * jumlahItik * jumlahHari;
+            document.getElementById(`total-biaya-operasional-${i}`).value = `Rp. ${totalBiayaOperasional}`;
+        }
+
+
+
+
         document.querySelectorAll(
             'input[id^="jumlah-itik-awal-"], input[id^="presentase-mortalitas-"], input[id^="standard-pakan-"], input[id^="jumlah-hari-"], input[id^="harga-pakan-"]'
         ).forEach(input => {
@@ -683,7 +774,231 @@
         }
 
         document.getElementById("tab-1").click();
+    </script> --}}
+
+    <script>
+        function openTab(evt, tabName, periode) {
+            var i, tabcontent, tablinks;
+
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.add("hidden");
+            }
+
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("text-brown-600", "bg-gray-100", "dark:bg-gray-800", "dark:text-brown-500");
+            }
+
+            document.getElementById(tabName).classList.remove("hidden");
+            evt.currentTarget.classList.add("text-brown-600", "bg-gray-100", "dark:bg-gray-800", "dark:text-brown-500");
+
+            var submitButton = document.getElementById('submit-button-6');
+            if (submitButton) {
+                submitButton.innerText = (periode === 6) ? 'Simpan dan Mulai Analisis' : 'Simpan dan Lanjutkan';
+            }
+        }
+
+        function formatRupiah(input) {
+            let value = input.value.replace(/[^,\d]/g, '');
+            if (value) {
+                value = parseFloat(value.replace(',', '.'));
+                input.value = 'Rp. ' + value.toLocaleString('id-ID');
+            } else {
+                input.value = '';
+            }
+            if (input.id.startsWith('harga-pakan-')) {
+                calculateJumlahPakan(input.id.split('-').pop());
+            } else {
+                updateTotalRevenue(input);
+            }
+        }
+
+        function formatPresentase(element) {
+            let value = parseInt(element.value.replace(/[^0-9]/g, ''), 10);
+
+            if (isNaN(value) || value < 0) {
+                value = 0;
+            } else if (value > 100) {
+                value = 100;
+            }
+
+            element.value = value + '%';
+            updateJumlahItik(element);
+        }
+
+        function validateInputIsNumber(inputId) {
+            const inputElement = document.getElementById(inputId);
+            const value = inputElement.value.replace(/\D/g, '');
+            if (value === '') {
+                alert(`Input dengan ID ${inputId} harus berisi angka.`);
+                inputElement.focus();
+                return false;
+            }
+            return true;
+        }
+
+
+        function updateJumlahItik(input) {
+            let index = input.id.split('-').pop();
+            let jumlahAwal = parseFloat(document.getElementById(`jumlah-itik-awal-${index}`).value);
+            let presentaseMortalitas = parseFloat(document.getElementById(`presentase-mortalitas-${index}`).value.replace(
+                '%', ''));
+            let hargaItik = parseFloat(document.getElementById(`harga-itik-${index}`).value.replace(/[^,\d]/g, '').replace(
+                ',', '.'));
+
+            if (!isNaN(jumlahAwal)) {
+                document.getElementById(`jumlah-itik-pembelian-pakan-${index}`).value = jumlahAwal;
+                document.getElementById(`jumlah-itik-op-${index}`).value = jumlahAwal;
+            }
+
+            if (!isNaN(jumlahAwal) && !isNaN(presentaseMortalitas)) {
+                let jumlahItik = jumlahAwal * (1 - (presentaseMortalitas / 100));
+                document.getElementById(`jumlah-itik-${index}`).value = jumlahItik.toFixed(2);
+
+                let totalRevenue = jumlahItik * (isNaN(hargaItik) ? 0 : hargaItik);
+                document.getElementById(`total-revenue-${index}`).value = formatRupiahNumber(totalRevenue);
+            } else {
+                document.getElementById(`jumlah-itik-${index}`).value = '-';
+                document.getElementById(`total-revenue-${index}`).value = '-';
+            }
+            calculateJumlahPakan(index);
+            updateTotalVariableCost(index);
+        }
+
+        function updateTotalRevenue(input) {
+            let index = input.id.split('-').pop();
+            let jumlahItik = parseFloat(document.getElementById(`jumlah-itik-${index}`).value);
+            let hargaItik = parseFloat(input.value.replace(/[^,\d]/g, '').replace(',', '.'));
+
+            if (!isNaN(jumlahItik) && !isNaN(hargaItik)) {
+                let totalRevenue = jumlahItik * hargaItik;
+                document.getElementById(`total-revenue-${index}`).value = formatRupiahNumber(totalRevenue);
+            } else {
+                document.getElementById(`total-revenue-${index}`).value = '-';
+            }
+            updateTotalVariableCost(index);
+        }
+
+        function updateTotalVariableCost(index) {
+            let totalBiayaOperasional = parseFloat(document.getElementById(`total-bo-${index}`).value.replace(/[^,\d]/g, '')
+                .replace(',', '.')) || 0;
+            let totalBiayaPakan = parseFloat(document.getElementById(`total-biaya-pakan-${index}`).value.replace(/[^,\d]/g,
+                '').replace(',', '.')) || 0;
+
+            let totalVariableCost = totalBiayaOperasional + totalBiayaPakan;
+            document.getElementById(`total-variable-cost-${index}`).value = formatRupiahNumber(totalVariableCost);
+        }
+
+
+        function calculateJumlahPakan(index) {
+            let standardPakan = parseFloat(document.getElementById(`standard-pakan-${index}`).value);
+            let jumlahHari = parseFloat(document.getElementById(`jumlah-hari-${index}`).value);
+            let jumlahItik = parseFloat(document.getElementById(`jumlah-itik-pembelian-pakan-${index}`).value);
+            let hargaPakanElement = document.getElementById(`harga-pakan-${index}`);
+
+            if (hargaPakanElement) {
+                let hargaPakan = parseFloat(hargaPakanElement.value.replace(/[^,\d]/g, '').replace(',', '.'));
+
+                if (!isNaN(standardPakan) && !isNaN(jumlahHari) && !isNaN(jumlahItik)) {
+                    let jumlahPakan = (standardPakan * jumlahHari * jumlahItik) / 1000;
+                    document.getElementById(`jumlah-pakan-${index}`).value = jumlahPakan.toFixed(0);
+
+                    if (!isNaN(hargaPakan)) {
+                        let totalBiayaPakan = jumlahPakan * hargaPakan;
+                        document.getElementById(`total-biaya-pakan-${index}`).value = formatRupiahNumber(totalBiayaPakan);
+                        document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = formatRupiahNumber(
+                            totalBiayaPakan);
+                    } else {
+                        document.getElementById(`total-biaya-pakan-${index}`).value = '-';
+                        document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = '-';
+                    }
+                } else {
+                    document.getElementById(`jumlah-pakan-${index}`).value = '-';
+                    document.getElementById(`total-biaya-pakan-${index}`).value = '-';
+                    document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = '-';
+                }
+            } else {
+                console.error(`Element with ID harga-pakan-${index} not found`);
+            }
+            updateTotalVariableCost(index);
+        }
+
+        function calculateOperationalCost(i) {
+            const tenagaKerja = parseInt(document.getElementById(`biaya-tenaga-kerja-${i}`).value.replace(/\D/g, ''), 10) ||
+                0;
+            const listrik = parseInt(document.getElementById(`biaya-listrik-${i}`).value.replace(/\D/g, ''), 10) || 0;
+            const ovk = parseInt(document.getElementById(`biaya-ovk-${i}`).value.replace(/\D/g, ''), 10) || 0;
+
+            const total = tenagaKerja + listrik + ovk;
+
+            document.getElementById(`biaya-op-${i}`).value = formatRupiahNumber(total);
+            document.getElementById(`biaya-op-awal-${i}`).value = formatRupiahNumber(total);
+        }
+
+        function calculateTotalOperationalCost(index) {
+
+            const biayaAwalId = `biaya-op-awal-${index}`;
+            const jumlahItikId = `jumlah-itik-op-${index}`;
+            const jumlahHariOperasionalId = `jumlah-hari-operasional-${index}`;
+
+            const biayaAwal = parseInt(document.getElementById(biayaAwalId).value.replace(/\D/g, ''), 10);
+            const jumlahItik = parseInt(document.getElementById(jumlahItikId).value.replace(/\D/g, ''), 10);
+            const jumlahHariOperasional = parseInt(document.getElementById(jumlahHariOperasionalId).value.replace(/\D/g,
+                ''), 10);
+
+            const totalBiaya = biayaAwal * jumlahItik * jumlahHariOperasional;
+
+            document.getElementById(`total-biaya-operasional-${index}`).value = `Rp. ${totalBiaya.toLocaleString('id-ID')}`;
+            document.getElementById(`total-bo-${index}`).value = `Rp. ${totalBiaya.toLocaleString('id-ID')}`;
+
+            updateTotalVariableCost(index);
+        }
+
+
+        function formatRupiahNumber(number) {
+            return 'Rp. ' + number.toLocaleString('id-ID');
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll(
+                'input[id^="jumlah-itik-awal-"], input[id^="presentase-mortalitas-"], input[id^="standard-pakan-"], input[id^="jumlah-hari-"], input[id^="harga-pakan-"]'
+            ).forEach(input => {
+                input.addEventListener('input', function() {
+                    let index = this.id.split('-').pop();
+                    if (this.id.startsWith('harga-pakan-')) {
+                        formatRupiah(this);
+                    } else {
+                        updateJumlahItik(this);
+                    }
+                });
+            });
+            document.querySelectorAll(
+                'input[id^="biaya-tenaga-kerja-"], input[id^="biaya-listrik-"], input[id^="biaya-ovk-"], input[id^="jumlah-itik-op-"], input[id^="jumlah-hari-operasional-"]'
+            ).forEach(input => {
+                input.addEventListener('input', function() {
+                    let index = this.id.split('-').pop();
+                    calculateOperationalCost(index);
+                    calculateTotalOperationalCost(index);
+                });
+            });
+
+            document.querySelectorAll(
+                'input[id^="total-biaya-pakan-"], input[id^="total-revenue-"]'
+            ).forEach(input => {
+                input.addEventListener('input', function() {
+                    let index = this.id.split('-').pop();
+                    calculateTotalVariableCost(index);
+                });
+            });
+        });
+        document.getElementById("tab-1").click();
     </script>
+
+
+
+
 
     <style>
         .text-brown-600 {
