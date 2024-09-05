@@ -463,12 +463,12 @@
                                         {{ $i }}</h2>
                                     <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
                                         <div class="w-full">
-                                            <label for="margin-of-safety{{ $i }}"
+                                            <label for="margin-of-safety-{{ $i }}"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Margin
                                                 Of
                                                 Safety (MOS)</label>
                                             <input type="text" name="margin-of-safety-{{ $i }}"
-                                                id="margin-of-safety{{ $i }}"
+                                                id="margin-of-safety-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Margin Of Safety" readonly>
                                         </div>
@@ -710,8 +710,14 @@
             return 'Rp. ' + number.toLocaleString('id-ID');
         }
 
+        function formatAsPercentage(value) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'percent',
+                maximumFractionDigits: 2 // Atur sesuai kebutuhan
+            }).format(value / 100);
+        }
+
         function calculateFixedCost(index) {
-            // Ambil nilai dari input dan ubah menjadi integer
             let sewaKandang = parseInt(document.getElementById(`sewa-kandang-${index}`).value.replace(/[^0-9]/g, '')) || 0;
             let penyusutanItik = parseInt(document.getElementById(`penyusutan-itik-${index}`).value.replace(/[^0-9]/g,
                 '')) || 0;
@@ -719,18 +725,34 @@
                 /[^0-9]/g, '')) || 0;
             let jumlahHari = parseInt(document.getElementById(`jumlah-hari-${index}`).value.replace(/[^0-9]/g, '')) || 0;
 
-            // Ambil nilai total variable cost dan ubah menjadi integer
             let totalVariableCost = parseInt(document.getElementById(`total-variable-cost-${index}`).value.replace(
                 /[^0-9]/g, '')) || 0;
 
-            // Hitung biaya awal dan total fixed cost
+            let totalRevenue = parseInt(document.getElementById(`total-revenue-${index}`).value.replace(/[^0-9]/g, '')) ||
+                0;
+
+            let jmlitik = parseInt(document.getElementById(`jumlah-itik-${index}`).value.replace(/[^0-9]/g, '')) ||
+                0;
+            let hrgitik = parseInt(document.getElementById(`harga-itik-${index}`).value.replace(/[^0-9]/g, '')) ||
+                0;
+
             let totalBiayaAwal = sewaKandang + penyusutanItik;
             let totalFixedCost = totalBiayaAwal * jumlahItikFixedCost * jumlahHari;
 
-            // Hitung total cost
             let totalCost = totalFixedCost + totalVariableCost;
 
-            // Format hasilnya ke dalam format rupiah
+
+            //bahan analisis
+            biayavarunit = totalVariableCost / jmlitik;
+
+            // analisis
+            let totalLaba = totalRevenue - totalCost;
+            let totalRcratio = totalRevenue / totalCost;
+            let BEPHasil = totalFixedCost / (hrgitik - biayavarunit);
+            let BEPHarga = totalFixedCost / (1 - (biayavarunit / hrgitik));
+            let MOS = ((totalRevenue - BEPHarga) / totalRevenue) * 100
+
+
             document.getElementById(`biaya-fixed-cost-awal-${index}`).value = new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR'
@@ -755,6 +777,20 @@
                 style: 'currency',
                 currency: 'IDR'
             }).format(totalCost);
+            document.getElementById(`laba-${index}`).value = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }).format(totalLaba);
+            document.getElementById(`rc-ratio-${index}`).value = new Intl.NumberFormat('id-ID', {
+                maximumFractionDigits: 2
+            }).format(totalRcratio);
+            document.getElementById(`BEP-hasil-${index}`).value = new Intl.NumberFormat('id-ID', {
+                maximumFractionDigits: 0
+            }).format(BEPHasil);
+            document.getElementById(`BEP-harga-${index}`).value = new Intl.NumberFormat('id-ID', {
+                maximumFractionDigits: 0
+            }).format(BEPHarga);
+            document.getElementById(`margin-of-safety-${index}`).value = formatAsPercentage(MOS);
         }
 
 
