@@ -547,6 +547,26 @@
             }
         }
 
+        function saveToSessionStorage() {
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                sessionStorage.setItem(input.id, input.value);
+            });
+        }
+
+        function loadFromSessionStorage() {
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                const value = sessionStorage.getItem(input.id);
+                if (value !== null) {
+                    input.value = value;
+                    if (input.type === 'checkbox' || input.type === 'radio') {
+                        input.checked = value === 'true';
+                    }
+                }
+            });
+        }
+
         function formatRupiah(input) {
             let value = input.value.replace(/[^,\d]/g, '');
             if (value) {
@@ -574,6 +594,8 @@
             element.value = value + '%';
             updateJumlahItik(element);
         }
+
+
 
         function validateInputIsNumber(inputId) {
             const inputElement = document.getElementById(inputId);
@@ -613,6 +635,7 @@
             }
             calculateJumlahPakan(index);
             updateTotalVariableCost(index);
+            saveToSessionStorage();
         }
 
         function updateTotalRevenue(input) {
@@ -627,6 +650,7 @@
                 document.getElementById(`total-revenue-${index}`).value = '-';
             }
             updateTotalVariableCost(index);
+            saveToSessionStorage();
         }
 
         function updateTotalVariableCost(index) {
@@ -638,6 +662,7 @@
             let totalVariableCost = totalBiayaOperasional + totalBiayaPakan;
             document.getElementById(`total-variable-cost-${index}`).value = formatRupiahNumber(totalVariableCost);
             document.getElementById(`total-var-cost-${index}`).value = formatRupiahNumber(totalVariableCost);
+            saveToSessionStorage();
         }
 
 
@@ -672,6 +697,7 @@
                 console.error(`Element with ID harga-pakan-${index} not found`);
             }
             updateTotalVariableCost(index);
+            saveToSessionStorage();
         }
 
         function calculateOperationalCost(i) {
@@ -684,6 +710,7 @@
 
             document.getElementById(`biaya-op-${i}`).value = formatRupiahNumber(total);
             document.getElementById(`biaya-op-awal-${i}`).value = formatRupiahNumber(total);
+            saveToSessionStorage();
         }
 
         function calculateTotalOperationalCost(index) {
@@ -703,6 +730,7 @@
             document.getElementById(`total-bo-${index}`).value = `Rp. ${totalBiaya.toLocaleString('id-ID')}`;
 
             updateTotalVariableCost(index);
+            saveToSessionStorage();
         }
 
 
@@ -750,7 +778,7 @@
             let totalRcratio = totalRevenue / totalCost;
             let BEPHasil = totalFixedCost / (hrgitik - biayavarunit);
             let BEPHarga = totalFixedCost / (1 - (biayavarunit / hrgitik));
-            let MOS = ((totalRevenue - BEPHarga) / totalRevenue) * 100
+            let MOS = ((totalRevenue - BEPHarga) / totalRevenue) * 100;
 
 
             document.getElementById(`biaya-fixed-cost-awal-${index}`).value = new Intl.NumberFormat('id-ID', {
@@ -791,11 +819,16 @@
                 maximumFractionDigits: 0
             }).format(BEPHarga);
             document.getElementById(`margin-of-safety-${index}`).value = formatAsPercentage(MOS);
+
+            saveToSessionStorage();
+
         }
 
 
 
         document.addEventListener('DOMContentLoaded', function() {
+            loadFromSessionStorage();
+
             document.querySelectorAll(
                 'input[id^="jumlah-itik-awal-"], input[id^="presentase-mortalitas-"], input[id^="standard-pakan-"], input[id^="jumlah-hari-"], input[id^="harga-pakan-"]'
             ).forEach(input => {
