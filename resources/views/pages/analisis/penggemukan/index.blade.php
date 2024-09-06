@@ -31,7 +31,8 @@
         </div>
 
         @for ($i = 1; $i <= 4; $i++)
-            <form action="" method="POST">
+            <form id="data-form-{{ $i }}" action="#" method="POST">
+                @csrf
                 <div id="periode{{ $i }}" class="tab-content hidden">
                     <div id="accordion-collapse-periode-{{ $i }}" data-accordion="collapse" class="py-8">
 
@@ -41,7 +42,8 @@
                                 class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
                                 data-accordion-target="#accordion-collapse-body-penerimaan-{{ $i }}"
                                 aria-expanded="true" aria-controls="accordion-collapse-body-penerimaan-{{ $i }}">
-                                <span>I. PENERIMAAN (R = REVENUE)</span>
+                                <h1>I. PENERIMAAN (R = REVENUE)</h1>
+                                <p id="user-id">{{ $userId }}</p>
                                 <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -105,7 +107,6 @@
                                 </div>
                             </section>
                         </div>
-
 
                         {{-- Pengeluaran --}}
                         <h2 id="accordion-collapse-heading-pengeluaran-{{ $i }}">
@@ -512,18 +513,16 @@
                             </section>
                         </div>
                     </div>
-
                     <div class="flex justify-center">
                         <button type="submit" id="submit-button-{{ $i }}"
                             class="submit-button inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                            Simpan dan Lanjutkan
+                            Simpan
                         </button>
                     </div>
                 </div>
             </form>
         @endfor
     </div>
-
     <script>
         function openTab(evt, tabName, periode) {
             var i, tabcontent, tablinks;
@@ -541,12 +540,102 @@
             document.getElementById(tabName).classList.remove("hidden");
             evt.currentTarget.classList.add("text-brown-600", "bg-gray-100", "dark:bg-gray-800", "dark:text-brown-500");
 
-            var submitButton = document.getElementById('submit-button-6');
+            var submitButton = document.getElementById('submit-button-4');
             if (submitButton) {
-                submitButton.innerText = (periode === 6) ? 'Simpan dan Mulai Analisis' : 'Simpan dan Lanjutkan';
+                if (periode === 4) {
+                    submitButton.innerText = 'Simpan dan Mulai Analisis';
+                } else {
+                    submitButton.innerText = 'Simpan';
+                }
             }
         }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function convertToNumber(value) {
+                return parseFloat(value.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+            }
+
+            function collectFormData() {
+                var penggemukanData = {
+                    id_users: "2", // Ubah sesuai dengan ID pengguna yang valid
+                    image_diagram: null, // Sesuaikan jika diperlukan
+                    details: []
+                };
+
+                // Mengumpulkan data dari 4 formulir
+                for (var i = 1; i <= 4; i++) {
+                    var formId = '#data-form-' + i;
+                    var formData = $(formId).serializeArray();
+                    var dataObject = {};
+
+                    // Mengambil nilai `standard-pakan` dan `jumlah-pakan` dari elemen input
+                    var standardPakan = document.querySelector(`#standard-pakan-${i}`) ? convertToNumber(document
+                        .querySelector(`#standard-pakan-${i}`).value) : 0;
+                    var jumlahPakan = document.querySelector(`#jumlah-pakan-${i}`) ? convertToNumber(document
+                        .querySelector(`#jumlah-pakan-${i}`).value) : 0;
+
+                    // Mengubah nilai input menjadi angka dan menyimpannya di dataObject
+                    formData.forEach(function(field) {
+                        dataObject[field.name] = convertToNumber(field.value);
+                    });
+
+                    // Tambahkan nilai standard_pakan dan jumlah_pakan ke dataObject
+                    dataObject.standard_pakan = standardPakan;
+                    dataObject.jumlah_pakan = jumlahPakan;
+
+                    penggemukanData.details.push({
+                        periode: i,
+                        ...dataObject
+                    });
+                }
+
+                return penggemukanData;
+            }
+
+            // Menangani pengiriman formulir
+            document.querySelectorAll('button[id^="submit-button-"]').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Mencegah pengiriman formulir default
+
+                    var allFormData = collectFormData();
+                    console.log('Penggemukan and details data collected:', allFormData);
+
+                    fetch('/penggemukan', { // Sesuaikan dengan URL rute Anda
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute(
+                                    'content') // Pastikan CSRF token sesuai dengan Laravel
+                            },
+                            body: JSON.stringify(allFormData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message) {
+                                alert(data.message);
+                            } else {
+                                alert('Data saved successfully!');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error saving data:', error);
+                            alert('Failed to save data.');
+                        });
+                });
+            });
+        });
+    </script>
+
+
+
+
+
+
+    <script>
         function saveToSessionStorage() {
             const inputs = document.querySelectorAll('input, select, textarea');
             inputs.forEach(input => {

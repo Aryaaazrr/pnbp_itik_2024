@@ -40,7 +40,7 @@
                             class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-500 rounded-lg transition duration-75 group hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Penetasan</a>
                     </li>
                     <li>
-                        <a href="{{ route('penggemukan') }}"
+                        <a href="{{ route('penggemukan.index') }}"
                             class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-500 rounded-lg transition duration-75 group hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Penggemukan</a>
                     </li>
                     <li>
