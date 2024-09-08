@@ -5,36 +5,50 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         return view('auth.login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('auth.register');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        //
+        // Log::info('Request Data:', $request->all());
+        $validatedData = $request->validate([
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'username.required' => 'Nama harus diisi.',
+            'email.required' => 'Email harus diisi.',
+            'email.unique' => 'Email sudah digunakan.',
+            'password.required' => 'Kata sandi harus diisi.',
+            'password.min' => 'Kata sandi harus minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
+        ]);
+
+
+        $user = User::create([
+            'username' => $validatedData['username'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+        ]);
+
+        return redirect('login')->with('success', 'Registrasi berhasil!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Request $request)
     {
         $credentials = $request->validate([
