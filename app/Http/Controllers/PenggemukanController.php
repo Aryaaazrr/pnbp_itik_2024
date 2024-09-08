@@ -7,29 +7,49 @@ use App\Models\Penggemukan;
 use App\Models\DetailPenggemukan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class PenggemukanController extends Controller
 {
+
     public function index()
     {
-        $userId = auth()->id(); // Mengambil ID pengguna yang sedang login
+        $userId = auth()->id();
+        $penggemukan = Penggemukan::latest()->first();
+        $details = $penggemukan ? $penggemukan->details : [];
+        if ($details->isEmpty()) {
+            $details = collect([
+                (object)[
+                    'periode' => 'No Data',
+                    'total_revenue' => 0,
+                    'total_cost' => 0,
+                ]
+            ]);
+        }
+        $chart = (new LarapexChart)->barChart()
+            ->setTitle('Total Revenue vs Total Cost')
+            ->setDataset([
+                [
+                    'name' => 'Total Revenue',
+                    'data' => $details->pluck('total_revenue')->toArray()
+                ],
+                [
+                    'name' => 'Total Cost',
+                    'data' => $details->pluck('total_cost')->toArray()
+                ]
+            ])
+            ->setLabels($details->pluck('periode')->toArray());
 
-        return view('pages.analisis.penggemukan.index', compact('userId'));
+        return view('pages.analisis.penggemukan.index', compact('userId', 'chart'));
     }
 
     public function create() {}
 
     public function store(Request $request)
     {
-        // $data = $request->json('data');
+        // Ambil semua data dari permintaan
         $data = $request->json()->all();
         Log::info('Data yang diterima', ['data' => $data]);
-        // Validasi data jika diperlukan
-        // $request->validate([
-        //     'id_users' => 'required|integer',
-        //     'details' => 'required|array',
-        //     // Tambahkan validasi untuk field lain sesuai kebutuhan
-        // ]);
 
         // Simpan data penggemukan
         $penggemukan = Penggemukan::create([
@@ -39,10 +59,8 @@ class PenggemukanController extends Controller
 
         // Simpan detail penggemukan
         foreach ($data['details'] as $detail) {
-            // Uraikan detail data berdasarkan periode
             $periode = $detail['periode'];
 
-            // Sesuaikan nama field dengan data yang diterima
             $penggemukan->details()->create([
                 'periode' => $periode,
                 'jumlah_itik' => $detail["jumlah-itik-awal-{$periode}"] ?? 0,
@@ -82,6 +100,18 @@ class PenggemukanController extends Controller
             ]);
         }
 
-        return response()->json(['message' => 'Data saved successfully!']);
+        // Ambil data yang telah disimpan untuk ditampilkan dalam chart
+        $details = $penggemukan->details;
+        $chartData = [
+            'labels' => $details->pluck('periode')->toArray(),
+            'total_revenue' => $details->pluck('total_revenue')->toArray(),
+            'total_cost' => $details->pluck('total_cost')->toArray(),
+        ];
+
+        // Kembalikan respons JSON
+        return response()->json([
+            'message' => 'Data saved successfully!',
+            'chart' => $chartData,
+        ]);
     }
 }

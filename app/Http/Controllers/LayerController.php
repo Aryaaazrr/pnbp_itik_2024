@@ -7,36 +7,58 @@ use App\Models\Layer;
 use App\Models\DetailLayer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class LayerController extends Controller
 {
     public function index()
     {
-        $userId = auth()->id(); // Mengambil ID pengguna yang sedang login
+        $userId = auth()->id();
+        $layer = Layer::latest()->first();
+        $details = $layer ? $layer->details : [];
+        if ($details->isEmpty()) {
+            $details = collect([
+                (object)[
+                    'periode' => 'No Data',
+                    'total_revenue' => 0,
+                    'total_cost' => 0,
+                ]
+            ]);
+        }
+        $chart = (new LarapexChart)->barChart()
+            ->setTitle('Total Revenue vs Total Cost')
+            ->setDataset([
+                [
+                    'name' => 'Total Revenue',
+                    'data' => $details->pluck('total_revenue')->toArray()
+                ],
+                [
+                    'name' => 'Total Cost',
+                    'data' => $details->pluck('total_cost')->toArray()
+                ]
+            ])
+            ->setLabels($details->pluck('periode')->toArray());
 
-        return view('pages.analisis.layer.index', compact('userId'));
+        return view('pages.analisis.layer.index', compact('userId', 'chart'));
     }
 
     public function create() {}
 
     public function store(Request $request)
     {
-        // $data = $request->json('data');
         $data = $request->json()->all();
         Log::info('Data yang diterima', ['data' => $data]);
 
-        // Simpan data layer
         $layer = Layer::create([
             'id_users' => $data['id_users'],
             'image_diagram' => $data['image_diagram'] ?? null,
         ]);
 
-        // Simpan detail layer
+
         foreach ($data['details'] as $detail) {
-            // Uraikan detail data berdasarkan periode
+
             $periode = $detail['periode'];
 
-            // Sesuaikan nama field dengan data yang diterima
             $layer->details()->create([
                 'periode' => $periode,
                 'jumlah_itik' => $detail["jumlah-itik-awal-{$periode}"] ?? 0,
