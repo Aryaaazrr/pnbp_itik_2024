@@ -998,6 +998,7 @@
                         } else {
                             console.error('No chart data received.');
                         }
+                        location.reload();
                     })
                     .catch(error => {
                         Swal.fire({

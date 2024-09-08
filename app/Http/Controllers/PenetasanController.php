@@ -87,13 +87,18 @@ class PenetasanController extends Controller
         try {
             Log::info('Data diterima:', $request->all());
             $data = $request->all();
-
-            foreach ($data as $index => $periodeData) {
-                $penetasan = Penetasan::create([
-                    'id_users' => $periodeData['user-id'],
-                    'image_diagram' => '-'
-                ]);
-
+            // Membuat entri Penetasan
+            $penetasan = Penetasan::create([
+                'id_users' => $data[0]['user-id'], // Mengambil id_users dari entri pertama
+                'image_diagram' => '-'
+            ]);
+            // foreach ($data as $index => $periodeData) {
+            //     $penetasan = Penetasan::create([
+            //         'id_users' => $periodeData['user-id'],
+            //         'image_diagram' => '-'
+            //     ]);
+            for ($index = 0; $index < 6; $index++) {
+                $periodeData = $data[$index] ?? [];
 
                 DetailPenetasan::create([
                     'id_penetasan' => $penetasan->id_penetasan,
@@ -102,7 +107,7 @@ class PenetasanController extends Controller
                     'presentase_menetas' => (float) $this->formatPresentase($periodeData['presentase-menetas-' . ($index + 1)]),
                     'jumlah_dod' => (int) $this->formatNumber($periodeData['jumlah-dod-' . ($index + 1)]),
                     'harga_dod' => (float) $this->formatRupiah($periodeData['harga-dod-' . ($index + 1)]),
-                    'total_revenue' => (float) $this->formatRupiah($periodeData['revenue-jumlah-dod-' . ($index + 1)]),
+                    'total_revenue' => (float) $this->formatRupiah($periodeData['total-revenue-' . ($index + 1)]),
                     'biaya_pembelian' => (float) $this->formatRupiah($periodeData['total-biaya-pembelian-telur-' . ($index + 1)]),
                     'harga_telur' => (float) $this->formatRupiah($periodeData['harga-telur-' . ($index + 1)]),
                     'biaya_tk' => (float) $this->formatRupiah($periodeData['biaya-tenaga-kerja-' . ($index + 1)]),
