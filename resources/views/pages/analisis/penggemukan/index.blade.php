@@ -43,7 +43,7 @@
                                 data-accordion-target="#accordion-collapse-body-penerimaan-{{ $i }}"
                                 aria-expanded="true" aria-controls="accordion-collapse-body-penerimaan-{{ $i }}">
                                 <h1>I. PENERIMAAN (R = REVENUE)</h1>
-                                <p id="user-id">{{ $userId }}</p>
+                                <p id="user-id" class="hidden">{{ $userId }}</p>
                                 <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -513,16 +513,138 @@
                             </section>
                         </div>
                     </div>
-                    <div class="flex justify-center">
-                        <button type="submit" id="submit-button-{{ $i }}"
-                            class="submit-button inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                            Simpan
-                        </button>
-                    </div>
+                    @if ($i == 4)
+                        <div class="flex justify-center">
+                            <button type="submit" id="submit-button-{{ $i }}"
+                                class="submit-button inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                                Simpan
+                            </button>
+                        </div>
+                        <!-- Tambahkan chart di sini -->
+                        <div class="container px-4 mx-auto bg-slate-400">
+                            <div class="p-6 m-20 bg-white rounded shadow chart-container-wrapper">
+                                <div id="chart-container">
+                                    {!! $chart->container() !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </form>
         @endfor
     </div>
+    <script src="{{ asset('vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ $chart->cdn() }}"></script>
+    {!! $chart->script() !!}
+    <script>
+        var userId = @json($userId);
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function convertToNumber(value) {
+                return parseFloat(value.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+            }
+
+            function collectFormData() {
+                var penggemukanData = {
+                    id_users: userId,
+                    image_diagram: null,
+                    details: []
+                };
+
+
+                for (var i = 1; i <= 4; i++) {
+                    var formId = '#data-form-' + i;
+                    var formData = $(formId).serializeArray();
+                    var dataObject = {};
+
+                    var standardPakan = document.querySelector(`#standard-pakan-${i}`) ? convertToNumber(document
+                        .querySelector(`#standard-pakan-${i}`).value) : 0;
+                    var jumlahPakan = document.querySelector(`#jumlah-pakan-${i}`) ? convertToNumber(document
+                        .querySelector(`#jumlah-pakan-${i}`).value) : 0;
+
+                    formData.forEach(function(field) {
+                        dataObject[field.name] = convertToNumber(field.value);
+                    });
+
+                    dataObject.standard_pakan = standardPakan;
+                    dataObject.jumlah_pakan = jumlahPakan;
+
+                    penggemukanData.details.push({
+                        periode: i,
+                        ...dataObject
+                    });
+                }
+
+                return penggemukanData;
+            }
+
+            document.querySelectorAll('button[id^="submit-button-"]').forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var allFormData =
+                        collectFormData();
+                    console.log('Penggemukan and details data collected:', allFormData);
+
+                    fetch('/penggemukan', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute(
+                                    'content')
+                            },
+                            body: JSON.stringify(allFormData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Data received:', data);
+                            if (data.message) {
+                                alert(data.message);
+                                location.reload();
+                            } else {
+                                alert('Data saved successfully!');
+
+                                // Ambil data chart dari respons
+                                const chartData = data.chart;
+
+                                if (chartData) {
+                                    // Render chart using LarapexCharts BarChart
+                                    var chart = new LarapexCharts.BarChart({
+                                        element: '#chart-container',
+                                        data: {
+                                            labels: chartData.labels,
+                                            series: [{
+                                                    name: 'Total Revenue',
+                                                    data: chartData.total_revenue
+                                                },
+                                                {
+                                                    name: 'Total Cost',
+                                                    data: chartData.total_cost
+                                                }
+                                            ]
+                                        },
+                                        xaxis: {
+                                            title: 'Periods'
+                                        },
+                                        yaxis: {
+                                            title: 'Amount'
+                                        }
+                                    });
+                                    chart.render();
+                                } else {
+                                    console.error('No chart data received.');
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred while saving data.');
+                        });
+                });
+            });
+        });
+    </script>
     <script>
         function openTab(evt, tabName, periode) {
             var i, tabcontent, tablinks;
@@ -551,90 +673,6 @@
         }
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function convertToNumber(value) {
-                return parseFloat(value.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
-            }
-
-            function collectFormData() {
-                var penggemukanData = {
-                    id_users: "2", // Ubah sesuai dengan ID pengguna yang valid
-                    image_diagram: null, // Sesuaikan jika diperlukan
-                    details: []
-                };
-
-                // Mengumpulkan data dari 4 formulir
-                for (var i = 1; i <= 4; i++) {
-                    var formId = '#data-form-' + i;
-                    var formData = $(formId).serializeArray();
-                    var dataObject = {};
-
-                    // Mengambil nilai `standard-pakan` dan `jumlah-pakan` dari elemen input
-                    var standardPakan = document.querySelector(`#standard-pakan-${i}`) ? convertToNumber(document
-                        .querySelector(`#standard-pakan-${i}`).value) : 0;
-                    var jumlahPakan = document.querySelector(`#jumlah-pakan-${i}`) ? convertToNumber(document
-                        .querySelector(`#jumlah-pakan-${i}`).value) : 0;
-
-                    // Mengubah nilai input menjadi angka dan menyimpannya di dataObject
-                    formData.forEach(function(field) {
-                        dataObject[field.name] = convertToNumber(field.value);
-                    });
-
-                    // Tambahkan nilai standard_pakan dan jumlah_pakan ke dataObject
-                    dataObject.standard_pakan = standardPakan;
-                    dataObject.jumlah_pakan = jumlahPakan;
-
-                    penggemukanData.details.push({
-                        periode: i,
-                        ...dataObject
-                    });
-                }
-
-                return penggemukanData;
-            }
-
-            // Menangani pengiriman formulir
-            document.querySelectorAll('button[id^="submit-button-"]').forEach(function(button) {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault(); // Mencegah pengiriman formulir default
-
-                    var allFormData = collectFormData();
-                    console.log('Penggemukan and details data collected:', allFormData);
-
-                    fetch('/penggemukan', { // Sesuaikan dengan URL rute Anda
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector(
-                                    'meta[name="csrf-token"]').getAttribute(
-                                    'content') // Pastikan CSRF token sesuai dengan Laravel
-                            },
-                            body: JSON.stringify(allFormData)
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.message) {
-                                alert(data.message);
-                            } else {
-                                alert('Data saved successfully!');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error saving data:', error);
-                            alert('Failed to save data.');
-                        });
-                });
-            });
-        });
-    </script>
-
-
-
-
-
-
     <script>
         function saveToSessionStorage() {
             const inputs = document.querySelectorAll('input, select, textarea');
@@ -725,6 +763,7 @@
             calculateJumlahPakan(index);
             updateTotalVariableCost(index);
             saveToSessionStorage();
+            calculateFixedCost(index)
         }
 
         function updateTotalRevenue(input) {
@@ -740,6 +779,7 @@
             }
             updateTotalVariableCost(index);
             saveToSessionStorage();
+            calculateFixedCost(index)
         }
 
         function updateTotalVariableCost(index) {
@@ -752,6 +792,7 @@
             document.getElementById(`total-variable-cost-${index}`).value = formatRupiahNumber(totalVariableCost);
             document.getElementById(`total-var-cost-${index}`).value = formatRupiahNumber(totalVariableCost);
             saveToSessionStorage();
+            calculateFixedCost(index)
         }
 
 
@@ -787,6 +828,7 @@
             }
             updateTotalVariableCost(index);
             saveToSessionStorage();
+            calculateFixedCost(index)
         }
 
         function calculateOperationalCost(i) {
@@ -820,6 +862,7 @@
 
             updateTotalVariableCost(index);
             saveToSessionStorage();
+            calculateFixedCost(index)
         }
 
 

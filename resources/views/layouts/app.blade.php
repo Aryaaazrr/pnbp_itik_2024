@@ -38,6 +38,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/larapex-charts@1.4.4/dist/larapexcharts.min.js"></script>
+
 
 </body>
 

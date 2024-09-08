@@ -9,7 +9,7 @@
     </div>
     <div class="bg-white p-4 mb-4 border-2 border-white rounded-lg">
         <div class="flex justify-center items-center rounded-lg border-gray-300 dark:border-gray-600 h-4">
-            <h2 class="flex items-center justify-center text-base lg:text-lg font-bold uppercase">Analisis Usaha Penggemukan
+            <h2 class="flex items-center justify-center text-base lg:text-lg font-bold uppercase">Analisis Usaha Layer
                 Itik
             </h2>
         </div>
@@ -513,45 +513,32 @@
                             </section>
                         </div>
                     </div>
-                    <div class="flex justify-center">
-                        <button type="submit" id="submit-button-{{ $i }}"
-                            class="submit-button inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                            Simpan
-                        </button>
-                    </div>
+                    @if ($i == 3)
+                        <div class="flex justify-center">
+                            <button type="submit" id="submit-button-{{ $i }}"
+                                class="submit-button inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                                Simpan dan mulai analisis
+                            </button>
+                        </div>
+                        <div class="container px-4 mx-auto bg-slate-400">
+                            <div class="p-6 m-20 bg-white rounded shadow chart-container-wrapper">
+                                <div id="chart-container">
+                                    {!! $chart->container() !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </form>
         @endfor
     </div>
-    <script>
-        function openTab(evt, tabName, periode) {
-            var i, tabcontent, tablinks;
-
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.add("hidden");
-            }
-
-            tablinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("text-brown-600", "bg-gray-100", "dark:bg-gray-800", "dark:text-brown-500");
-            }
-
-            document.getElementById(tabName).classList.remove("hidden");
-            evt.currentTarget.classList.add("text-brown-600", "bg-gray-100", "dark:bg-gray-800", "dark:text-brown-500");
-
-            var submitButton = document.getElementById('submit-button-4');
-            if (submitButton) {
-                if (periode === 3) {
-                    submitButton.innerText = 'Simpan dan Mulai Analisis';
-                } else {
-                    submitButton.innerText = 'Simpan';
-                }
-            }
-        }
-    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="{{ asset('vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ $chart->cdn() }}"></script>
+    {!! $chart->script() !!}
+    <script>
+        var userId = @json($userId);
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             function convertToNumber(value) {
@@ -559,13 +546,13 @@
             }
 
             function collectFormData() {
+
                 var penggemukanData = {
-                    id_users: "2", // Ubah sesuai dengan ID pengguna yang valid
+                    id_users: userId,
                     image_diagram: null, // Sesuaikan jika diperlukan
                     details: []
                 };
 
-                // Mengumpulkan data dari 4 formulir
                 for (var i = 1; i <= 3; i++) {
                     var formId = '#data-form-' + i;
                     var formData = $(formId).serializeArray();
@@ -598,7 +585,7 @@
             // Menangani pengiriman formulir
             document.querySelectorAll('button[id^="submit-button-"]').forEach(function(button) {
                 button.addEventListener('click', function(event) {
-                    event.preventDefault(); // Mencegah pengiriman formulir default
+                    event.preventDefault();
 
                     var allFormData = collectFormData();
                     console.log('Layer and details data collected:', allFormData);
@@ -609,16 +596,46 @@
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': document.querySelector(
                                     'meta[name="csrf-token"]').getAttribute(
-                                    'content') // Pastikan CSRF token sesuai dengan Laravel
+                                    'content')
                             },
                             body: JSON.stringify(allFormData)
                         })
                         .then(response => response.json())
                         .then(data => {
+                            console.log('Data received:', data);
                             if (data.message) {
                                 alert(data.message);
+                                location.reload();
                             } else {
                                 alert('Data saved successfully!');
+                                const chartData = data.chart;
+
+                                if (chartData) {
+                                    var chart = new LarapexCharts.BarChart({
+                                        element: '#chart-container',
+                                        data: {
+                                            labels: chartData.labels,
+                                            series: [{
+                                                    name: 'Total Revenue',
+                                                    data: chartData.total_revenue
+                                                },
+                                                {
+                                                    name: 'Total Cost',
+                                                    data: chartData.total_cost
+                                                }
+                                            ]
+                                        },
+                                        xaxis: {
+                                            title: 'Periods'
+                                        },
+                                        yaxis: {
+                                            title: 'Amount'
+                                        }
+                                    });
+                                    chart.render();
+                                } else {
+                                    console.error('No chart data received.');
+                                }
                             }
                         })
                         .catch(error => {
@@ -629,12 +646,33 @@
             });
         });
     </script>
+    <script>
+        function openTab(evt, tabName, periode) {
+            var i, tabcontent, tablinks;
 
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.add("hidden");
+            }
 
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("text-brown-600", "bg-gray-100", "dark:bg-gray-800", "dark:text-brown-500");
+            }
 
+            document.getElementById(tabName).classList.remove("hidden");
+            evt.currentTarget.classList.add("text-brown-600", "bg-gray-100", "dark:bg-gray-800", "dark:text-brown-500");
 
-
-
+            var submitButton = document.getElementById('submit-button-4');
+            if (submitButton) {
+                if (periode === 3) {
+                    submitButton.innerText = 'Simpan dan Mulai Analisis';
+                } else {
+                    submitButton.innerText = 'Simpan';
+                }
+            }
+        }
+    </script>
     <script>
         function saveToSessionStorage() {
             const inputs = document.querySelectorAll('input, select, textarea');
@@ -725,6 +763,7 @@
             calculateJumlahPakan(index);
             updateTotalVariableCost(index);
             saveToSessionStorage();
+            calculateFixedCost(index);
         }
 
         function updateTotalRevenue(input) {
@@ -740,6 +779,7 @@
             }
             updateTotalVariableCost(index);
             saveToSessionStorage();
+            calculateFixedCost(index);
         }
 
         function updateTotalVariableCost(index) {
@@ -752,6 +792,7 @@
             document.getElementById(`total-variable-cost-${index}`).value = formatRupiahNumber(totalVariableCost);
             document.getElementById(`total-var-cost-${index}`).value = formatRupiahNumber(totalVariableCost);
             saveToSessionStorage();
+            calculateFixedCost(index);
         }
 
 
@@ -787,6 +828,7 @@
             }
             updateTotalVariableCost(index);
             saveToSessionStorage();
+            calculateFixedCost(index);
         }
 
         function calculateOperationalCost(i) {
@@ -800,6 +842,7 @@
             document.getElementById(`biaya-op-${i}`).value = formatRupiahNumber(total);
             document.getElementById(`biaya-op-awal-${i}`).value = formatRupiahNumber(total);
             saveToSessionStorage();
+            calculateFixedCost(index);
         }
 
         function calculateTotalOperationalCost(index) {
@@ -820,6 +863,7 @@
 
             updateTotalVariableCost(index);
             saveToSessionStorage();
+            calculateFixedCost(index);
         }
 
 
@@ -961,7 +1005,6 @@
         });
         document.getElementById("tab-1").click();
     </script>
-
     <style>
         .text-brown-600 {
             color: #62341F;
