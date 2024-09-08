@@ -12,20 +12,21 @@ use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class PenetasanController extends Controller
 {
-    private function formatNumber($value)
+    protected function formatNumber($value)
     {
-        return str_replace(',', '', $value);
+        return intval(str_replace(['.', ','], ['', ''], $value));
     }
 
-    private function formatRupiah($value)
+    protected function formatRupiah($value)
     {
-        return preg_replace('/[^0-9.]/', '', $value);
+        return intval(str_replace(['Rp ', '.', ','], ['', '', ''], $value));
     }
 
-    private function formatPresentase($value)
+    protected function formatPresentase($value)
     {
-        return str_replace('%', '', $value);
+        return intval(str_replace(['%'], '', $value));
     }
+
 
     /**
      * Display a listing of the resource.
@@ -87,16 +88,11 @@ class PenetasanController extends Controller
         try {
             Log::info('Data diterima:', $request->all());
             $data = $request->all();
-            // Membuat entri Penetasan
+
             $penetasan = Penetasan::create([
-                'id_users' => $data[0]['user-id'], // Mengambil id_users dari entri pertama
+                'id_users' => $data[0]['user-id'],
                 'image_diagram' => '-'
             ]);
-            // foreach ($data as $index => $periodeData) {
-            //     $penetasan = Penetasan::create([
-            //         'id_users' => $periodeData['user-id'],
-            //         'image_diagram' => '-'
-            //     ]);
             for ($index = 0; $index < 6; $index++) {
                 $periodeData = $data[$index] ?? [];
 
@@ -104,26 +100,26 @@ class PenetasanController extends Controller
                     'id_penetasan' => $penetasan->id_penetasan,
                     'periode' => $index + 1,
                     'jumlah_telur' => (int) $this->formatNumber($periodeData['jumlah-telur-' . ($index + 1)]),
-                    'presentase_menetas' => (float) $this->formatPresentase($periodeData['presentase-menetas-' . ($index + 1)]),
+                    'presentase_menetas' => (int) $this->formatPresentase($periodeData['presentase-menetas-' . ($index + 1)]),
                     'jumlah_dod' => (int) $this->formatNumber($periodeData['jumlah-dod-' . ($index + 1)]),
-                    'harga_dod' => (float) $this->formatRupiah($periodeData['harga-dod-' . ($index + 1)]),
-                    'total_revenue' => (float) $this->formatRupiah($periodeData['total-revenue-' . ($index + 1)]),
-                    'biaya_pembelian' => (float) $this->formatRupiah($periodeData['total-biaya-pembelian-telur-' . ($index + 1)]),
-                    'harga_telur' => (float) $this->formatRupiah($periodeData['harga-telur-' . ($index + 1)]),
-                    'biaya_tk' => (float) $this->formatRupiah($periodeData['biaya-tenaga-kerja-' . ($index + 1)]),
-                    'biaya_listrik' => (float) $this->formatRupiah($periodeData['biaya-listrik-' . ($index + 1)]),
-                    'biaya_ovk' => (float) $this->formatRupiah($periodeData['biaya-ovk-' . ($index + 1)]),
-                    'total_biaya_operasional' => (float) $this->formatRupiah($periodeData['biaya-op-variable-cost-' . ($index + 1)]),
-                    'total_variable_cost' => (float) $this->formatRupiah($periodeData['total-variable-cost-' . ($index + 1)]),
-                    'sewa_kandang' => (float) $this->formatRupiah($periodeData['sewa-kandang-pertama-' . ($index + 1)]),
-                    'penyusutan_peralatan' => (float) $this->formatRupiah($periodeData['sewa-kandang-kedua-' . ($index + 1)]),
-                    'total_fixed_cost' => (float) $this->formatRupiah($periodeData['total-fixed-cost-' . ($index + 1)]),
-                    'total_cost' => (float) $this->formatRupiah($periodeData['total-cost-' . ($index + 1)]),
-                    'laba' => (float) $this->formatRupiah($periodeData['laba-' . ($index + 1)]),
-                    'mos' => (float) $periodeData['mos-' . ($index + 1)],
-                    'r/c_ratio' => (float) $periodeData['rc-' . ($index + 1)],
-                    'bep_harga' => (float) $periodeData['bep-harga-' . ($index + 1)],
-                    'bep_hasil' => (float) $periodeData['bep-hasil-' . ($index + 1)],
+                    'harga_dod' => (int) $this->formatRupiah($periodeData['harga-dod-' . ($index + 1)]),
+                    'total_revenue' => (int) $this->formatRupiah($periodeData['total-revenue-' . ($index + 1)]),
+                    'biaya_pembelian' => (int) $this->formatRupiah($periodeData['total-biaya-pembelian-telur-' . ($index + 1)]),
+                    'harga_telur' => (int) $this->formatRupiah($periodeData['harga-telur-' . ($index + 1)]),
+                    'biaya_tk' => (int) $this->formatRupiah($periodeData['biaya-tenaga-kerja-' . ($index + 1)]),
+                    'biaya_listrik' => (int) $this->formatRupiah($periodeData['biaya-listrik-' . ($index + 1)]),
+                    'biaya_ovk' => (int) $this->formatRupiah($periodeData['biaya-ovk-' . ($index + 1)]),
+                    'total_biaya_operasional' => (int) $this->formatRupiah($periodeData['biaya-op-variable-cost-' . ($index + 1)]),
+                    'total_variable_cost' => (int) $this->formatRupiah($periodeData['total-variable-cost-' . ($index + 1)]),
+                    'sewa_kandang' => (int) $this->formatRupiah($periodeData['sewa-kandang-pertama-' . ($index + 1)]),
+                    'penyusutan_peralatan' => (int) $this->formatRupiah($periodeData['sewa-kandang-kedua-' . ($index + 1)]),
+                    'total_fixed_cost' => (int) $this->formatRupiah($periodeData['total-fixed-cost-' . ($index + 1)]),
+                    'total_cost' => (int) $this->formatRupiah($periodeData['total-cost-' . ($index + 1)]),
+                    'laba' => (int) $this->formatRupiah($periodeData['laba-' . ($index + 1)]),
+                    'mos' => (int) $periodeData['mos-' . ($index + 1)],
+                    'r/c_ratio' => (int) $periodeData['rc-' . ($index + 1)],
+                    'bep_harga' => (int) $periodeData['bep-harga-' . ($index + 1)],
+                    'bep_hasil' => (int) $periodeData['bep-hasil-' . ($index + 1)],
                 ]);
             }
 

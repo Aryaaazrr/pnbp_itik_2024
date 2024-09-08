@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Penggemukan;
-use App\Models\DetailPenggemukan;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
@@ -16,7 +14,8 @@ class PenggemukanController extends Controller
     {
         $userId = auth()->id();
         $penggemukan = Penggemukan::where('id_users', $userId)->latest()->first();
-        $details = $penggemukan ? $penggemukan->details : [];
+        $details = $penggemukan ? $penggemukan->details : collect([]);
+
         if ($details->isEmpty()) {
             $details = collect([
                 (object)[
@@ -26,6 +25,7 @@ class PenggemukanController extends Controller
                 ]
             ]);
         }
+
         $chart = (new LarapexChart)->barChart()
             ->setTitle('Total Revenue vs Total Cost')
             ->setDataset([
@@ -42,6 +42,7 @@ class PenggemukanController extends Controller
 
         return view('pages.analisis.penggemukan.index', compact('userId', 'chart'));
     }
+
 
     public function create() {}
 

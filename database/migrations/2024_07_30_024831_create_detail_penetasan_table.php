@@ -25,7 +25,6 @@ return new class extends Migration
             $table->decimal('harga_telur', 10, 2);
             $table->decimal('biaya_tk', 10, 2);
             $table->decimal('biaya_listrik', 10, 2);
-            $table->decimal('biaya_lampu', 10, 2);
             $table->decimal('biaya_ovk', 10, 2);
             $table->decimal('total_biaya_operasional', 10, 2);
             $table->decimal('total_variable_cost', 10, 2);

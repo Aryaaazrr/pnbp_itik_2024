@@ -714,13 +714,14 @@
                     </div>
                     @if ($i == 6)
                         <div class="container px-4 mx-auto bg-white">
-                            <div class="p-6 m-20 bg-white rounded shadow chart-container-wrapper">
+                            <div class="p-6 mx-auto bg-white rounded shadow chart-container-wrapper max-w-screen-lg">
                                 <div id="chart-container">
                                     {!! $chart->container() !!}
                                 </div>
                             </div>
                         </div>
                     @endif
+
                 </div>
             </form>
         @endfor
@@ -963,9 +964,9 @@
                         if (chartData) {
                             // Extract the labels and data
                             const labels = chartData.map(item => `Period ${item['periode']}`);
-                            const totalRevenue = chartData.map(item => parseFloat(item['total_revenue'].replace(
+                            const totalRevenue = chartData.map(item => parseInt(item['total_revenue'].replace(
                                 'Rp ', '').replace('.', '').replace(',', '.')));
-                            const totalCost = chartData.map(item => parseFloat(item['total_cost'].replace('Rp ',
+                            const totalCost = chartData.map(item => parseInt(item['total_cost'].replace('Rp ',
                                 '').replace('.', '').replace(',', '.')));
 
                             var options = {
@@ -1098,8 +1099,8 @@
         }
 
         function hitungRevenue(index) {
-            var jumlahTelur = parseFloat(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
-            var presentaseMenetas = parseFloat(document.getElementById(`presentase-menetas-${index}`).value.replace('%',
+            var jumlahTelur = parseInt(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
+            var presentaseMenetas = parseInt(document.getElementById(`presentase-menetas-${index}`).value.replace('%',
                 ''));
             var harga = parseInt(document.getElementById(`harga-dod-${index}`).value.replace(/[^,\d]/g, '').replace(
                 ',', '.'));
@@ -1157,7 +1158,7 @@
         }
 
         function hitungPembelianTelur(index) {
-            var jumlahTelur = parseFloat(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
+            var jumlahTelur = parseInt(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
 
             var totalPembelianTelur = jumlahTelur * 3500;
             document.getElementById(`total-biaya-pembelian-telur-${index}`).value = formatRupiahValue(totalPembelianTelur
@@ -1174,7 +1175,7 @@
                 .replace(',', '.'), 10);
             var biayaOVK = parseInt(document.getElementById(`biaya-ovk-${index}`).value.replace(/[^,\d]/g, '').replace(',',
                 '.'), 10);
-            var jumlahTelur = parseFloat(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
+            var jumlahTelur = parseInt(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
 
             if (!isNaN(biayaTenagaKerja) && !isNaN(biayaListrik) && !isNaN(biayaOVK) && !isNaN(jumlahTelur)) {
                 var biayaOperasional = biayaTenagaKerja + biayaListrik + biayaOVK;
@@ -1201,7 +1202,7 @@
                 '').replace(',', '.'), 10);
             var sewaKandangKedua = parseInt(document.getElementById(`sewa-kandang-kedua-${index}`).value.replace(/[^,\d]/g,
                 '').replace(',', '.'), 10);
-            var jumlahTelur = parseFloat(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
+            var jumlahTelur = parseInt(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
 
             if (!isNaN(sewaKandangPertama) && !isNaN(sewaKandangKedua) && !isNaN(jumlahTelur)) {
                 var totalBiaya = sewaKandangPertama + sewaKandangKedua;
@@ -1224,7 +1225,7 @@
 
         function parseValue(id) {
             var value = document.getElementById(id).value.replace(/[^,\d]/g, '').replace(',', '.');
-            return isNaN(value) || value === '' ? 0 : parseFloat(value);
+            return isNaN(value) || value === '' ? 0 : parseInt(value);
         }
 
         function formatResult(value) {

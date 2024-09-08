@@ -49,7 +49,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            {{-- <li>
                 <a href="{{ route('riwayat') }}"
                     class="@if (request()->is('riwayat')) bg-gray-100 text-primary @else text-gray-500 @endif flex items-center p-2 text-base font-medium  rounded-lg dark:text-white hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg aria-hidden="true"
@@ -68,7 +68,7 @@
                         4
                     </span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
         <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
             <li>
