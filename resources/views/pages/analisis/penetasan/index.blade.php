@@ -45,6 +45,8 @@
                                 aria-expanded="true"
                                 aria-controls="accordion-collapse-body-penerimaan-{{ $i }}">
                                 <span>I. PENERIMAAN (R = REVENUE)</span>
+                                {{-- <p id="user-id">{{ $userId }}</p> --}}
+                                <input type="text" id="user-id" name="user-id" value="{{ $userId }}" hidden>
                                 <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -710,11 +712,22 @@
                             Simpan dan Lanjutkan
                         </button>
                     </div>
+                    @if ($i == 6)
+                        <div class="container px-4 mx-auto bg-white">
+                            <div class="p-6 m-20 bg-white rounded shadow chart-container-wrapper">
+                                <div id="chart-container">
+                                    {!! $chart->container() !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </form>
         @endfor
     </div>
-
+    <script src="{{ asset('vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ $chart->cdn() }}"></script>
+    {!! $chart->script() !!}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             window.validateForm = function(event, index) {
@@ -722,142 +735,113 @@
                 let isValid = true;
 
                 const fields = [{
+                        id: `user-id`,
+                        message: 'Ini user id!'
+                    },
+                    {
                         id: `jumlah-telur-${index}`,
                         message: 'Harap isi data jumlah telur!'
                     },
                     {
                         id: `presentase-menetas-${index}`,
                         message: 'Harap isi data presentase menetas!'
-                    },
-                    {
+                    }, {
                         id: `jumlah-dod-${index}`,
                         message: 'Harap isi data jumlah dod!'
-                    },
-                    {
+                    }, {
                         id: `revenue-jumlah-dod-${index}`,
                         message: 'Harap isi data jumlah dod!'
-                    },
-                    {
+                    }, {
                         id: `harga-dod-${index}`,
                         message: 'Harap isi data harga DOD!'
-                    },
-                    {
+                    }, {
                         id: `total-revenue-${index}`,
                         message: 'Harap isi data total revenue!'
-                    },
-                    {
+                    }, {
                         id: `total-variable-cost-final-${index}`,
                         message: 'Harap isi data total variable cost final!'
-                    },
-                    {
+                    }, {
                         id: `total-fixed-cost-final-${index}`,
                         message: 'Harap isi data total fixed cost final!'
-                    },
-                    {
+                    }, {
                         id: `total-cost-${index}`,
                         message: 'Harap isi data total cost!'
-                    },
-                    {
+                    }, {
                         id: `total-bo-${index}`,
                         message: 'Harap isi data total biaya operasional!'
-                    },
-                    {
+                    }, {
                         id: `total-biaya-pembelian-telur-final-${index}`,
                         message: 'Harap isi data total biaya pembelian telur final!'
-                    },
-                    {
+                    }, {
                         id: `total-variable-cost-${index}`,
                         message: 'Harap isi data total variable cost!'
-                    },
-                    {
+                    }, {
                         id: `pembelian-jumlah-telur-${index}`,
                         message: 'Harap isi data pembelian jumlah telur!'
-                    },
-                    {
+                    }, {
                         id: `harga-telur-${index}`,
                         message: 'Harap isi data harga telur!'
-                    },
-                    {
+                    }, {
                         id: `total-biaya-pembelian-telur-${index}`,
                         message: 'Harap isi data total biaya pembelian telur!'
-                    },
-                    {
+                    }, {
                         id: `total-biaya-pembelian-telur-${index}`,
                         message: 'Harap isi data total biaya pembelian telur!'
-                    },
-                    {
+                    }, {
                         id: `biaya-tenaga-kerja-${index}`,
                         message: 'Harap isi data biaya tenaga kerja!'
-                    },
-                    {
+                    }, {
                         id: `biaya-listrik-${index}`,
                         message: 'Harap isi data biaya listrik!'
-                    },
-                    {
+                    }, {
                         id: `biaya-ovk-${index}`,
                         message: 'Harap isi data biaya ovk!'
-                    },
-                    {
+                    }, {
                         id: `biaya-op-${index}`,
                         message: 'Harap isi data biaya operasional!'
-                    },
-                    {
+                    }, {
                         id: `biaya-op-variable-cost-${index}`,
                         message: 'Harap isi data biaya operasional variable cost!'
-                    },
-                    {
+                    }, {
                         id: `jumlah-telur-variable-cost-${index}`,
                         message: 'Harap isi data jumlah telur variable cost!'
-                    },
-                    {
+                    }, {
                         id: `jumlah-hari-${index}`,
                         message: 'Harap isi data jumlah hari!'
-                    },
-                    {
+                    }, {
                         id: `total-biaya-op-${index}`,
                         message: 'Harap isi data total biaya operasional!'
-                    },
-                    {
+                    }, {
                         id: `sewa-kandang-pertama-${index}`,
                         message: 'Harap isi data sewa kandang!'
-                    },
-                    {
+                    }, {
                         id: `sewa-kandang-kedua-${index}`,
                         message: 'Harap isi data sewa kandang!'
-                    },
-                    {
+                    }, {
                         id: `total-biaya-${index}`,
                         message: 'Harap isi data total biaya!'
-                    },
-                    {
+                    }, {
                         id: `total-biaya-fixed-cost-${index}`,
                         message: 'Harap isi data total biaya fixed cost!'
-                    },
-                    {
+                    }, {
                         id: `jumlah-hari-${index}`,
                         message: 'Harap isi data jumlah hari!'
-                    },
-                    {
+                    }, {
                         id: `total-fixed-cost-${index}`,
                         message: 'Harap isi data total fixed cost!'
-                    },
-                    {
+                    }, {
                         id: `mos-${index}`,
                         message: 'Harap isi data mos!'
-                    },
-                    {
+                    }, {
                         id: `rc-${index}`,
                         message: 'Harap isi data rc!'
-                    },
-                    {
+                    }, {
                         id: `bep-harga-${index}`,
                         message: 'Harap isi data bep harga!'
-                    },
-                    {
+                    }, {
                         id: `bep-hasil-${index}`,
                         message: 'Harap isi data bep hasil!'
-                    },
-                    {
+                    }, {
                         id: `laba-${index}`,
                         message: 'Harap isi data laba!'
                     }
@@ -969,10 +953,51 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Data berhasil diproses!',
-                            text: 'Data Anda telah berhasil disimpan ppermanen.',
+                            text: 'Data Anda telah berhasil disimpan permanen.',
                             confirmButtonText: 'OK',
                             confirmButtonColor: '#3085d6'
                         });
+
+                        const chartData = data.chart;
+
+                        if (chartData) {
+                            // Extract the labels and data
+                            const labels = chartData.map(item => `Period ${item['periode']}`);
+                            const totalRevenue = chartData.map(item => parseFloat(item['total_revenue'].replace(
+                                'Rp ', '').replace('.', '').replace(',', '.')));
+                            const totalCost = chartData.map(item => parseFloat(item['total_cost'].replace('Rp ',
+                                '').replace('.', '').replace(',', '.')));
+
+                            var options = {
+                                chart: {
+                                    type: 'bar',
+                                    height: 350
+                                },
+                                series: [{
+                                    name: 'Total Revenue',
+                                    data: totalRevenue
+                                }, {
+                                    name: 'Total Cost',
+                                    data: totalCost
+                                }],
+                                xaxis: {
+                                    categories: labels,
+                                    title: {
+                                        text: 'Periods'
+                                    }
+                                },
+                                yaxis: {
+                                    title: {
+                                        text: 'Amount'
+                                    }
+                                }
+                            };
+
+                            var chart = new ApexCharts(document.querySelector("#chart-container"), options);
+                            chart.render();
+                        } else {
+                            console.error('No chart data received.');
+                        }
                     })
                     .catch(error => {
                         Swal.fire({
@@ -983,6 +1008,7 @@
                             confirmButtonColor: '#d33'
                         });
                     });
+
             }
 
             const forms = document.querySelectorAll('form[data-index]');

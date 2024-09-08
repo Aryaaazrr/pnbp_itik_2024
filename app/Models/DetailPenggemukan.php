@@ -28,7 +28,6 @@ class DetailPenggemukan extends Model
         'biaya_pakan',
         'biaya_tk',
         'biaya_listrik',
-        'biaya_lampu',
         'biaya_ovk',
         'total_biaya_operasional',
         'total_variable_cost',

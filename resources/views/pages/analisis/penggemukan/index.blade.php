@@ -521,7 +521,7 @@
                             </button>
                         </div>
                         <!-- Tambahkan chart di sini -->
-                        <div class="container px-4 mx-auto bg-slate-400">
+                        <div class="container px-4 mx-auto bg-white">
                             <div class="p-6 m-20 bg-white rounded shadow chart-container-wrapper">
                                 <div id="chart-container">
                                     {!! $chart->container() !!}

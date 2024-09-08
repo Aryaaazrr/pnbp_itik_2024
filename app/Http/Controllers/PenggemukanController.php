@@ -47,17 +47,14 @@ class PenggemukanController extends Controller
 
     public function store(Request $request)
     {
-        // Ambil semua data dari permintaan
         $data = $request->json()->all();
         Log::info('Data yang diterima', ['data' => $data]);
 
-        // Simpan data penggemukan
         $penggemukan = Penggemukan::create([
             'id_users' => $data['id_users'],
             'image_diagram' => $data['image_diagram'] ?? null,
         ]);
 
-        // Simpan detail penggemukan
         foreach ($data['details'] as $detail) {
             $periode = $detail['periode'];
 
