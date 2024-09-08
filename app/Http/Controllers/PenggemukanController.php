@@ -15,7 +15,7 @@ class PenggemukanController extends Controller
     public function index()
     {
         $userId = auth()->id();
-        $penggemukan = Penggemukan::latest()->first();
+        $penggemukan = Penggemukan::where('id_users', $userId)->latest()->first();
         $details = $penggemukan ? $penggemukan->details : [];
         if ($details->isEmpty()) {
             $details = collect([

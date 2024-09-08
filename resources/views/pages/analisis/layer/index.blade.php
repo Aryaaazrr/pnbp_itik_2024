@@ -546,7 +546,6 @@
             }
 
             function collectFormData() {
-                console.log('User ID in collectFormData:', userId);
 
                 var penggemukanData = {
                     id_users: userId,

@@ -537,6 +537,9 @@
     <script src="{{ $chart->cdn() }}"></script>
     {!! $chart->script() !!}
     <script>
+        var userId = @json($userId);
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             function convertToNumber(value) {
                 return parseFloat(value.replace(/[^\d,]/g, '').replace(',', '.')) || 0;

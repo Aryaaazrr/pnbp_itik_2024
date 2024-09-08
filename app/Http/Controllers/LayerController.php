@@ -14,7 +14,7 @@ class LayerController extends Controller
     public function index()
     {
         $userId = auth()->id();
-        $layer = Layer::latest()->first();
+        $layer = Layer::where('id_users', $userId)->latest()->first();
         $details = $layer ? $layer->details : [];
         if ($details->isEmpty()) {
             $details = collect([
