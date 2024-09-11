@@ -533,11 +533,11 @@
                                         </span>
 
                                         <div class="w-full sm:w-1/4">
-                                            <label for="sewa-kandang-kedua-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
-                                                Kandang</label>
-                                            <input type="text" name="sewa-kandang-kedua-{{ $i }}"
-                                                id="sewa-kandang-kedua-{{ $i }}"
+                                            <label for="penyusutan-{{ $i }}"
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Penyusutan
+                                                Peralatan</label>
+                                            <input type="text" name="penyusutan-{{ $i }}"
+                                                id="penyusutan-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp. 50.000" required
                                                 oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
@@ -672,7 +672,7 @@
                                             <input type="text" name="rc-{{ $i }}"
                                                 id="rc-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)" readonly>
+                                                placeholder="0.00" required oninput="formatRupiah(this)" readonly>
                                         </div>
                                         <div class="w-full">
                                             <label for="bep-harga-{{ $i }}"
@@ -712,23 +712,11 @@
                             Simpan dan Lanjutkan
                         </button>
                     </div>
-                    {{-- @if ($i == 6)
-                        <div class="container px-4 mx-auto bg-white">
-                            <div class="p-6 mx-auto bg-white rounded shadow chart-container-wrapper max-w-screen-lg">
-                                <div id="chart-container">
-                                    {!! $chart->container() !!}
-                                </div>
-                            </div>
-                        </div>
-                    @endif --}}
-
                 </div>
             </form>
         @endfor
     </div>
-    {{-- <script src="{{ asset('vendor/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ $chart->cdn() }}"></script>
-    {!! $chart->script() !!} --}}
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             window.validateForm = function(event, index) {
@@ -832,8 +820,8 @@
                         message: 'Harap isi data sewa kandang!'
                     },
                     {
-                        id: `sewa-kandang-kedua-${index}`,
-                        message: 'Harap isi data sewa kandang!'
+                        id: `penyusutan-${index}`,
+                        message: 'Harap isi data penyusutan peralatan!'
                     },
                     {
                         id: `total-biaya-${index}`,
@@ -879,7 +867,7 @@
                     const element = document.getElementById(field.id);
 
                     if (element) {
-                        const value = element.value.trim();
+                        let value = element.value.trim();
                         if (value === "") {
                             isValid = false;
                             Swal.fire({
@@ -890,6 +878,11 @@
                             });
                             return;
                         }
+
+                        if (field.id.includes('bep-hasil')) {
+                            value = removeFormatSatuan(value);
+                        }
+
                         formData[field.id] = value;
                     } else {
                         isValid = false;
@@ -980,47 +973,6 @@
 
                         sessionStorage.clear();
                         window.location.href = '/riwayat';
-                        // const chartData = data.chart;
-
-                        // if (chartData) {
-                        //     // Extract the labels and data
-                        //     const labels = chartData.map(item => `Period ${item['periode']}`);
-                        //     const totalRevenue = chartData.map(item => parseInt(item['total_revenue'].replace(
-                        //         'Rp ', '').replace('.', '').replace(',', '.')));
-                        //     const totalCost = chartData.map(item => parseInt(item['total_cost'].replace('Rp ',
-                        //         '').replace('.', '').replace(',', '.')));
-
-                        //     var options = {
-                        //         chart: {
-                        //             type: 'bar',
-                        //             height: 350
-                        //         },
-                        //         series: [{
-                        //             name: 'Total Revenue',
-                        //             data: totalRevenue
-                        //         }, {
-                        //             name: 'Total Cost',
-                        //             data: totalCost
-                        //         }],
-                        //         xaxis: {
-                        //             categories: labels,
-                        //             title: {
-                        //                 text: 'Periods'
-                        //             }
-                        //         },
-                        //         yaxis: {
-                        //             title: {
-                        //                 text: 'Amount'
-                        //             }
-                        //         }
-                        //     };
-
-                        //     var chart = new ApexCharts(document.querySelector("#chart-container"), options);
-                        //     chart.render();
-                        // } else {
-                        //     console.error('No chart data received.');
-                        // }
-                        // location.reload();
                     })
                     .catch(error => {
                         Swal.fire({
@@ -1097,18 +1049,22 @@
             input.value = 'Rp ' + rupiah;
         }
 
-        function formatRupiahValue(number) {
-            return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
-                '.');
+        function formatRibuan(index) {
+            const inputElement = document.getElementById(`jumlah-telur-${index}`);
+            let value = inputElement.value;
+
+            value = value.replace(/\./g, '');
+
+            if (!isNaN(value) && value !== "") {
+                value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+
+            inputElement.value = value;
         }
 
-        function formatRibuan(input) {
-            var formatter = new Intl.NumberFormat('id-ID');
-            input.value = formatter.format(input);
-        }
 
-        function formatPresentase(element) {
-            let value = parseInt(element.value.replace(/[^0-9]/g, ''), 10);
+        function formatPresentase(input) {
+            let value = parseInt(input.value.replace(/[^0-9]/g, ''), 10);
 
             if (isNaN(value) || value < 0) {
                 value = 0;
@@ -1116,7 +1072,24 @@
                 value = 100;
             }
 
-            element.value = value + '%';
+            input.value = value + '%';
+        }
+
+        function formatRupiahValue(number) {
+            return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
+                '.');
+        }
+
+        function formatPresentaseValue(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' %';
+        }
+
+        function formatRibuanValue(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function removeFormatSatuan(value) {
+            return value.replace(/\D/g, '');
         }
 
         function hitungRevenue(index) {
@@ -1132,19 +1105,22 @@
 
                 // revenue
                 document.getElementById(`jumlah-dod-${index}`).value = jumlahDOD.toLocaleString('id-ID', {
-                    minimumFractionDigits: 1
+                    minimumFractionDigits: 0
                 });
                 document.getElementById(`revenue-jumlah-dod-${index}`).value = jumlahDOD.toLocaleString('id-ID', {
-                    minimumFractionDigits: 1
+                    minimumFractionDigits: 0
                 });
                 document.getElementById(`total-revenue-${index}`).value = formatRupiahValue(totalRevenue.toFixed(0));
 
                 // variable cost
-                document.getElementById(`pembelian-jumlah-telur-${index}`).value = jumlahTelur;
-                document.getElementById(`jumlah-telur-variable-cost-${index}`).value = jumlahTelur;
+                document.getElementById(`pembelian-jumlah-telur-${index}`).value = formatRibuanValue(jumlahTelur.toFixed(
+                    0));
+                document.getElementById(`jumlah-telur-variable-cost-${index}`).value = formatRibuanValue(jumlahTelur
+                    .toFixed(0));
 
                 // fixed cost
-                document.getElementById(`jumlah-telur-fixed-cost-${index}`).value = jumlahTelur;
+                document.getElementById(`jumlah-telur-fixed-cost-${index}`).value = formatRibuanValue(jumlahTelur.toFixed(
+                    0));
             } else {
                 document.getElementById(`jumlah-dod-${index}`).value = '-';
                 document.getElementById(`revenue-jumlah-dod-${index}`).value = '-';
@@ -1221,7 +1197,7 @@
             var sewaKandangPertama = parseInt(document.getElementById(`sewa-kandang-pertama-${index}`).value.replace(
                 /[^,\d]/g,
                 '').replace(',', '.'), 10);
-            var sewaKandangKedua = parseInt(document.getElementById(`sewa-kandang-kedua-${index}`).value.replace(/[^,\d]/g,
+            var sewaKandangKedua = parseInt(document.getElementById(`penyusutan-${index}`).value.replace(/[^,\d]/g,
                 '').replace(',', '.'), 10);
             var jumlahTelur = parseInt(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
 
@@ -1249,8 +1225,16 @@
             return isNaN(value) || value === '' ? 0 : parseInt(value);
         }
 
-        function formatResult(value) {
+        function formatResultRupiah(value) {
             return formatRupiahValue(value.toFixed(0));
+        }
+
+        function formatResultPresentase(value) {
+            return formatPresentaseValue(value.toFixed(0));
+        }
+
+        function formatResultRibuan(value) {
+            return formatRibuanValue(value.toFixed(0)) + ' DOD';
         }
 
         function Hasil(index) {
@@ -1263,9 +1247,9 @@
 
         function hitungMOS(index) {
             var penerimaan = parseValue(`total-revenue-${index}`);
-            var pengeluaran = parseValue(`total-cost-${index}`);
-            var mos = penerimaan ? ((penerimaan - pengeluaran) / penerimaan) * 100 : 0;
-            document.getElementById(`mos-${index}`).value = formatResult(mos);
+            var bepHarga = parseValue(`bep-harga-${index}`);
+            var mos = penerimaan ? ((penerimaan - bepHarga) / penerimaan) * 100 : 0;
+            document.getElementById(`mos-${index}`).value = formatResultPresentase(mos);
         }
 
         function hitungRC(index) {
@@ -1276,25 +1260,32 @@
         }
 
         function hitungBepHarga(index) {
-            var pengeluaran = parseValue(`total-cost-${index}`);
-            var jumlahDOD = parseValue(`jumlah-dod-${index}`);
-            var bepHarga = jumlahDOD ? pengeluaran / jumlahDOD : 0;
-            document.getElementById(`bep-harga-${index}`).value = bepHarga.toFixed(2);
+            var jumlahTelur = parseValue(`jumlah-telur-${index}`);
+            var hargaDOD = parseValue(`harga-dod-${index}`);
+            var totalFixedCost = parseValue(`total-fixed-cost-${index}`);
+
+            var variablePerDOD = totalFixedCost / jumlahTelur;
+
+            var bepHarga = hargaDOD ? totalFixedCost / (1 - (variablePerDOD / hargaDOD)) : 0;
+            document.getElementById(`bep-harga-${index}`).value = formatResultRupiah(bepHarga);
         }
 
         function hitungBepHasil(index) {
-            var pengeluaran = parseValue(`total-cost-${index}`);
+            var jumlahTelur = parseValue(`jumlah-telur-${index}`);
             var hargaDOD = parseValue(`harga-dod-${index}`);
-            var bepHarga = parseValue(`bep-harga-${index}`);
-            var bepHasil = hargaDOD ? pengeluaran / hargaDOD - bepHarga : 0;
-            document.getElementById(`bep-hasil-${index}`).value = bepHasil.toFixed(2);
+            var totalFixedCost = parseValue(`total-fixed-cost-${index}`);
+
+            var variablePerDOD = totalFixedCost / jumlahTelur;
+
+            var bepHasil = hargaDOD ? totalFixedCost / (hargaDOD - variablePerDOD) : 0;
+            document.getElementById(`bep-hasil-${index}`).value = formatResultRibuan(bepHasil);
         }
 
         function hitungLaba(index) {
             var penerimaan = parseValue(`total-revenue-${index}`);
             var pengeluaran = parseValue(`total-cost-${index}`);
             var laba = penerimaan - pengeluaran;
-            document.getElementById(`laba-${index}`).value = formatResult(laba);
+            document.getElementById(`laba-${index}`).value = formatResultRupiah(laba);
         }
     </script>
 

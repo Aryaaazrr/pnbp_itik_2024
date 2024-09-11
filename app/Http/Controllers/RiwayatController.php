@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailPenetasan;
 use App\Models\Penetasan;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Illuminate\Http\Request;
@@ -51,11 +52,12 @@ class RiwayatController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showData(string $id)
+    public function showData(Request $request, string $id)
     {
-        $penetasan = Penetasan::where('id_penetasan', $id)->with('detail_penetasan')->get();
+        $periode = $request->query('periode', 1);
+        $penetasan = DetailPenetasan::where('id_penetasan', $id)->orderBy('periode')->get();
         $data = 1;
-        return view('pages.riwayat.detail.show', ['penetasan' => $penetasan, 'data' => $data]);
+        return view('pages.riwayat.detail.show', ['penetasan' => $penetasan, 'data' => $data, 'currentPeriod' => $periode]);
     }
 
     /**

@@ -36,672 +36,754 @@
             </div>
 
             @for ($i = 1; $i <= 6; $i++)
-                <div id="periode{{ $i }}" class="tab-content hidden">
+                <div id="periode{{ $i }}" class="tab-content {{ $currentPeriod == $i ? 'block' : 'hidden' }}">
                     <div id="accordion-collapse-periode-{{ $i }}" data-accordion="collapse" class="py-8">
 
-                        {{-- Penerimaan --}}
-                        <h2 id="accordion-collapse-heading-penerimaan-{{ $i }}">
-                            <button type="button"
-                                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                                data-accordion-target="#accordion-collapse-body-penerimaan-{{ $i }}"
-                                aria-expanded="true" aria-controls="accordion-collapse-body-penerimaan-{{ $i }}">
-                                <span>I. PENERIMAAN (R = REVENUE)</span>
-                                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M9 5 5 1 1 5" />
-                                </svg>
-                            </button>
-                        </h2>
-                        <div id="accordion-collapse-body-penerimaan-{{ $i }}" class="hidden"
-                            aria-labelledby="accordion-collapse-heading-penerimaan-{{ $i }}">
-                            <section class="bg-white dark:bg-gray-900">
-                                <div class="py-4 px-4 mx-auto max-w-6xl lg:py-8">
-                                    <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Data Penerimaan Periode
-                                        {{ $i }}</h2>
-                                    <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                        <!-- Jumlah Telur -->
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="jumlah-telur-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                Jumlah Telur (Butir)
-                                            </label>
-                                            <input type="text" name="jumlah-telur-{{ $i }}"
-                                                id="jumlah-telur-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Jumlah telur per butir" required readonly>
-                                        </div>
+                        @php
+                            $currentPeriodeData = $penetasan->where('periode', $i);
+                        @endphp
 
-                                        <!-- Icon X -->
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18" />
-                                                <line x1="6" y1="6" x2="18" y2="18" />
-                                            </svg>
-                                        </span>
+                        @if ($currentPeriodeData->count())
+                            {{-- Penerimaan --}}
+                            <h2 id="accordion-collapse-heading-penerimaan-{{ $i }}">
+                                <button type="button"
+                                    class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                    data-accordion-target="#accordion-collapse-body-penerimaan-{{ $i }}"
+                                    aria-expanded="true"
+                                    aria-controls="accordion-collapse-body-penerimaan-{{ $i }}">
+                                    <span>I. PENERIMAAN (R = REVENUE)</span>
+                                    <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M9 5 5 1 1 5" />
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="accordion-collapse-body-penerimaan-{{ $i }}" class="hidden"
+                                aria-labelledby="accordion-collapse-heading-penerimaan-{{ $i }}">
+                                <section class="bg-white dark:bg-gray-900">
+                                    <div class="py-4 px-4 mx-auto max-w-6xl lg:py-8">
+                                        <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Data Penerimaan
+                                            Periode
+                                            {{ $i }}</h2>
+                                        @foreach ($currentPeriodeData as $item)
+                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
 
-                                        <!-- Presentase Menetas -->
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="presentase-menetas-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                Presentase Menetas
-                                            </label>
-                                            <input type="text" name="presentase-menetas-{{ $i }}"
-                                                id="presentase-menetas-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Presentase telur menetas" required
-                                                oninput="formatPresentase(this); hitungRevenue({{ $i }}); Hasil({{ $i }})">
-                                        </div>
+                                                <!-- Jumlah Telur -->
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="jumlah-telur-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Jumlah Telur (Butir)
+                                                    </label>
+                                                    <input type="text" name="jumlah-telur-{{ $i }}"
+                                                        id="jumlah-telur-{{ $i }}"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="Jumlah telur per butir"
+                                                        value="{{ number_format($item->jumlah_telur, 0, ',', '.') }}"
+                                                        required readonly>
+                                                </div>
 
-                                        <!-- Icon = -->
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <line x1="5" y1="9" x2="19" y2="9" />
-                                                <line x1="5" y1="15" x2="19" y2="15" />
-                                            </svg>
-                                        </span>
+                                                <!-- Icon X -->
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                                    </svg>
+                                                </span>
 
-                                        <!-- Jumlah DOD -->
-                                        <div class="w-full sm:w-1/3">
-                                            <label for="jumlah-dod-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                Jumlah DOD
-                                            </label>
-                                            <input type="text" name="jumlah-dod-{{ $i }}"
-                                                id="jumlah-dod-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly required>
-                                        </div>
+                                                <!-- Presentase Menetas -->
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="presentase-menetas-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Presentase Menetas
+                                                    </label>
+                                                    <input type="text" name="presentase-menetas-{{ $i }}"
+                                                        id="presentase-menetas-{{ $i }}"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="Presentase telur menetas"
+                                                        value="{{ $item->presentase_menetas }} %" required readonly>
+                                                </div>
+
+                                                <!-- Icon = -->
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="5" y1="9" x2="19" y2="9" />
+                                                        <line x1="5" y1="15" x2="19" y2="15" />
+                                                    </svg>
+                                                </span>
+
+                                                <!-- Jumlah DOD -->
+                                                <div class="w-full sm:w-1/3">
+                                                    <label for="jumlah-dod-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Jumlah DOD
+                                                    </label>
+                                                    <input type="text" name="jumlah-dod-{{ $i }}"
+                                                        id="jumlah-dod-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="{{ number_format($item->jumlah_dod, 0, ',', '.') }}"
+                                                        readonly required>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                <!-- Jumlah DOD -->
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="revenue-jumlah-dod-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Jumlah DOD
+                                                    </label>
+                                                    <input type="text" name="revenue-jumlah-dod-{{ $i }}"
+                                                        id="revenue-jumlah-dod-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="{{ number_format($item->jumlah_dod, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
+
+                                                <!-- Icon X -->
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="18" y1="6" x2="6"
+                                                            y2="18" />
+                                                        <line x1="6" y1="6" x2="18"
+                                                            y2="18" />
+                                                    </svg>
+                                                </span>
+
+                                                <!-- Harga DOD -->
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="harga-dod-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Harga DOD
+                                                    </label>
+                                                    <input type="text" name="harga-dod-{{ $i }}"
+                                                        id="harga-dod-{{ $i }}"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->harga_dod, 0, ',', '.') }}"
+                                                        readonly required>
+                                                </div>
+
+                                                <!-- Icon = -->
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="5" y1="9" x2="19"
+                                                            y2="9" />
+                                                        <line x1="5" y1="15" x2="19"
+                                                            y2="15" />
+                                                    </svg>
+                                                </span>
+
+                                                <!-- Total Revenue -->
+                                                <div class="w-full sm:w-1/3">
+                                                    <label for="total-revenue-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Total Revenue
+                                                    </label>
+                                                    <input type="text" name="total-revenue-{{ $i }}"
+                                                        id="total-revenue-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->total_revenue, 0, ',', '.') }}"
+                                                        readonly required>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
+                                </section>
+                            </div>
 
-                                    <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                        <!-- Jumlah DOD -->
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="revenue-jumlah-dod-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                Jumlah DOD
-                                            </label>
-                                            <input type="text" name="revenue-jumlah-dod-{{ $i }}"
-                                                id="revenue-jumlah-dod-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
-                                        </div>
+                            {{-- Pengeluaran --}}
+                            <h2 id="accordion-collapse-heading-pengeluaran-{{ $i }}">
+                                <button type="button"
+                                    class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                    data-accordion-target="#accordion-collapse-body-pengeluaran-{{ $i }}"
+                                    aria-expanded="false"
+                                    aria-controls="accordion-collapse-body-pengeluaran-{{ $i }}">
+                                    <span>II. PENGELUARAN (C = COST)</span>
+                                    <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M9 5 5 1 1 5" />
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="accordion-collapse-body-pengeluaran-{{ $i }}" class="hidden"
+                                aria-labelledby="accordion-collapse-heading-pengeluaran-{{ $i }}">
+                                <section class="bg-white dark:bg-gray-900">
 
-                                        <!-- Icon X -->
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18" />
-                                                <line x1="6" y1="6" x2="18" y2="18" />
-                                            </svg>
-                                        </span>
+                                    @foreach ($currentPeriodeData as $item)
+                                        <div class="py-4 px-4 mx-auto max-w-6xl lg:py-8">
+                                            <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Data
+                                                Pengeluaran
+                                                Periode
+                                                {{ $i }}</h2>
+                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="total-variable-cost-final-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Variable Cost</label>
+                                                    <input type="text"
+                                                        name="total-variable-cost-final-{{ $i }}"
+                                                        id="total-variable-cost-final-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->total_variable_cost, 0, ',', '.') }}"
+                                                        required readonly>
+                                                </div>
 
-                                        <!-- Harga DOD -->
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="harga-dod-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                Harga DOD
-                                            </label>
-                                            <input type="text" name="harga-dod-{{ $i }}"
-                                                id="harga-dod-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 12.000" required
-                                                oninput="formatRupiah(this); hitungRevenue({{ $i }}); Hasil({{ $i }})">
-                                        </div>
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="12" y1="5" x2="12"
+                                                            y2="19" />
+                                                        <line x1="5" y1="12" x2="19"
+                                                            y2="12" />
+                                                    </svg>
+                                                </span>
 
-                                        <!-- Icon = -->
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="5" y1="9" x2="19" y2="9" />
-                                                <line x1="5" y1="15" x2="19" y2="15" />
-                                            </svg>
-                                        </span>
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="total-fixed-cost-final-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Fixed Cost</label>
+                                                    <input type="text"
+                                                        name="total-fixed-cost-final-{{ $i }}"
+                                                        id="total-fixed-cost-final-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->total_fixed_cost, 0, ',', '.') }}"
+                                                        required readonly>
+                                                </div>
 
-                                        <!-- Total Revenue -->
-                                        <div class="w-full sm:w-1/3">
-                                            <label for="total-revenue-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                Total Revenue
-                                            </label>
-                                            <input type="text" name="total-revenue-{{ $i }}"
-                                                id="total-revenue-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="5" y1="9" x2="19"
+                                                            y2="9" />
+                                                        <line x1="5" y1="15" x2="19"
+                                                            y2="15" />
+                                                    </svg>
+                                                </span>
 
-                        {{-- Pengeluaran --}}
-                        <h2 id="accordion-collapse-heading-pengeluaran-{{ $i }}">
-                            <button type="button"
-                                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                                data-accordion-target="#accordion-collapse-body-pengeluaran-{{ $i }}"
-                                aria-expanded="false"
-                                aria-controls="accordion-collapse-body-pengeluaran-{{ $i }}">
-                                <span>II. PENGELUARAN (C = COST)</span>
-                                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M9 5 5 1 1 5" />
-                                </svg>
-                            </button>
-                        </h2>
-                        <div id="accordion-collapse-body-pengeluaran-{{ $i }}" class="hidden"
-                            aria-labelledby="accordion-collapse-heading-pengeluaran-{{ $i }}">
-                            <section class="bg-white dark:bg-gray-900">
-                                <div class="py-4 px-4 mx-auto max-w-6xl lg:py-8">
+                                                <div class="w-full sm:w-1/3">
+                                                    <label for="total-cost-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Cost</label>
+                                                    <input type="text" name="total-cost-{{ $i }}"
+                                                        id="total-cost-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->total_cost, 0, ',', '.') }}"
+                                                        required readonly>
+                                                </div>
+                                            </div>
 
-                                    <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Data Pengeluaran
-                                        Periode
-                                        {{ $i }}</h2>
-                                    <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="total-variable-cost-final-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Variable Cost</label>
-                                            <input type="text" name="total-variable-cost-final-{{ $i }}"
-                                                id="total-variable-cost-final-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" required readonly
-                                                oninput="hitungCost({{ $i }})">
-                                        </div>
+                                            <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">A. Variable
+                                                Cost
+                                                Periode
+                                                {{ $i }}</h2>
+                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="total-bo-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Biaya Operasional</label>
+                                                    <input type="text" name="total-bo-{{ $i }}"
+                                                        id="total-bo-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
+                                                        required readonly>
+                                                </div>
 
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="12" y1="5" x2="12" y2="19" />
-                                                <line x1="5" y1="12" x2="19" y2="12" />
-                                            </svg>
-                                        </span>
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="12" y1="5" x2="12"
+                                                            y2="19" />
+                                                        <line x1="5" y1="12" x2="19"
+                                                            y2="12" />
+                                                    </svg>
+                                                </span>
 
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="total-fixed-cost-final-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Fixed Cost</label>
-                                            <input type="text" name="total-fixed-cost-final-{{ $i }}"
-                                                id="total-fixed-cost-final-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" required readonly
-                                                oninput="hitungCost({{ $i }})">
-                                        </div>
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="total-biaya-pembelian-telur-final-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Biaya
+                                                        Pembelian Telur</label>
+                                                    <input type="text"
+                                                        name="total-biaya-pembelian-telur-final-{{ $i }}"
+                                                        id="total-biaya-pembelian-telur-final-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->biaya_pembelian, 0, ',', '.') }}"
+                                                        required readonly>
+                                                </div>
 
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="5" y1="9" x2="19" y2="9" />
-                                                <line x1="5" y1="15" x2="19" y2="15" />
-                                            </svg>
-                                        </span>
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="5" y1="9" x2="19"
+                                                            y2="9" />
+                                                        <line x1="5" y1="15" x2="19"
+                                                            y2="15" />
+                                                    </svg>
+                                                </span>
 
-                                        <div class="w-full sm:w-1/3">
-                                            <label for="total-cost-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Cost</label>
-                                            <input type="text" name="total-cost-{{ $i }}"
-                                                id="total-cost-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly on>
-                                        </div>
-                                    </div>
+                                                <div class="w-full sm:w-1/3">
+                                                    <label for="total-variable-cost-{{ $i }}"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Variable Cost</label>
+                                                    <input type="text" name="total-variable-cost-{{ $i }}"
+                                                        id="total-variable-cost-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->total_variable_cost, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
+                                            </div>
 
-                                    <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">A. Variable Cost
-                                        Periode
-                                        {{ $i }}</h2>
-                                    <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="total-bo-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Biaya Operasional</label>
-                                            <input type="text" name="total-bo-{{ $i }}"
-                                                id="total-bo-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" required readonly>
-                                        </div>
+                                            <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">1. Jumlah
+                                                Pembelian
+                                                Telur
+                                                Periode
+                                                {{ $i }}</h2>
+                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="pembelian-jumlah-telur-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                        Telur (Butir)</label>
+                                                    <input type="text"
+                                                        name="pembelian-jumlah-telur-{{ $i }}"
+                                                        id="pembelian-jumlah-telur-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="{{ number_format($item->jumlah_telur, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
 
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="12" y1="5" x2="12" y2="19" />
-                                                <line x1="5" y1="12" x2="19" y2="12" />
-                                            </svg>
-                                        </span>
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="18" y1="6" x2="6"
+                                                            y2="18" />
+                                                        <line x1="6" y1="6" x2="18"
+                                                            y2="18" />
+                                                    </svg>
+                                                </span>
 
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="total-biaya-pembelian-telur-final-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="harga-telur-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Harga
+                                                        Telur</label>
+                                                    <input type="text" name="harga-telur-{{ $i }}"
+                                                        id="harga-telur-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp 3.500" readonly required>
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="5" y1="9" x2="19"
+                                                            y2="9" />
+                                                        <line x1="5" y1="15" x2="19"
+                                                            y2="15" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/3">
+                                                    <label for="total-biaya-pembelian-telur-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Biaya Pembelian Telur</label>
+                                                    <input type="text"
+                                                        name="total-biaya-pembelian-telur-{{ $i }}"
+                                                        id="total-biaya-pembelian-telur-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->biaya_pembelian, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
+                                            </div>
+
+                                            <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">2. Jumlah
                                                 Biaya
-                                                Pembelian Telur</label>
-                                            <input type="text"
-                                                name="total-biaya-pembelian-telur-final-{{ $i }}"
-                                                id="total-biaya-pembelian-telur-final-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required readonly oninput="formatRupiah(this)">
+                                                Operasional Periode {{ $i }}</h2>
+                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                <div class="w-full sm:w-1/5">
+                                                    <label for="biaya-tenaga-kerja-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                        Tenaga Kerja</label>
+                                                    <input type="text" name="biaya-tenaga-kerja-{{ $i }}"
+                                                        id="biaya-tenaga-kerja-{{ $i }}"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->biaya_tk, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="12" y1="5" x2="12"
+                                                            y2="19" />
+                                                        <line x1="5" y1="12" x2="19"
+                                                            y2="12" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/5">
+                                                    <label for="biaya-listrik-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                        Listrik</label>
+                                                    <input type="text" name="biaya-listrik-{{ $i }}"
+                                                        id="biaya-listrik-{{ $i }}"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->biaya_listrik, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="12" y1="5" x2="12"
+                                                            y2="19" />
+                                                        <line x1="5" y1="12" x2="19"
+                                                            y2="12" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/5">
+                                                    <label for="biaya-ovk-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                        OVK</label>
+                                                    <input type="text" name="biaya-ovk-{{ $i }}"
+                                                        id="biaya-ovk-{{ $i }}"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->biaya_ovk, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="5" y1="9" x2="19"
+                                                            y2="9" />
+                                                        <line x1="5" y1="15" x2="19"
+                                                            y2="15" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="biaya-op-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                        Operasional</label>
+                                                    <input type="text" name="biaya-op-{{ $i }}"
+                                                        id="biaya-op-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
+
+                                                <div class="w-full sm:w-1/5">
+                                                    <label for="biaya-op-variable-cost-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                        Operasional</label>
+                                                    <input type="text"
+                                                        name="biaya-op-variable-cost-{{ $i }}"
+                                                        id="biaya-op-variable-cost-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="18" y1="6" x2="6"
+                                                            y2="18" />
+                                                        <line x1="6" y1="6" x2="18"
+                                                            y2="18" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/5">
+                                                    <label for="jumlah-telur-variable-cost-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                        Telur (Butir)</label>
+                                                    <input type="text"
+                                                        name="jumlah-telur-variable-cost-{{ $i }}"
+                                                        id="jumlah-telur-variable-cost-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="{{ number_format($item->jumlah_telur, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="18" y1="6" x2="6"
+                                                            y2="18" />
+                                                        <line x1="6" y1="6" x2="18"
+                                                            y2="18" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/5">
+                                                    <label for="jumlah-hari-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                        Hari</label>
+                                                    <input type="text" name="jumlah-hari-{{ $i }}"
+                                                        id="jumlah-hari-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="60 Hari" readonly value="60">
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="5" y1="9" x2="19"
+                                                            y2="9" />
+                                                        <line x1="5" y1="15" x2="19"
+                                                            y2="15" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="total-biaya-op-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Biaya Operasional</label>
+                                                    <input type="text" name="total-biaya-op-{{ $i }}"
+                                                        id="total-biaya-op-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="-" readonly>
+                                                </div>
+                                            </div>
+
+                                            <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">B. Fixed Cost
+                                                Periode
+                                                {{ $i }}</h2>
+                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="sewa-kandang-pertama-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
+                                                        Kandang</label>
+                                                    <input type="text"
+                                                        name="sewa-kandang-pertama-{{ $i }}"
+                                                        id="sewa-kandang-pertama-{{ $i }}"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="Rp. 50.000" required
+                                                        oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="12" y1="5" x2="12"
+                                                            y2="19" />
+                                                        <line x1="5" y1="12" x2="19"
+                                                            y2="12" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="sewa-kandang-kedua-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
+                                                        Kandang</label>
+                                                    <input type="text" name="sewa-kandang-kedua-{{ $i }}"
+                                                        id="sewa-kandang-kedua-{{ $i }}"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="Rp. 50.000" required
+                                                        oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="5" y1="9" x2="19"
+                                                            y2="9" />
+                                                        <line x1="5" y1="15" x2="19"
+                                                            y2="15" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/3">
+                                                    <label for="total-biaya-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Biaya</label>
+                                                    <input type="text" name="total-biaya-{{ $i }}"
+                                                        id="total-biaya-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="-" readonly>
+                                                </div>
+
+                                                <div class="w-full sm:w-1/5">
+                                                    <label for="total-biaya-fixed-cost-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Biaya</label>
+                                                    <input type="text"
+                                                        name="total-biaya-fixed-cost-{{ $i }}"
+                                                        id="total-biaya-fixed-cost-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="Rp. 50.000" readonly>
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="18" y1="6" x2="6"
+                                                            y2="18" />
+                                                        <line x1="6" y1="6" x2="18"
+                                                            y2="18" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/5">
+                                                    <label for="jumlah-telur-fixed-cost-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                        Telur (Butir)</label>
+                                                    <input type="text"
+                                                        name="jumlah-telur-fixed-cost-{{ $i }}"
+                                                        id="jumlah-telur-fixed-cost-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="Rp. 50.000" required readonly>
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="18" y1="6" x2="6"
+                                                            y2="18" />
+                                                        <line x1="6" y1="6" x2="18"
+                                                            y2="18" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/5">
+                                                    <label for="jumlah-hari-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                        Hari</label>
+                                                    <input type="text" name="jumlah-hari-{{ $i }}"
+                                                        id="jumlah-hari-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="60 Hari" readonly value="60">
+                                                </div>
+
+                                                <span class="flex items-center justify-center sm:w-auto w-full">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="5" y1="9" x2="19"
+                                                            y2="9" />
+                                                        <line x1="5" y1="15" x2="19"
+                                                            y2="15" />
+                                                    </svg>
+                                                </span>
+
+                                                <div class="w-full sm:w-1/4">
+                                                    <label for="total-fixed-cost-{{ $i }}"
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                        Fixed Cost</label>
+                                                    <input type="text" name="total-fixed-cost-{{ $i }}"
+                                                        id="total-fixed-cost-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        placeholder="-" readonly>
+                                                </div>
+                                            </div>
                                         </div>
+                                    @endforeach
+                                </section>
+                            </div>
 
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="5" y1="9" x2="19" y2="9" />
-                                                <line x1="5" y1="15" x2="19" y2="15" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/3">
-                                            <label for="total-variable-cost-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Variable Cost</label>
-                                            <input type="text" name="total-variable-cost-{{ $i }}"
-                                                id="total-variable-cost-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
-                                        </div>
-                                    </div>
-
-                                    <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">1. Jumlah Pembelian
-                                        Telur
-                                        Periode
-                                        {{ $i }}</h2>
-                                    <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="pembelian-jumlah-telur-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Telur (Butir)</label>
-                                            <input type="text" name="pembelian-jumlah-telur-{{ $i }}"
-                                                id="pembelian-jumlah-telur-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Jumlah telur" required readonly
-                                                oninput="hitungRevenue({{ $i }}); formatRibuan({{ $i }})">
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18" />
-                                                <line x1="6" y1="6" x2="18" y2="18" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="harga-telur-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Harga
-                                                Telur</label>
-                                            <input type="text" name="harga-telur-{{ $i }}"
-                                                id="harga-telur-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                value="Rp 3.500" readonly required>
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="5" y1="9" x2="19" y2="9" />
-                                                <line x1="5" y1="15" x2="19" y2="15" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/3">
-                                            <label for="total-biaya-pembelian-telur-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Biaya Pembelian Telur</label>
-                                            <input type="text" name="total-biaya-pembelian-telur-{{ $i }}"
-                                                id="total-biaya-pembelian-telur-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly required>
-                                        </div>
-                                    </div>
-
-                                    <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">2. Jumlah Biaya
-                                        Operasional Periode {{ $i }}</h2>
-                                    <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                        <div class="w-full sm:w-1/5">
-                                            <label for="biaya-tenaga-kerja-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                                Tenaga Kerja</label>
-                                            <input type="text" name="biaya-tenaga-kerja-{{ $i }}"
-                                                id="biaya-tenaga-kerja-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 50.000" required
-                                                oninput="formatRupiah(this); hitungBiayaOperasional({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="12" y1="5" x2="12" y2="19" />
-                                                <line x1="5" y1="12" x2="19" y2="12" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/5">
-                                            <label for="biaya-listrik-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                                Listrik</label>
-                                            <input type="text" name="biaya-listrik-{{ $i }}"
-                                                id="biaya-listrik-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 50.000" required
-                                                oninput="formatRupiah(this); hitungBiayaOperasional({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="12" y1="5" x2="12" y2="19" />
-                                                <line x1="5" y1="12" x2="19" y2="12" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/5">
-                                            <label for="biaya-ovk-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                                OVK</label>
-                                            <input type="text" name="biaya-ovk-{{ $i }}"
-                                                id="biaya-ovk-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 50.000" required
-                                                oninput="formatRupiah(this); hitungBiayaOperasional({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="5" y1="9" x2="19" y2="9" />
-                                                <line x1="5" y1="15" x2="19" y2="15" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="biaya-op-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                                Operasional</label>
-                                            <input type="text" name="biaya-op-{{ $i }}"
-                                                id="biaya-op-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
-                                        </div>
-
-                                        <div class="w-full sm:w-1/5">
-                                            <label for="biaya-op-variable-cost-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                                Operasional</label>
-                                            <input type="text" name="biaya-op-variable-cost-{{ $i }}"
-                                                id="biaya-op-variable-cost-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18" />
-                                                <line x1="6" y1="6" x2="18" y2="18" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/5">
-                                            <label for="jumlah-telur-variable-cost-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Telur (Butir)</label>
-                                            <input type="text" name="jumlah-telur-variable-cost-{{ $i }}"
-                                                id="jumlah-telur-variable-cost-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required
-                                                oninput="hitungRevenue({{ $i }})" readonly>
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18" />
-                                                <line x1="6" y1="6" x2="18" y2="18" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/5">
-                                            <label for="jumlah-hari-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Hari</label>
-                                            <input type="text" name="jumlah-hari-{{ $i }}"
-                                                id="jumlah-hari-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="60 Hari" readonly value="60">
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="5" y1="9" x2="19" y2="9" />
-                                                <line x1="5" y1="15" x2="19" y2="15" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="total-biaya-op-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Biaya Operasional</label>
-                                            <input type="text" name="total-biaya-op-{{ $i }}"
-                                                id="total-biaya-op-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
-                                        </div>
-                                    </div>
-
-                                    <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">B. Fixed Cost Periode
-                                        {{ $i }}</h2>
-                                    <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="sewa-kandang-pertama-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
-                                                Kandang</label>
-                                            <input type="text" name="sewa-kandang-pertama-{{ $i }}"
-                                                id="sewa-kandang-pertama-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required
-                                                oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="12" y1="5" x2="12" y2="19" />
-                                                <line x1="5" y1="12" x2="19" y2="12" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="sewa-kandang-kedua-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
-                                                Kandang</label>
-                                            <input type="text" name="sewa-kandang-kedua-{{ $i }}"
-                                                id="sewa-kandang-kedua-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required
-                                                oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="5" y1="9" x2="19" y2="9" />
-                                                <line x1="5" y1="15" x2="19" y2="15" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/3">
-                                            <label for="total-biaya-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Biaya</label>
-                                            <input type="text" name="total-biaya-{{ $i }}"
-                                                id="total-biaya-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
-                                        </div>
-
-                                        <div class="w-full sm:w-1/5">
-                                            <label for="total-biaya-fixed-cost-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Biaya</label>
-                                            <input type="text" name="total-biaya-fixed-cost-{{ $i }}"
-                                                id="total-biaya-fixed-cost-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" readonly>
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18" />
-                                                <line x1="6" y1="6" x2="18" y2="18" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/5">
-                                            <label for="jumlah-telur-fixed-cost-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Telur (Butir)</label>
-                                            <input type="text" name="jumlah-telur-fixed-cost-{{ $i }}"
-                                                id="jumlah-telur-fixed-cost-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required readonly>
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18" />
-                                                <line x1="6" y1="6" x2="18" y2="18" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/5">
-                                            <label for="jumlah-hari-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Hari</label>
-                                            <input type="text" name="jumlah-hari-{{ $i }}"
-                                                id="jumlah-hari-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="60 Hari" readonly value="60">
-                                        </div>
-
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="5" y1="9" x2="19" y2="9" />
-                                                <line x1="5" y1="15" x2="19" y2="15" />
-                                            </svg>
-                                        </span>
-
-                                        <div class="w-full sm:w-1/4">
-                                            <label for="total-fixed-cost-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                Fixed Cost</label>
-                                            <input type="text" name="total-fixed-cost-{{ $i }}"
-                                                id="total-fixed-cost-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-
-                        {{-- Hasil --}}
-                        <h2 id="accordion-collapse-heading-hasil-{{ $i }}">
-                            <button type="button"
-                                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
-                                data-accordion-target="#accordion-collapse-body-hasil-{{ $i }}"
-                                aria-expanded="false" aria-controls="accordion-collapse-body-hasil-{{ $i }}">
-                                <span>III. HASIL ANALISIS</span>
-                                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M9 5 5 1 1 5" />
-                                </svg>
-                            </button>
-                        </h2>
-                        <div id="accordion-collapse-body-hasil-{{ $i }}" class="hidden"
-                            aria-labelledby="accordion-collapse-heading-hasil-{{ $i }}">
-                            <section class="bg-white dark:bg-gray-900">
-                                <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
-                                    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Hasil Analisis
-                                        Periode
-                                        {{ $i }}</h2>
-                                    <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
-                                        <div class="w-full">
-                                            <label for="mos-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Margin
-                                                Of
-                                                Safety (MOS)</label>
-                                            <input type="text" name="mos-{{ $i }}"
-                                                id="mos-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Margin Of Safety" required readonly>
-                                        </div>
-                                        <div class="w-full">
-                                            <label for="rc-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">R/C
-                                                Ratio</label>
-                                            <input type="text" name="rc-{{ $i }}"
-                                                id="rc-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required oninput="formatRupiah(this)" readonly>
-                                        </div>
-                                        <div class="w-full">
-                                            <label for="bep-harga-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
-                                                Harga</label>
-                                            <input type="text" name="bep-harga-{{ $i }}"
-                                                id="bep-harga-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
-                                        </div>
-                                        <div class="w-full">
-                                            <label for="bep-hasil-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
-                                                Hasil</label>
-                                            <input type="text" name="bep-hasil-{{ $i }}"
-                                                id="bep-hasil-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
-                                        </div>
-                                        <div class="w-full">
-                                            <label for="laba-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Laba</label>
-                                            <input type="text" name="laba-{{ $i }}"
-                                                id="laba-{{ $i }}"
-                                                class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                            {{-- Hasil --}}
+                            <h2 id="accordion-collapse-heading-hasil-{{ $i }}">
+                                <button type="button"
+                                    class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                    data-accordion-target="#accordion-collapse-body-hasil-{{ $i }}"
+                                    aria-expanded="false"
+                                    aria-controls="accordion-collapse-body-hasil-{{ $i }}">
+                                    <span>III. HASIL ANALISIS</span>
+                                    <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M9 5 5 1 1 5" />
+                                    </svg>
+                                </button>
+                            </h2>
+                            <div id="accordion-collapse-body-hasil-{{ $i }}" class="hidden"
+                                aria-labelledby="accordion-collapse-heading-hasil-{{ $i }}">
+                                <section class="bg-white dark:bg-gray-900">
+                                    <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
+                                        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Hasil
+                                            Analisis
+                                            Periode
+                                            {{ $i }}</h2>
+                                        <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                                            <div class="w-full">
+                                                <label for="mos-{{ $i }}"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Margin
+                                                    Of
+                                                    Safety (MOS)</label>
+                                                <input type="text" name="mos-{{ $i }}"
+                                                    id="mos-{{ $i }}"
+                                                    class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="Margin Of Safety" required readonly>
+                                            </div>
+                                            <div class="w-full">
+                                                <label for="rc-{{ $i }}"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">R/C
+                                                    Ratio</label>
+                                                <input type="text" name="rc-{{ $i }}"
+                                                    id="rc-{{ $i }}"
+                                                    class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="Rp. 50.000" required oninput="formatRupiah(this)"
+                                                    readonly>
+                                            </div>
+                                            <div class="w-full">
+                                                <label for="bep-harga-{{ $i }}"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
+                                                    Harga</label>
+                                                <input type="text" name="bep-harga-{{ $i }}"
+                                                    id="bep-harga-{{ $i }}"
+                                                    class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="-" readonly>
+                                            </div>
+                                            <div class="w-full">
+                                                <label for="bep-hasil-{{ $i }}"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
+                                                    Hasil</label>
+                                                <input type="text" name="bep-hasil-{{ $i }}"
+                                                    id="bep-hasil-{{ $i }}"
+                                                    class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="-" readonly>
+                                            </div>
+                                            <div class="w-full">
+                                                <label for="laba-{{ $i }}"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Laba</label>
+                                                <input type="text" name="laba-{{ $i }}"
+                                                    id="laba-{{ $i }}"
+                                                    class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                    placeholder="-" readonly>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </section>
-                        </div>
+                                </section>
+                            </div>
+                        @else
+                            <p>Tidak ada data untuk periode ini</p>
+                        @endif
                     </div>
                 </div>
                 </form>
