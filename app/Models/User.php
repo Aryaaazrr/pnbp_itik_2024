@@ -43,4 +43,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function penetasan()
+    {
+        return $this->hasMany(Penetasan::class, 'id_users');
+    }
 }

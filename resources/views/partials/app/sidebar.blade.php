@@ -17,10 +17,10 @@
             </li>
             <li>
                 <button type="button"
-                    class="@if (request()->is('analisis-penetasan') || request()->is('analisis-penggemukan') || request()->is('analisis-layer')) bg-gray-100 text-primary @else text-gray-500 @endif flex items-center p-2 w-full text-base font-medium rounded-lg transition duration-75 group hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    class="@if (request()->is('penetasan') || request()->is('penggemukan') || request()->is('layer')) bg-gray-100 text-primary @else text-gray-500 @endif flex items-center p-2 w-full text-base font-medium rounded-lg transition duration-75 group hover:text-primary hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
                     <svg aria-hidden="true"
-                        class="@if (request()->is('analisis-penetasan') || request()->is('analisis-penggemukan') || request()->is('analisis-layer')) bg-gray-100 text-primary @else text-gray-500 @endif flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-primary dark:text-gray-400 dark:group-hover:text-white"
+                        class="@if (request()->is('penetasan') || request()->is('penggemukan') || request()->is('layer')) bg-gray-100 text-primary @else text-gray-500 @endif flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-primary dark:text-gray-400 dark:group-hover:text-white"
                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
                             d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
@@ -49,7 +49,7 @@
                     </li>
                 </ul>
             </li>
-            {{-- <li>
+            <li>
                 <a href="{{ route('riwayat') }}"
                     class="@if (request()->is('riwayat')) bg-gray-100 text-primary @else text-gray-500 @endif flex items-center p-2 text-base font-medium  rounded-lg dark:text-white hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg aria-hidden="true"
@@ -63,12 +63,8 @@
                         </path>
                     </svg>
                     <span class="flex-1 ml-3 whitespace-nowrap">Riwayat Analisis</span>
-                    <span
-                        class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800">
-                        4
-                    </span>
                 </a>
-            </li> --}}
+            </li>
         </ul>
         <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
             <li>

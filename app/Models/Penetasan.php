@@ -18,4 +18,9 @@ class Penetasan extends Model
     {
         return $this->hasMany(DetailPenetasan::class, 'id_penetasan');
     }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'id_users');
+    }
 }

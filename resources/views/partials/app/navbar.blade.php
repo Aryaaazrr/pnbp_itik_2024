@@ -1,25 +1,28 @@
 @php
-function stringToColorCode($str) {
-    $code = dechex(crc32($str));
-    $code = substr($code, 0, 6);
-    return "#$code";
-}
+    function stringToColorCode($str)
+    {
+        $code = dechex(crc32($str));
+        $code = substr($code, 0, 6);
+        return "#$code";
+    }
 
-function getContrastYIQ($hexcolor){
-    $r = hexdec(substr($hexcolor, 1, 2));
-    $g = hexdec(substr($hexcolor, 3, 2));
-    $b = hexdec(substr($hexcolor, 5, 2));
-    $yiq = (($r*299) + ($g*587) + ($b*114)) / 1000;
-    return ($yiq >= 128) ? 'black' : 'white';
-}
+    function getContrastYIQ($hexcolor)
+    {
+        $r = hexdec(substr($hexcolor, 1, 2));
+        $g = hexdec(substr($hexcolor, 3, 2));
+        $b = hexdec(substr($hexcolor, 5, 2));
+        $yiq = ($r * 299 + $g * 587 + $b * 114) / 1000;
+        return $yiq >= 128 ? 'black' : 'white';
+    }
 
-$initials = strtoupper(substr(Auth::user()->username, 0, 1)) . strtoupper(substr(strstr(Auth::user()->username, ' '), 1, 1));
-$bgColor = stringToColorCode(Auth::user()->username);
-$textColor = getContrastYIQ($bgColor);
+    $initials =
+        strtoupper(substr(Auth::user()->username, 0, 1)) .
+        strtoupper(substr(strstr(Auth::user()->username, ' '), 1, 1));
+    $bgColor = stringToColorCode(Auth::user()->username);
+    $textColor = getContrastYIQ($bgColor);
 @endphp
 
-<nav
-    class="bg-white px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
+<nav class="bg-white px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
     <div class="flex flex-wrap justify-between items-center">
         <div class="flex justify-start items-center">
             <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation"
@@ -51,8 +54,8 @@ $textColor = getContrastYIQ($bgColor);
                 class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                 id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
                 <span class="sr-only">Open user menu</span>
-                <div
-                    class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full dark:bg-gray-600 uppercase" style="background-color: {{ $bgColor }};">
+                <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full dark:bg-gray-600 uppercase"
+                    style="background-color: {{ $bgColor }};">
                     <span class="font-bold" style="color: {{ $textColor }};">
                         {{ $initials }}</span>
                 </div>
@@ -67,7 +70,7 @@ $textColor = getContrastYIQ($bgColor);
                 </div>
                 <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                     <li>
-                        <a href="{{ route('logout') }}"
+                        <a href="{{ route('logout') }}" id="logout-link"
                             class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</a>
                     </li>
                 </ul>
@@ -75,3 +78,10 @@ $textColor = getContrastYIQ($bgColor);
         </div>
     </div>
 </nav>
+
+<script>
+    document.getElementById('logout-link').addEventListener('click', function(event) {
+        sessionStorage.clear();
+        localStorage.clear();
+    });
+</script>

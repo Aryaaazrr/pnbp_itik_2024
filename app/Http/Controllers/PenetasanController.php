@@ -19,14 +19,13 @@ class PenetasanController extends Controller
 
     protected function formatRupiah($value)
     {
-        return intval(str_replace(['Rp ', '.', ','], ['', '', ''], $value));
+        return str_replace(',', '.', str_replace('.', '', str_replace('Rp ', '', $value)));
     }
 
     protected function formatPresentase($value)
     {
         return intval(str_replace(['%'], '', $value));
     }
-
 
     /**
      * Display a listing of the resource.
@@ -39,9 +38,6 @@ class PenetasanController extends Controller
             ->with('detail_penetasan')
             ->first();
         $details = $penetasan ? collect($penetasan->detail_penetasan) : collect([]);
-        // dd($details->toArray());
-
-
 
         if ($details->isEmpty()) {
             $details = collect([
@@ -99,27 +95,27 @@ class PenetasanController extends Controller
                 DetailPenetasan::create([
                     'id_penetasan' => $penetasan->id_penetasan,
                     'periode' => $index + 1,
-                    'jumlah_telur' => (int) $this->formatNumber($periodeData['jumlah-telur-' . ($index + 1)]),
-                    'presentase_menetas' => (int) $this->formatPresentase($periodeData['presentase-menetas-' . ($index + 1)]),
-                    'jumlah_dod' => (int) $this->formatNumber($periodeData['jumlah-dod-' . ($index + 1)]),
-                    'harga_dod' => (int) $this->formatRupiah($periodeData['harga-dod-' . ($index + 1)]),
-                    'total_revenue' => (int) $this->formatRupiah($periodeData['total-revenue-' . ($index + 1)]),
-                    'biaya_pembelian' => (int) $this->formatRupiah($periodeData['total-biaya-pembelian-telur-' . ($index + 1)]),
-                    'harga_telur' => (int) $this->formatRupiah($periodeData['harga-telur-' . ($index + 1)]),
-                    'biaya_tk' => (int) $this->formatRupiah($periodeData['biaya-tenaga-kerja-' . ($index + 1)]),
-                    'biaya_listrik' => (int) $this->formatRupiah($periodeData['biaya-listrik-' . ($index + 1)]),
-                    'biaya_ovk' => (int) $this->formatRupiah($periodeData['biaya-ovk-' . ($index + 1)]),
-                    'total_biaya_operasional' => (int) $this->formatRupiah($periodeData['biaya-op-variable-cost-' . ($index + 1)]),
-                    'total_variable_cost' => (int) $this->formatRupiah($periodeData['total-variable-cost-' . ($index + 1)]),
-                    'sewa_kandang' => (int) $this->formatRupiah($periodeData['sewa-kandang-pertama-' . ($index + 1)]),
-                    'penyusutan_peralatan' => (int) $this->formatRupiah($periodeData['sewa-kandang-kedua-' . ($index + 1)]),
-                    'total_fixed_cost' => (int) $this->formatRupiah($periodeData['total-fixed-cost-' . ($index + 1)]),
-                    'total_cost' => (int) $this->formatRupiah($periodeData['total-cost-' . ($index + 1)]),
-                    'laba' => (int) $this->formatRupiah($periodeData['laba-' . ($index + 1)]),
-                    'mos' => (int) $periodeData['mos-' . ($index + 1)],
-                    'r/c_ratio' => (int) $periodeData['rc-' . ($index + 1)],
-                    'bep_harga' => (int) $periodeData['bep-harga-' . ($index + 1)],
-                    'bep_hasil' => (int) $periodeData['bep-hasil-' . ($index + 1)],
+                    'jumlah_telur' => $this->formatNumber($periodeData['jumlah-telur-' . ($index + 1)]),
+                    'presentase_menetas' => $this->formatPresentase($periodeData['presentase-menetas-' . ($index + 1)]),
+                    'jumlah_dod' => $this->formatNumber($periodeData['jumlah-dod-' . ($index + 1)]),
+                    'harga_dod' => $this->formatRupiah($periodeData['harga-dod-' . ($index + 1)]),
+                    'total_revenue' => $this->formatRupiah($periodeData['total-revenue-' . ($index + 1)]),
+                    'biaya_pembelian' => $this->formatRupiah($periodeData['total-biaya-pembelian-telur-' . ($index + 1)]),
+                    'harga_telur' => $this->formatRupiah($periodeData['harga-telur-' . ($index + 1)]),
+                    'biaya_tk' => $this->formatRupiah($periodeData['biaya-tenaga-kerja-' . ($index + 1)]),
+                    'biaya_listrik' => $this->formatRupiah($periodeData['biaya-listrik-' . ($index + 1)]),
+                    'biaya_ovk' => $this->formatRupiah($periodeData['biaya-ovk-' . ($index + 1)]),
+                    'total_biaya_operasional' => $this->formatRupiah($periodeData['biaya-op-variable-cost-' . ($index + 1)]),
+                    'total_variable_cost' => $this->formatRupiah($periodeData['total-variable-cost-' . ($index + 1)]),
+                    'sewa_kandang' => $this->formatRupiah($periodeData['sewa-kandang-pertama-' . ($index + 1)]),
+                    'penyusutan_peralatan' => $this->formatRupiah($periodeData['sewa-kandang-kedua-' . ($index + 1)]),
+                    'total_fixed_cost' => $this->formatRupiah($periodeData['total-fixed-cost-' . ($index + 1)]),
+                    'total_cost' => $this->formatRupiah($periodeData['total-cost-' . ($index + 1)]),
+                    'laba' => $this->formatRupiah($periodeData['laba-' . ($index + 1)]),
+                    'mos' => $this->formatRupiah($periodeData['mos-' . ($index + 1)]),
+                    'r/c_ratio' => $periodeData['rc-' . ($index + 1)],
+                    'bep_harga' => $periodeData['bep-harga-' . ($index + 1)],
+                    'bep_hasil' => $periodeData['bep-hasil-' . ($index + 1)],
                 ]);
             }
 
