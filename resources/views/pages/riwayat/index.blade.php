@@ -26,18 +26,8 @@
                     </div>
                 </div>
 
-                <div class="mt-6 flow-root sm:mt-8">
-                    @if ($count == 0)
-                        <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                            {{-- kosong --}}
-                            <div class="flex flex-wrap items-center gap-y-4 py-6">
-                                <dl class="w-1/2 sm:w-1/4 lg:w-auto text-center lg:flex-1">
-                                    <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Anda belum melakukan
-                                        analisa</dt>
-                                </dl>
-                            </div>
-                        </div>
-                    @else
+                <div id="data" class="mt-6 flow-root sm:mt-8">
+                    @if ($penetasan->count())
                         <div class="divide-y divide-gray-200 dark:divide-gray-700">
                             {{-- data looping --}}
                             @foreach ($penetasan as $item)
@@ -75,22 +65,101 @@
                                     <div
                                         class="w-full grid sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4">
                                         <button type="button"
-                                            class="w-full rounded-lg border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto">Hapus
+                                            class="w-full rounded-lg border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto"
+                                            onclick="confirmDelete({{ $item->id_penetasan }})">Hapus
                                             Riwayat</button>
                                         <a href="{{ route('riwayat.show', $item->id_penetasan) }}"
                                             class="w-full inline-flex justify-center rounded-lg text-center  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:w-auto">View
                                             details</a>
                                     </div>
                                 </div>
+
+                                <nav class="mt-6 flex items-center justify-center sm:mt-8"
+                                    aria-label="Page navigation example">
+                                    {{ $penetasan->links('pagination::tailwind') }}
+                                </nav>
                             @endforeach
+                        </div>
+                    @else
+                        <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                            {{-- kosong --}}
+                            <div class="flex flex-wrap items-center gap-y-4 py-6">
+                                <dl class="w-1/2 sm:w-1/4 lg:w-auto text-center lg:flex-1">
+                                    <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Data riwayat analisa
+                                        masih kosong.</dt>
+                                </dl>
+                            </div>
                         </div>
                     @endif
                 </div>
 
-                <nav class="mt-6 flex items-center justify-center sm:mt-8" aria-label="Page navigation example">
-                    {{ $penetasan->links('pagination::tailwind') }}
-                </nav>
             </div>
         </div>
     </section>
+
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Oopss..',
+                text: 'Apakah anda ingin menghapus secara permanen atau pindahkan ke sampah?',
+                icon: 'warning',
+                showCancelButton: true,
+                showDenyButton: true,
+                confirmButtonColor: '#3085d6',
+                denyButtonColor: '#d33',
+                cancelButtonColor: '#cbd5e1',
+                confirmButtonText: 'Hapus permanen',
+                denyButtonText: 'Pindahkan ke sampah',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ url('riwayat/permanent') }}/" + id,
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Hapus Permanen!',
+                                'Data berhasil dihapus permanen.',
+                                'success'
+                            );
+                            $('#data').load(location.href + ' #data');
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire(
+                                'Oopss!',
+                                'Terjadi kesalahan saat menghapus data',
+                                'error'
+                            );
+                        }
+                    });
+                } else if (result.isDenied) {
+                    $.ajax({
+                        url: "{{ url('riwayat/trash') }}/" + id,
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Pindahkan ke sampah!',
+                                'Data berhasil dipindahkan ke sampah.',
+                                'success',
+                            );
+                            $('#data').load(location.href + ' #data');
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire(
+                                'Oopss!',
+                                'Terjadi kesalahan saat menghapus data',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 @endsection

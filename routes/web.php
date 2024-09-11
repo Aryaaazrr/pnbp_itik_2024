@@ -50,8 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('riwayat/{id}', [RiwayatController::class, 'show'])->name('riwayat.show');
     Route::get('riwayat/data/{id}', [RiwayatController::class, 'showData'])->name('riwayat.show.data');
     Route::get('riwayat/grafik/{id}', [RiwayatController::class, 'showGrafik'])->name('riwayat.show.grafik');
-    Route::delete('/riwayat/{id}/trash', [RiwayatController::class, 'moveToTrash'])->name('riwayat.moveToTrash');
-    Route::delete('/riwayat/{id}/permanent', [RiwayatController::class, 'destroy'])->name('riwayat.destroy');
+    Route::delete('/riwayat/trash/{id}', [RiwayatController::class, 'destroy'])->name('riwayat.destroy');
+    Route::delete('/riwayat/permanent/{id}', [RiwayatController::class, 'forceDelete'])->name('riwayat.forceDelete');
 
 
     Route::get('setting', [SettingController::class, 'index'])->name('setting');

@@ -19,9 +19,8 @@ class RiwayatController extends Controller
             ->with('detail_penetasan')
             ->where('deleted_at', null)
             ->paginate(10);
-        $count = $penetasan->count();
 
-        return view('pages.riwayat.index', ['penetasan' => $penetasan, 'count' => $count]);
+        return view('pages.riwayat.index', ['penetasan' => $penetasan]);
     }
 
     /**
@@ -127,17 +126,21 @@ class RiwayatController extends Controller
      */
     public function destroy($id)
     {
-        $penetasan = Penetasan::withTrashed()->findOrFail($id);
-        $penetasan->forceDelete();
-
-        return redirect()->route('riwayat.index')->with('success', 'Riwayat berhasil dihapus secara permanen.');
+        $penetasan = Penetasan::find($id);
+        if ($penetasan) {
+            $penetasan->delete();
+            return response()->json(['message' => 'Data berhasil dipindahkan ke sampah.']);
+        }
+        return response()->json(['message' => 'Data not found.'], 404);
     }
 
-    public function moveToTrash($id)
+    public function forceDelete($id)
     {
-        $penetasan = Penetasan::findOrFail($id);
-        $penetasan->delete();
-
-        return redirect()->route('riwayat.index')->with('success', 'Riwayat berhasil dipindahkan ke tempat sampah.');
+        $penetasan = Penetasan::withTrashed()->find($id);
+        if ($penetasan) {
+            $penetasan->forceDelete();
+            return response()->json(['message' => 'Data berhasil dihapus permanen.']);
+        }
+        return response()->json(['message' => 'Data not found.'], 404);
     }
 }
