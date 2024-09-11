@@ -486,7 +486,7 @@
                                                     <input type="text" name="biaya-op-{{ $i }}"
                                                         id="biaya-op-{{ $i }}"
                                                         class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
+                                                        value="Rp {{ number_format($item->biaya_operasional, 0, ',', '.') }}"
                                                         readonly>
                                                 </div>
 
@@ -498,7 +498,7 @@
                                                         name="biaya-op-variable-cost-{{ $i }}"
                                                         id="biaya-op-variable-cost-{{ $i }}"
                                                         class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
+                                                        value="Rp {{ number_format($item->biaya_operasional, 0, ',', '.') }}"
                                                         readonly>
                                                 </div>
 
@@ -564,7 +564,8 @@
                                                     <input type="text" name="total-biaya-op-{{ $i }}"
                                                         id="total-biaya-op-{{ $i }}"
                                                         class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="-" readonly>
+                                                        value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
+                                                        readonly>
                                                 </div>
                                             </div>
 
@@ -580,8 +581,8 @@
                                                         name="sewa-kandang-pertama-{{ $i }}"
                                                         id="sewa-kandang-pertama-{{ $i }}"
                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="Rp. 50.000" required
-                                                        oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
+                                                        value="Rp {{ number_format($item->sewa_kandang, 0, ',', '.') }}"
+                                                        readonly>
                                                 </div>
 
                                                 <span class="flex items-center justify-center sm:w-auto w-full">
@@ -597,13 +598,13 @@
 
                                                 <div class="w-full sm:w-1/4">
                                                     <label for="sewa-kandang-kedua-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
-                                                        Kandang</label>
+                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Penyusutan
+                                                        Peralatan</label>
                                                     <input type="text" name="sewa-kandang-kedua-{{ $i }}"
                                                         id="sewa-kandang-kedua-{{ $i }}"
                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="Rp. 50.000" required
-                                                        oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
+                                                        value="Rp {{ number_format($item->penyusutan_peralatan, 0, ',', '.') }}"
+                                                        readonly>
                                                 </div>
 
                                                 <span class="flex items-center justify-center sm:w-auto w-full">
@@ -624,7 +625,8 @@
                                                     <input type="text" name="total-biaya-{{ $i }}"
                                                         id="total-biaya-{{ $i }}"
                                                         class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="-" readonly>
+                                                        value="Rp {{ number_format($item->total_biaya, 0, ',', '.') }}"
+                                                        readonly>
                                                 </div>
 
                                                 <div class="w-full sm:w-1/5">
@@ -635,7 +637,8 @@
                                                         name="total-biaya-fixed-cost-{{ $i }}"
                                                         id="total-biaya-fixed-cost-{{ $i }}"
                                                         class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="Rp. 50.000" readonly>
+                                                        value="Rp {{ number_format($item->total_biaya, 0, ',', '.') }}"
+                                                        readonly>
                                                 </div>
 
                                                 <span class="flex items-center justify-center sm:w-auto w-full">
@@ -657,7 +660,8 @@
                                                         name="jumlah-telur-fixed-cost-{{ $i }}"
                                                         id="jumlah-telur-fixed-cost-{{ $i }}"
                                                         class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="Rp. 50.000" required readonly>
+                                                        value="{{ number_format($item->jumlah_telur, 0, ',', '.') }}"
+                                                        readonly>
                                                 </div>
 
                                                 <span class="flex items-center justify-center sm:w-auto w-full">
@@ -699,7 +703,8 @@
                                                     <input type="text" name="total-fixed-cost-{{ $i }}"
                                                         id="total-fixed-cost-{{ $i }}"
                                                         class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="-" readonly>
+                                                        value="Rp {{ number_format($item->total_fixed_cost, 0, ',', '.') }}"
+                                                        readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -725,60 +730,67 @@
                             <div id="accordion-collapse-body-hasil-{{ $i }}" class="hidden"
                                 aria-labelledby="accordion-collapse-heading-hasil-{{ $i }}">
                                 <section class="bg-white dark:bg-gray-900">
-                                    <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
-                                        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Hasil
-                                            Analisis
-                                            Periode
-                                            {{ $i }}</h2>
-                                        <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
-                                            <div class="w-full">
-                                                <label for="mos-{{ $i }}"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Margin
-                                                    Of
-                                                    Safety (MOS)</label>
-                                                <input type="text" name="mos-{{ $i }}"
-                                                    id="mos-{{ $i }}"
-                                                    class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="Margin Of Safety" required readonly>
-                                            </div>
-                                            <div class="w-full">
-                                                <label for="rc-{{ $i }}"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">R/C
-                                                    Ratio</label>
-                                                <input type="text" name="rc-{{ $i }}"
-                                                    id="rc-{{ $i }}"
-                                                    class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="Rp. 50.000" required oninput="formatRupiah(this)"
-                                                    readonly>
-                                            </div>
-                                            <div class="w-full">
-                                                <label for="bep-harga-{{ $i }}"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
-                                                    Harga</label>
-                                                <input type="text" name="bep-harga-{{ $i }}"
-                                                    id="bep-harga-{{ $i }}"
-                                                    class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="-" readonly>
-                                            </div>
-                                            <div class="w-full">
-                                                <label for="bep-hasil-{{ $i }}"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
-                                                    Hasil</label>
-                                                <input type="text" name="bep-hasil-{{ $i }}"
-                                                    id="bep-hasil-{{ $i }}"
-                                                    class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="-" readonly>
-                                            </div>
-                                            <div class="w-full">
-                                                <label for="laba-{{ $i }}"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Laba</label>
-                                                <input type="text" name="laba-{{ $i }}"
-                                                    id="laba-{{ $i }}"
-                                                    class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="-" readonly>
+
+                                    @foreach ($currentPeriodeData as $item)
+                                        <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
+                                            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Data Hasil
+                                                Analisis
+                                                Periode
+                                                {{ $i }}</h2>
+                                            <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                                                <div class="w-full">
+                                                    <label for="mos-{{ $i }}"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Margin
+                                                        Of
+                                                        Safety (MOS)</label>
+                                                    <input type="text" name="mos-{{ $i }}"
+                                                        id="mos-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="{{ number_format($item->mos, 0, ',', '.') }} %" readonly>
+                                                </div>
+                                                <div class="w-full">
+                                                    <label for="rc-{{ $i }}"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">R/C
+                                                        Ratio</label>
+                                                    <input type="text" name="rc-{{ $i }}"
+                                                        id="rc-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="{{ number_format($item->{'r/c_ratio'}, 0, ',', '.') }}.00"
+                                                        readonly>
+                                                </div>
+                                                <div class="w-full">
+                                                    <label for="bep-harga-{{ $i }}"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
+                                                        Harga</label>
+                                                    <input type="text" name="bep-harga-{{ $i }}"
+                                                        id="bep-harga-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->bep_harga, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
+                                                <div class="w-full">
+                                                    <label for="bep-hasil-{{ $i }}"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
+                                                        Hasil</label>
+                                                    <input type="text" name="bep-hasil-{{ $i }}"
+                                                        id="bep-hasil-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="{{ number_format($item->bep_hasil, 0, ',', '.') }} DOD"
+                                                        readonly>
+                                                </div>
+                                                <div class="w-full">
+                                                    <label for="laba-{{ $i }}"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Laba</label>
+                                                    <input type="text" name="laba-{{ $i }}"
+                                                        id="laba-{{ $i }}"
+                                                        class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                        value="Rp {{ number_format($item->laba, 0, ',', '.') }}"
+                                                        readonly>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+
                                 </section>
                             </div>
                         @else
