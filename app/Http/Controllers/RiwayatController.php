@@ -108,9 +108,11 @@ class RiwayatController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
-        //
+        $penetasan = Penetasan::onlyTrashed()->paginate(10);
+
+        return view('pages.riwayat.trash.index', ['penetasan' => $penetasan]);
     }
 
     /**
@@ -130,6 +132,16 @@ class RiwayatController extends Controller
         if ($penetasan) {
             $penetasan->delete();
             return response()->json(['message' => 'Data berhasil dipindahkan ke sampah.']);
+        }
+        return response()->json(['message' => 'Data not found.'], 404);
+    }
+
+    public function restore($id)
+    {
+        $penetasan = Penetasan::withTrashed()->find($id);
+        if ($penetasan) {
+            $penetasan->restore();
+            return response()->json(['message' => 'Data berhasil dipulihkan.']);
         }
         return response()->json(['message' => 'Data not found.'], 404);
     }

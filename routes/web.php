@@ -47,12 +47,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('layer', [LayerController::class, 'index'])->name('layer');
 
     Route::get('riwayat', [RiwayatController::class, 'index'])->name('riwayat');
+    Route::get('riwayat/trash', [RiwayatController::class, 'edit'])->name('riwayat.edit');
     Route::get('riwayat/{id}', [RiwayatController::class, 'show'])->name('riwayat.show');
     Route::get('riwayat/data/{id}', [RiwayatController::class, 'showData'])->name('riwayat.show.data');
     Route::get('riwayat/grafik/{id}', [RiwayatController::class, 'showGrafik'])->name('riwayat.show.grafik');
     Route::delete('/riwayat/trash/{id}', [RiwayatController::class, 'destroy'])->name('riwayat.destroy');
     Route::delete('/riwayat/permanent/{id}', [RiwayatController::class, 'forceDelete'])->name('riwayat.forceDelete');
-
+    Route::post('/riwayat/restore/{id}', [RiwayatController::class, 'restore'])->name('riwayat.restore');
 
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
 });
