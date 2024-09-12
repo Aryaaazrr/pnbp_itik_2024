@@ -5,12 +5,12 @@
 @section('content')
 
     <div class="flex items-center rounded-lg border-gray-300 dark:border-gray-600 h-10 mb-4">
-        <h2 class="w-full text-2xl font-semibold tracking-tight text-gray-900">Analisis</h2>
+        <h2 class="w-full text-2xl font-bold tracking-tight text-gray-900">Analisis</h2>
     </div>
     <div class="bg-white p-4 mb-4 border-2 border-white rounded-lg">
         <div class="flex justify-center items-center rounded-lg border-gray-300 dark:border-gray-600 h-4">
-            <h2 class="flex items-center justify-center text-base lg:text-lg font-bold uppercase">Analisis Usaha Penetasan
-                Itik Petelur
+            <h2 class="flex items-center justify-center w-full text-center text-sm lg:text-lg font-bold uppercase">Analisis
+                Usaha Penetasan Itik Petelur
             </h2>
         </div>
     </div>
@@ -18,13 +18,14 @@
     <div class="bg-white p-4 mb-4 border-2 border-white rounded-lg">
         <div class="flex justify-center">
             <ul
-                class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                class="flex flex-wrap justify-center w-full text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
                 @for ($i = 1; $i <= 6; $i++)
-                    <li class="me-2">
+                    <li class="me-2 mb-2">
                         <a href="#" id="tab-{{ $i }}"
-                            class="tab-link inline-block duration-500 p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                            onclick="openTab(event, 'periode{{ $i }}', {{ $i }})">Periode
-                            {{ $i }}</a>
+                            class="tab-link inline-block duration-500 w-full sm:w-auto p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                            onclick="openTab(event, 'periode{{ $i }}', {{ $i }})">
+                            Periode {{ $i }}
+                        </a>
                     </li>
                 @endfor
             </ul>
@@ -45,7 +46,6 @@
                                 aria-expanded="true"
                                 aria-controls="accordion-collapse-body-penerimaan-{{ $i }}">
                                 <span>I. PENERIMAAN (R = REVENUE)</span>
-                                {{-- <p id="user-id">{{ $userId }}</p> --}}
                                 <input type="text" id="user-id" name="user-id" value="{{ $userId }}" hidden>
                                 <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -152,7 +152,7 @@
                                             <input type="text" name="harga-dod-{{ $i }}"
                                                 id="harga-dod-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 12.000" required
+                                                placeholder="Rp 0" required
                                                 oninput="formatRupiah(this); hitungRevenue({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
@@ -289,7 +289,7 @@
                                                 name="total-biaya-pembelian-telur-final-{{ $i }}"
                                                 id="total-biaya-pembelian-telur-final-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required readonly oninput="formatRupiah(this)">
+                                                placeholder="-" required readonly oninput="formatRupiah(this)">
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -324,7 +324,7 @@
                                             <input type="text" name="pembelian-jumlah-telur-{{ $i }}"
                                                 id="pembelian-jumlah-telur-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Jumlah telur" required readonly
+                                                placeholder="Jumlah telur per butir" required readonly
                                                 oninput="hitungRevenue({{ $i }}); formatRibuan({{ $i }})">
                                         </div>
 
@@ -377,7 +377,7 @@
                                             <input type="text" name="biaya-tenaga-kerja-{{ $i }}"
                                                 id="biaya-tenaga-kerja-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 50.000" required
+                                                placeholder="Rp 0" required
                                                 oninput="formatRupiah(this); hitungBiayaOperasional({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
@@ -397,7 +397,7 @@
                                             <input type="text" name="biaya-listrik-{{ $i }}"
                                                 id="biaya-listrik-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 50.000" required
+                                                placeholder="Rp 0" required
                                                 oninput="formatRupiah(this); hitungBiayaOperasional({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
@@ -417,7 +417,7 @@
                                             <input type="text" name="biaya-ovk-{{ $i }}"
                                                 id="biaya-ovk-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 50.000" required
+                                                placeholder="Rp 0" required
                                                 oninput="formatRupiah(this); hitungBiayaOperasional({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
@@ -466,7 +466,7 @@
                                             <input type="text" name="jumlah-telur-variable-cost-{{ $i }}"
                                                 id="jumlah-telur-variable-cost-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required
+                                                placeholder="Jumlah telur per butir" required
                                                 oninput="hitungRevenue({{ $i }})" readonly>
                                         </div>
 
@@ -519,7 +519,7 @@
                                             <input type="text" name="sewa-kandang-pertama-{{ $i }}"
                                                 id="sewa-kandang-pertama-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required
+                                                placeholder="Rp 0" required
                                                 oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
@@ -539,7 +539,7 @@
                                             <input type="text" name="penyusutan-{{ $i }}"
                                                 id="penyusutan-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required
+                                                placeholder="Rp 0" required
                                                 oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
@@ -569,7 +569,7 @@
                                             <input type="text" name="total-biaya-fixed-cost-{{ $i }}"
                                                 id="total-biaya-fixed-cost-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" readonly>
+                                                placeholder="-" readonly>
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -588,7 +588,7 @@
                                             <input type="text" name="jumlah-telur-fixed-cost-{{ $i }}"
                                                 id="jumlah-telur-fixed-cost-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. 50.000" required readonly>
+                                                placeholder="Jumlah telur per butir" required readonly>
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
