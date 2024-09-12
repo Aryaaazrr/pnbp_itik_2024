@@ -4,11 +4,12 @@
 
 @section('content')
     <div class="flex items-center rounded-lg border-gray-300 dark:border-gray-600 h-10 mb-4">
-        <h2 class="w-full text-2xl font-semibold tracking-tight text-gray-900">Beranda</h2>
+        <h2 class="w-full text-2xl font-bold tracking-tight text-gray-900">Beranda</h2>
     </div>
     <div class="bg-white p-4 mb-4 border-2 border-white rounded-lg">
         <div class="flex justify-center items-center rounded-lg border-gray-300 dark:border-gray-600 h-4">
-            <h2 class="flex items-center justify-center text-lg font-bold">Analisis Usaha Peternakan Itik</h2>
+            <h2 class="flex items-center justify-center w-full text-center text-sm lg:text-lg font-bold uppercase">Analisis
+                Usaha Peternakan Itik</h2>
         </div>
     </div>
 

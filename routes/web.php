@@ -42,7 +42,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('penggemukan', PenggemukanController::class);
     Route::resource('layer', LayerController::class);
-    // Route::resource('penetasan', PenetasanController::class);
 
     Route::get('layer', [LayerController::class, 'index'])->name('layer');
 
