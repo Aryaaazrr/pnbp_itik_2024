@@ -62,13 +62,12 @@
                                         {{-- jumlah itik awal --}}
                                         <div class="w-full sm:w-1/4">
                                             <label for="jumlah-itik-awal-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Itik Awal (Ekor)</label>
                                             <input type="text" name="jumlah-itik-awal-{{ $i }}"
                                                 id="jumlah-itik-awal-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Jumlah itik awal per ekor" oninput="updateJumlahItik(this)"
-                                                required>
+                                                placeholder="0" oninput="updateJumlahItik(this)" required>
                                         </div>
 
                                         <!-- Icon X -->
@@ -84,13 +83,12 @@
                                         {{-- presentase moralitas --}}
                                         <div class="w-full sm:w-1/4">
                                             <label for="presentase-mortalitas-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Presentase
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Presentase
                                                 Mortalitas</label>
                                             <input type="text" name="presentase-mortalitas-{{ $i }}"
                                                 id="presentase-mortalitas-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Presentase mortalitas itik" oninput="formatPresentase(this)"
-                                                required>
+                                                placeholder="0%" oninput="formatPresentase(this)" required>
                                         </div>
 
                                         <!-- Icon = -->
@@ -106,12 +104,12 @@
                                         {{-- jumlah itik setelah moralitas --}}
                                         <div class="w-full sm:w-1/3">
                                             <label for="jumlah-itik-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Itik (Setelah Mortalitas)</label>
                                             <input type="text" name="jumlah-itik-{{ $i }}"
                                                 id="jumlah-itik-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Jumlah itik" readonly>
+                                                placeholder="0" readonly>
                                         </div>
                                     </div>
 
@@ -119,12 +117,12 @@
                                         {{-- jumlah itik setelah moralitas --}}
                                         <div class="w-full sm:w-1/4">
                                             <label for="jumlah-itik-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Itik (Setelah Mortalitas)</label>
                                             <input type="text" name="jumlah-itik-{{ $i }}"
                                                 id="jumlah-itik-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Jumlah itik" readonly>
+                                                placeholder="0" readonly>
                                         </div>
 
                                         <!-- Icon X -->
@@ -140,7 +138,7 @@
                                         {{-- harga itik --}}
                                         <div class="w-full sm:w-1/4">
                                             <label for="harga-itik-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Harga
                                                 Itik</label>
                                             <input type="text" name="harga-itik-{{ $i }}"
                                                 id="harga-itik-{{ $i }}"
@@ -161,7 +159,7 @@
                                         {{-- total revenue --}}
                                         <div class="w-full sm:w-1/3">
                                             <label for="total-revenue-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
                                                 Revenue</label>
                                             <input type="text" name="total-revenue-{{ $i }}"
                                                 id="total-revenue-{{ $i }}"
@@ -199,7 +197,7 @@
                                     <div class="flex flex-wrap gap-4 mb-4 justify-center">
                                         <div class="w-full sm:w-1/4">
                                             <label for="total-var-cost-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
                                                 Variable Cost</label>
                                             <input type="text" name="total-var-cost-{{ $i }}"
                                                 id="total-var-cost-{{ $i }}"
@@ -218,7 +216,7 @@
 
                                         <div class="w-full sm:w-1/4">
                                             <label for="total-fixed-cost-akhir-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
                                                 Fixed Cost</label>
                                             <input type="text" name="total-fixed-cost-akhir-{{ $i }}"
                                                 id="total-fixed-cost-akhir-{{ $i }}"
@@ -237,7 +235,7 @@
 
                                         <div class="w-full sm:w-1/3">
                                             <label for="total-cost-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
                                                 Cost</label>
                                             <input type="text" name="total-cost-{{ $i }}"
                                                 id="total-cost-{{ $i }}"
@@ -252,7 +250,7 @@
                                     <div class="flex flex-wrap gap-4 mb-4 justify-center">
                                         <div class="w-full sm:w-1/4">
                                             <label for="total-bo-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Total Biaya Operasional
                                             </label>
                                             <input type="text" name="total-bo-{{ $i }}"
@@ -272,7 +270,7 @@
 
                                         <div class="w-full sm:w-1/4">
                                             <label for="total-biaya-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Total Biaya Pakan
                                             </label>
                                             <input type="text" name="total-biaya-pakan-{{ $i }}"
@@ -292,7 +290,7 @@
 
                                         <div class="w-full sm:w-1/3">
                                             <label for="total-variable-cost-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Total Variable Cost
                                             </label>
                                             <input type="text" name="total-variable-cost-{{ $i }}"
@@ -311,7 +309,7 @@
                                         <!-- Standard Pakan (Gram) -->
                                         <div class="w-full sm:w-1/5">
                                             <label for="standard-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Standard Pakan (Gram)
                                             </label>
                                             <input type="text" id="standard-pakan-{{ $i }}" value="70"
@@ -331,7 +329,7 @@
                                         <!-- Jumlah Hari -->
                                         <div class="w-full sm:w-1/5">
                                             <label for="jumlah-hari-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Hari
                                             </label>
                                             <input type="text" id="jumlah-hari-{{ $i }}" value="80"
@@ -351,12 +349,12 @@
                                         <!-- Jumlah Itik -->
                                         <div class="w-full sm:w-1/5">
                                             <label for="jumlah-itik-pembelian-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Itik
                                             </label>
                                             <input type="number" id="jumlah-itik-pembelian-pakan-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="jumlah itik" readonly
+                                                placeholder="0" readonly
                                                 oninput="calculateJumlahPakan({{ $i }})">
                                         </div>
 
@@ -371,22 +369,22 @@
 
                                         <div class="w-full sm:w-1/5">
                                             <label for="jumlah-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Pakan (Kilogram)
                                             </label>
                                             <input type="text" id="jumlah-pakan-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="jumlah pakan" readonly>
+                                                placeholder="0" readonly>
                                         </div>
 
                                         <div class="w-full sm:w-1/4">
                                             <label for="jumlah-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Pakan (Kilogram)
                                             </label>
                                             <input type="text" id="jumlah-pakan-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="jumlah pakan" readonly>
+                                                placeholder="0" readonly>
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -400,7 +398,7 @@
 
                                         <div class="w-full sm:w-1/4">
                                             <label for="harga-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Harga Pakan
                                             </label>
                                             <input type="text" name="harga-pakan-{{ $i }}"
@@ -421,12 +419,12 @@
 
                                         <div class="w-full sm:w-1/3">
                                             <label for="total-biaya-pakan-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Total Biaya Pakan (Rp)
                                             </label>
                                             <input type="text" id="total-biaya-pakan-pembelian-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Total Biaya" readonly>
+                                                placeholder="Rp 0" readonly>
                                         </div>
                                     </div>
 
@@ -436,7 +434,7 @@
                                         {{-- Biaya Tenaga Kerja --}}
                                         <div class="w-full sm:w-1/5">
                                             <label for="biaya-tenaga-kerja-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
                                                 Tenaga Kerja</label>
                                             <input type="text" name="biaya-tenaga-kerja-{{ $i }}"
                                                 id="biaya-tenaga-kerja-{{ $i }}"
@@ -457,7 +455,7 @@
                                         {{-- Biaya Listrik --}}
                                         <div class="w-full sm:w-1/5">
                                             <label for="biaya-listrik-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
                                                 Listrik</label>
                                             <input type="text" name="biaya-listrik-{{ $i }}"
                                                 id="biaya-listrik-{{ $i }}"
@@ -478,7 +476,7 @@
                                         {{-- Biaya OVK --}}
                                         <div class="w-full sm:w-1/5">
                                             <label for="biaya-ovk-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
                                                 OVK</label>
                                             <input type="text" name="biaya-ovk-{{ $i }}"
                                                 id="biaya-ovk-{{ $i }}"
@@ -498,24 +496,24 @@
 
                                         <div class="w-full sm:w-1/5">
                                             <label for="biaya-op-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
                                                 Operasional</label>
                                             <input type="text" name="biaya-op-{{ $i }}"
                                                 id="biaya-op-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. -"
+                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Rp 0"
                                                 oninput="calculateOperationalCost({{ $i }})" readonly>
                                         </div>
 
                                         <div class="w-full sm:w-1/5">
                                             <label for="biaya-op-awal-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Biaya Operasional
                                             </label>
                                             <input type="text" name="biaya-op-awal-{{ $i }}"
                                                 id="biaya-op-awal-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp. -"
+                                                placeholder="Rp 0"
                                                 oninput="calculateTotalOperationalCost({{ $i }})" readonly>
                                         </div>
 
@@ -530,13 +528,13 @@
 
                                         <div class="w-full sm:w-1/5">
                                             <label for="jumlah-itik-op-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Itik
                                             </label>
                                             <input type="text" name="jumlah-itik-op-{{ $i }}"
                                                 id="jumlah-itik-op-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-"
+                                                placeholder="0"
                                                 oninput="calculateTotalOperationalCost({{ $i }})" readonly>
                                         </div>
 
@@ -551,13 +549,13 @@
 
                                         <div class="w-full sm:w-1/5">
                                             <label for="jumlah-hari-operasional-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Hari Operasional
                                             </label>
                                             <input type="text" name="jumlah-hari-operasional-{{ $i }}"
                                                 value="80" id="jumlah-hari-operasional-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-"
+                                                placeholder="0"
                                                 oninput="calculateTotalOperationalCost({{ $i }})" readonly>
                                         </div>
 
@@ -572,13 +570,13 @@
 
                                         <div class="w-full sm:w-1/5">
                                             <label for="total-biaya-operasional-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Total Biaya Operasional
                                             </label>
                                             <input type="text" name="total-biaya-operasional-{{ $i }}"
                                                 id="total-biaya-operasional-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                placeholder="Rp 0" readonly>
                                         </div>
                                     </div>
 
@@ -587,7 +585,7 @@
                                     <div class="flex flex-wrap gap-4 mb-4 justify-center">
                                         <div class="w-full sm:w-1/4">
                                             <label for="sewa-kandang-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sewa
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
                                                 Kandang</label>
                                             <input type="text" name="sewa-kandang-{{ $i }}"
                                                 id="sewa-kandang-{{ $i }}"
@@ -606,7 +604,7 @@
 
                                         <div class="w-full sm:w-1/4">
                                             <label for="penyusutan-itik-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Penyusutan
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Penyusutan
                                                 Itik</label>
                                             <input type="text" name="penyusutan-itik-{{ $i }}"
                                                 id="penyusutan-itik-{{ $i }}"
@@ -625,7 +623,7 @@
 
                                         <div class="w-full sm:w-1/3">
                                             <label for="biaya-fixed-cost-awal-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
                                                 Biaya</label>
                                             <input type="text" name="biaya-fixed-cost-awal-{{ $i }}"
                                                 id="biaya-fixed-cost-awal-{{ $i }}"
@@ -636,7 +634,7 @@
                                     <div class="flex flex-wrap gap-4 mb-4 justify-center">
                                         <div class="w-full sm:w-1/5">
                                             <label for="total-biaya-fixed-cost-awal-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
                                                 Biaya</label>
                                             <input type="text" name="total-biaya-fixed-cost-awal-{{ $i }}"
                                                 id="total-biaya-fixed-cost-awal-{{ $i }}"
@@ -655,12 +653,12 @@
 
                                         <div class="w-full sm:w-1/5">
                                             <label for="jumlah-itik-fixed-cost-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Itik</label>
                                             <input type="text" name="jumlah-itik-fixed-cost-{{ $i }}"
                                                 id="jumlah-itik-fixed-cost-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="" readonly>
+                                                placeholder="0" readonly>
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -674,12 +672,12 @@
 
                                         <div class="w-full sm:w-1/5">
                                             <label for="jumlah-hari-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Hari</label>
                                             <input type="text" name="jumlah-hari-{{ $i }}" value="80"
                                                 id="jumlah-hari-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="" readonly>
+                                                placeholder="0" readonly>
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -693,7 +691,7 @@
 
                                         <div class="w-full sm:w-1/5">
                                             <label for="total-fixed-cost-{{ $i }}"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
                                                 Fixed Cost</label>
                                             <input type="text" name="total-fixed-cost-{{ $i }}"
                                                 id="total-fixed-cost-{{ $i }}"
@@ -735,7 +733,7 @@
                                             <input type="text" name="margin-of-safety-{{ $i }}"
                                                 id="margin-of-safety-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Margin Of Safety" readonly>
+                                                placeholder="Rp 0" readonly>
                                         </div>
                                         <div class="w-full">
                                             <label for="rc-ratio{{ $i }}"
@@ -744,7 +742,7 @@
                                             <input type="text" name="rc-ratio-{{ $i }}"
                                                 id="rc-ratio-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 0" oninput="formatRupiah(this)" readonly>
+                                                placeholder="0.00" oninput="formatRupiah(this)" readonly>
                                         </div>
                                         <div class="w-full">
                                             <label for="BEP-harga-{{ $i }}"
@@ -753,7 +751,7 @@
                                             <input type="text" name="BEP-harga-{{ $i }}"
                                                 id="BEP-harga-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                placeholder="Rp 0" readonly>
                                         </div>
                                         <div class="w-full">
                                             <label for="BEP-hasil-{{ $i }}"
@@ -762,7 +760,7 @@
                                             <input type="text" name="BEP-hasil-{{ $i }}"
                                                 id="BEP-hasil-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                placeholder="0 Itik" readonly>
                                         </div>
                                         <div class="w-full">
                                             <label for="laba-{{ $i }}"
@@ -770,7 +768,7 @@
                                             <input type="text" name="laba-{{ $i }}"
                                                 id="laba-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="-" readonly>
+                                                placeholder="Rp 0" readonly>
                                         </div>
                                     </div>
                                 </div>
