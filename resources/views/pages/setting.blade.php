@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Setting')
+@section('title', 'Pengaturan}')
 
 @section('content')
     <div class="flex items-center rounded-lg border-gray-300 dark:border-gray-600 h-10 mb-4">
-        <h2 class="w-full text-2xl font-semibold tracking-tight text-gray-900">Pengaturan</h2>
+        <h2 class="w-full text-2xl font-bold tracking-tight text-gray-900">Pengaturan</h2>
     </div>
     <div class="bg-white p-4 mb-4 border-2 border-white rounded-lg">
         <div class="flex justify-center items-center rounded-lg border-gray-300 dark:border-gray-600 h-4">
