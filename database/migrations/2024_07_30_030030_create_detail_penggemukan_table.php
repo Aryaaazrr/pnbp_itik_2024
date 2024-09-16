@@ -21,9 +21,9 @@ return new class extends Migration
             $table->integer('jumlah_itik_dijual');
             $table->decimal('harga_itik_dijual', 20, 2);
             $table->decimal('total_revenue', 20, 2);
-            $table->decimal('standard_pakan', 20, 2);
+            $table->integer('standard_pakan');
             $table->integer('jumlah_hari');
-            $table->integer('jumlah_pakan');
+            $table->decimal('jumlah_pakan', 20, 2);
             $table->decimal('harga_pakan', 20, 2);
             $table->decimal('total_biaya_pakan', 20, 2);
             $table->decimal('biaya_tk', 20, 2);
