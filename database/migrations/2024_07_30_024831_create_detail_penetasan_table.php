@@ -36,7 +36,7 @@ return new class extends Migration
             $table->decimal('total_fixed_cost', 20, 2);
             $table->decimal('total_cost', 20, 2);
             $table->decimal('laba', 20, 2);
-            $table->integer('mos');
+            $table->integer('mos', 20, 2);
             $table->integer('r/c_ratio');
             $table->decimal('bep_harga', 20, 2);
             $table->integer('bep_hasil');
