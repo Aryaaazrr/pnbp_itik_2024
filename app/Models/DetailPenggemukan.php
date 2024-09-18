@@ -12,38 +12,10 @@ class DetailPenggemukan extends Model
 
     protected $table = 'detail_penggemukan';
     protected $primaryKey = 'id_detail_penggemukan';
+    protected $guarded = [];
 
-    protected $fillable = [
-        'id_penggemukan',
-        'periode',
-        'jumlah_itik',
-        'presentase_mortalitas',
-        'jumlah_itik_dijual',
-        'harga_itik_dijual',
-        'total_revenue',
-        'standard_pakan',
-        'jumlah_hari',
-        'jumlah_pakan',
-        'harga_pakan',
-        'biaya_pakan',
-        'biaya_tk',
-        'biaya_listrik',
-        'biaya_ovk',
-        'total_biaya_operasional',
-        'total_variable_cost',
-        'sewa_kandang',
-        'penyusutan_itik',
-        'total_fixed_cost',
-        'total_cost',
-        'laba',
-        'mos',
-        'r_c_ratio',
-        'bep_harga',
-        'bep_hasil',
-    ];
-
-    public function penggemukan()
+    public function tipe_analisis()
     {
-        return $this->belongsTo(Penggemukan::class, 'id_penggemukan');
+        return $this->belongsTo(TipeAnalisis::class, 'id_tipe_analisis');
     }
 }

@@ -14,8 +14,8 @@ class DetailPenetasan extends Model
     protected $primaryKey = 'id_detail_penetasan';
     protected $guarded = [];
 
-    public function penetasan()
+    public function tipe_analisis()
     {
-        return $this->belongsTo(Penetasan::class, 'id_penetasan');
+        return $this->belongsTo(TipeAnalisis::class, 'id_tipe_analisis');
     }
 }

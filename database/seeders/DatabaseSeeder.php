@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Role;
+use App\Models\TipeAnalisis;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -24,5 +25,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\User::factory(10)->create();
+
+        $data = [
+            'Penetasan',
+            'Penggemukan',
+            'Layer'
+        ];
+
+        foreach ($data as $value) {
+            TipeAnalisis::insert([
+                'nama_tipe' => $value
+            ]);
+        }
     }
 }

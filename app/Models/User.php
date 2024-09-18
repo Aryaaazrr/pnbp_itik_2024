@@ -44,8 +44,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function penetasan()
+    public function analisis()
     {
-        return $this->hasMany(Penetasan::class, 'id_users');
+        return $this->hasMany(Analisis::class, 'id_users');
     }
 }
