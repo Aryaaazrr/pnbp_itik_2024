@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penetasan', function (Blueprint $table) {
-            $table->id('id_penetasan');
+        Schema::create('tipe_analisis', function (Blueprint $table) {
+            $table->id('id_tipe_analisis');
+            $table->string('nama_tipe');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penetasan');
+        Schema::dropIfExists('tipe_analisis');
     }
 };

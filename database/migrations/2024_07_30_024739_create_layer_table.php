@@ -13,9 +13,6 @@ return new class extends Migration
     {
         Schema::create('layer', function (Blueprint $table) {
             $table->id('id_layer');
-            $table->unsignedBigInteger('id_users');
-            $table->foreign('id_users')->references('id_users')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('image_diagram');
             $table->timestamps();
             $table->softDeletes();
         });
