@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('analisis', function (Blueprint $table) {
             $table->id('id_analisis');
-            $table->unsignedBigInteger('id_tipe_analisis');
-            $table->foreign('id_tipe_analisis')->references('id_tipe_analisis')->on('tipe_analisis')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('id_users');
             $table->foreign('id_users')->references('id_users')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('id_tipe_analisis');
+            $table->foreign('id_tipe_analisis')->references('id_tipe_analisis')->on('tipe_analisis')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

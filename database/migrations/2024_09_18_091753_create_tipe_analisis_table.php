@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tipe_analisis', function (Blueprint $table) {
             $table->id('id_tipe_analisis');
-            $table->string('nama_tipe');
+            $table->enum('nama_tipe', ['Penetasan', 'Penggemukan', 'Layer']);
             $table->timestamps();
             $table->softDeletes();
         });

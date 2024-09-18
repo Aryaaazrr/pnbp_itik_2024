@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('layer', function (Blueprint $table) {
+        Schema::table('detail_penetasan', function (Blueprint $table) {
             $table->unsignedBigInteger('id_tipe_analisis');
             $table->foreign('id_tipe_analisis')->references('id_tipe_analisis')->on('tipe_analisis')->onUpdate('cascade')->onDelete('cascade');
         });
@@ -22,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('layer', function (Blueprint $table) {
-            $table->dropForeign('layer_id_tipe_analisis');
+        Schema::table('detail_penetasan', function (Blueprint $table) {
+            $table->dropForeign('detail_penetasan_id_tipe_analisis');
             $table->dropColumn('id_tipe_analisis');
         });
     }
