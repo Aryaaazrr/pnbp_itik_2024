@@ -32,7 +32,8 @@
         </div>
 
         @for ($i = 1; $i <= 4; $i++)
-            <form id="data-form-{{ $i }}" action="#" method="POST">
+            <form id="myForm" action="" method="POST" data-index="{{ $i }}"
+                onsubmit="return validateForm(event, {{ $i }})">
                 @csrf
                 <div id="periode{{ $i }}" class="tab-content hidden">
                     <div id="accordion-collapse-periode-{{ $i }}" data-accordion="collapse" class="py-8">
@@ -42,9 +43,10 @@
                             <button type="button"
                                 class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
                                 data-accordion-target="#accordion-collapse-body-penerimaan-{{ $i }}"
-                                aria-expanded="true" aria-controls="accordion-collapse-body-penerimaan-{{ $i }}">
+                                aria-expanded="true"
+                                aria-controls="accordion-collapse-body-penerimaan-{{ $i }}">
                                 <h1>I. PENERIMAAN (R = REVENUE)</h1>
-                                <p id="user-id" class="hidden">{{ $userId }}</p>
+                                <input type="text" id="user-id" name="user-id" value="{{ $userId }}" hidden>
                                 <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -67,7 +69,9 @@
                                             <input type="text" name="jumlah-itik-awal-{{ $i }}"
                                                 id="jumlah-itik-awal-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="0" oninput="updateJumlahItik(this)" required>
+                                                placeholder="0"
+                                                oninput="hitungRevenue({{ $i }}); formatRibuan({{ $i }}); Hasil({{ $i }})"
+                                                required>
                                         </div>
 
                                         <!-- Icon X -->
@@ -88,7 +92,9 @@
                                             <input type="text" name="presentase-mortalitas-{{ $i }}"
                                                 id="presentase-mortalitas-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="0%" oninput="formatPresentase(this)" required>
+                                                placeholder="0%"
+                                                oninput="formatPresentase(this); hitungRevenue({{ $i }}); Hasil({{ $i }})"
+                                                required>
                                         </div>
 
                                         <!-- Icon = -->
@@ -103,11 +109,12 @@
 
                                         {{-- jumlah itik setelah moralitas --}}
                                         <div class="w-full sm:w-1/3">
-                                            <label for="jumlah-itik-{{ $i }}"
+                                            <label for="jumlah-itik-akhir-setelah-mortalitas-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Itik (Setelah Mortalitas)</label>
-                                            <input type="text" name="jumlah-itik-{{ $i }}"
-                                                id="jumlah-itik-{{ $i }}"
+                                            <input type="text"
+                                                name="jumlah-itik-akhir-setelah-mortalitas-{{ $i }}"
+                                                id="jumlah-itik-akhir-setelah-mortalitas-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="0" readonly>
                                         </div>
@@ -116,11 +123,11 @@
                                     <div class="flex flex-wrap gap-4 mb-4 justify-center">
                                         {{-- jumlah itik setelah moralitas --}}
                                         <div class="w-full sm:w-1/4">
-                                            <label for="jumlah-itik-{{ $i }}"
+                                            <label for="jumlah-itik-akhir-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Itik (Setelah Mortalitas)</label>
-                                            <input type="text" name="jumlah-itik-{{ $i }}"
-                                                id="jumlah-itik-{{ $i }}"
+                                            <input type="text" name="jumlah-itik-akhir-{{ $i }}"
+                                                id="jumlah-itik-akhir-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="0" readonly>
                                         </div>
@@ -143,7 +150,8 @@
                                             <input type="text" name="harga-itik-{{ $i }}"
                                                 id="harga-itik-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 0" oninput="formatRupiah(this)">
+                                                placeholder="Rp 0"
+                                                oninput="formatRupiah(this); hitungRevenue({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
                                         <!-- Icon = -->
@@ -352,10 +360,10 @@
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Itik
                                             </label>
-                                            <input type="number" id="jumlah-itik-pembelian-pakan-{{ $i }}"
+                                            <input type="text" id="jumlah-itik-pembelian-pakan-{{ $i }}"
+                                                name="jumlah-itik-pembelian-pakan-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="0" readonly
-                                                oninput="calculateJumlahPakan({{ $i }})">
+                                                placeholder="0" readonly oninput="formatRibuan({{ $i }})">
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -373,16 +381,18 @@
                                                 Jumlah Pakan (Kilogram)
                                             </label>
                                             <input type="text" id="jumlah-pakan-{{ $i }}"
+                                                name="jumlah-pakan-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="0" readonly>
                                         </div>
 
                                         <div class="w-full sm:w-1/4">
-                                            <label for="jumlah-pakan-{{ $i }}"
+                                            <label for="jumlah-pakan-kilogram-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Pakan (Kilogram)
                                             </label>
-                                            <input type="text" id="jumlah-pakan-{{ $i }}"
+                                            <input type="text" id="jumlah-pakan-kilogram-{{ $i }}"
+                                                name="jumlah-pakan-kilogram-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="0" readonly>
                                         </div>
@@ -405,7 +415,7 @@
                                                 id="harga-pakan-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp 0"
-                                                oninput="formatRupiah(this); calculateJumlahPakan('{{ $i }}')">
+                                                oninput="formatRupiah(this); hitungPembelianPakan({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -418,11 +428,12 @@
                                         </span>
 
                                         <div class="w-full sm:w-1/3">
-                                            <label for="total-biaya-pakan-{{ $i }}"
+                                            <label for="total-biaya-pakan-pembelian-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Total Biaya Pakan (Rp)
                                             </label>
                                             <input type="text" id="total-biaya-pakan-pembelian-{{ $i }}"
+                                                name="total-biaya-pakan-pembelian-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp 0" readonly>
                                         </div>
@@ -440,7 +451,7 @@
                                                 id="biaya-tenaga-kerja-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp 0"
-                                                oninput="calculateOperationalCost({{ $i }})">
+                                                oninput="formatRupiah(this); hitungBiayaOperasional({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -461,7 +472,7 @@
                                                 id="biaya-listrik-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp 0"
-                                                oninput="calculateOperationalCost({{ $i }})">
+                                                oninput="formatRupiah(this); hitungBiayaOperasional({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -482,7 +493,7 @@
                                                 id="biaya-ovk-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp 0"
-                                                oninput="calculateOperationalCost({{ $i }})">
+                                                oninput="formatRupiah(this); hitungBiayaOperasional({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -501,8 +512,7 @@
                                             <input type="text" name="biaya-op-{{ $i }}"
                                                 id="biaya-op-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 0"
-                                                oninput="calculateOperationalCost({{ $i }})" readonly>
+                                                placeholder="Rp 0" readonly>
                                         </div>
 
                                         <div class="w-full sm:w-1/5">
@@ -513,8 +523,7 @@
                                             <input type="text" name="biaya-op-awal-{{ $i }}"
                                                 id="biaya-op-awal-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 0"
-                                                oninput="calculateTotalOperationalCost({{ $i }})" readonly>
+                                                placeholder="Rp 0" readonly>
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -534,8 +543,7 @@
                                             <input type="text" name="jumlah-itik-op-{{ $i }}"
                                                 id="jumlah-itik-op-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="0"
-                                                oninput="calculateTotalOperationalCost({{ $i }})" readonly>
+                                                placeholder="0" readonly>
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -555,8 +563,7 @@
                                             <input type="text" name="jumlah-hari-operasional-{{ $i }}"
                                                 value="80" id="jumlah-hari-operasional-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="0"
-                                                oninput="calculateTotalOperationalCost({{ $i }})" readonly>
+                                                placeholder="0" readonly>
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -590,7 +597,8 @@
                                             <input type="text" name="sewa-kandang-{{ $i }}"
                                                 id="sewa-kandang-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 0" oninput="calculateFixedCost('{{ $i }}')">
+                                                placeholder="Rp 0"
+                                                oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -609,7 +617,8 @@
                                             <input type="text" name="penyusutan-itik-{{ $i }}"
                                                 id="penyusutan-itik-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 0" oninput="calculateFixedCost('{{ $i }}')">
+                                                placeholder="Rp 0"
+                                                oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -639,7 +648,7 @@
                                             <input type="text" name="total-biaya-fixed-cost-awal-{{ $i }}"
                                                 id="total-biaya-fixed-cost-awal-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 0" oninput="formatRupiah(this)" readonly>
+                                                placeholder="Rp 0" readonly>
                                         </div>
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
@@ -726,39 +735,39 @@
                                         {{ $i }}</h2>
                                     <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
                                         <div class="w-full">
-                                            <label for="margin-of-safety-{{ $i }}"
+                                            <label for="mos-{{ $i }}"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Margin
                                                 Of
                                                 Safety (MOS)</label>
-                                            <input type="text" name="margin-of-safety-{{ $i }}"
-                                                id="margin-of-safety-{{ $i }}"
+                                            <input type="text" name="mos-{{ $i }}"
+                                                id="mos-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp 0" readonly>
                                         </div>
                                         <div class="w-full">
-                                            <label for="rc-ratio{{ $i }}"
+                                            <label for="rc{{ $i }}"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">R/C
                                                 Ratio</label>
-                                            <input type="text" name="rc-ratio-{{ $i }}"
-                                                id="rc-ratio-{{ $i }}"
+                                            <input type="text" name="rc-{{ $i }}"
+                                                id="rc-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="0.00" oninput="formatRupiah(this)" readonly>
+                                                placeholder="0.00" readonly>
                                         </div>
                                         <div class="w-full">
-                                            <label for="BEP-harga-{{ $i }}"
+                                            <label for="bep-harga-{{ $i }}"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
                                                 Harga</label>
-                                            <input type="text" name="BEP-harga-{{ $i }}"
-                                                id="BEP-harga-{{ $i }}"
+                                            <input type="text" name="bep-harga-{{ $i }}"
+                                                id="bep-harga-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp 0" readonly>
                                         </div>
                                         <div class="w-full">
-                                            <label for="BEP-hasil-{{ $i }}"
+                                            <label for="bep-hasil-{{ $i }}"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">BEP
                                                 Hasil</label>
-                                            <input type="text" name="BEP-hasil-{{ $i }}"
-                                                id="BEP-hasil-{{ $i }}"
+                                            <input type="text" name="bep-hasil-{{ $i }}"
+                                                id="bep-hasil-{{ $i }}"
                                                 class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="0 Itik" readonly>
                                         </div>
@@ -775,139 +784,286 @@
                             </section>
                         </div>
                     </div>
-                    @if ($i == 4)
-                        <div class="flex justify-center">
-                            <button type="submit" id="submit-button-{{ $i }}"
-                                class="submit-button inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                                Simpan
-                            </button>
-                        </div>
-                        <!-- Tambahkan chart di sini -->
-                        <div class="container px-4 mx-auto bg-white">
-                            <div class="p-6 m-20 bg-white rounded shadow chart-container-wrapper">
-                                <div id="chart-container">
-                                    {!! $chart->container() !!}
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+
+                    <div class="flex justify-center">
+                        <button type="submit" id="submit-button-{{ $i }}"
+                            class="submit-button inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                            Simpan dan Lanjutkan
+                        </button>
+                    </div>
                 </div>
             </form>
         @endfor
     </div>
-    <script src="{{ asset('vendor/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ $chart->cdn() }}"></script>
-    {!! $chart->script() !!}
-    <script>
-        var userId = @json($userId);
-    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function convertToNumber(value) {
-                return parseFloat(value.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
-            }
+            window.validateForm = function(event, index) {
+                event.preventDefault();
+                let isValid = true;
 
-            function collectFormData() {
-                var penggemukanData = {
-                    id_users: userId,
-                    image_diagram: null,
-                    details: []
-                };
+                const fields = [{
+                        id: `user-id`,
+                        message: 'Ini user id!'
+                    },
+                    {
+                        id: `jumlah-itik-awal-${index}`,
+                        message: 'Harap isi data jumlah itik!'
+                    },
+                    {
+                        id: `presentase-mortalitas-${index}`,
+                        message: 'Harap isi data presentase mortalitas!'
+                    },
+                    {
+                        id: `jumlah-itik-akhir-setelah-mortalitas-${index}`,
+                        message: 'Harap isi data jumlah itik setelah mortalitas!'
+                    },
+                    {
+                        id: `jumlah-itik-akhir-${index}`,
+                        message: 'Harap isi data jumlah itik!'
+                    },
+                    {
+                        id: `harga-itik-${index}`,
+                        message: 'Harap isi data harga itik!'
+                    },
+                    {
+                        id: `total-revenue-${index}`,
+                        message: 'Harap isi data total revenue!'
+                    },
+                    {
+                        id: `standard-pakan-${index}`,
+                        message: 'Harap isi data standard pakan!'
+                    },
+                    {
+                        id: `jumlah-hari-${index}`,
+                        message: 'Harap isi data jumlah hari!'
+                    },
+                    {
+                        id: `jumlah-pakan-${index}`,
+                        message: 'Harap isi data jumlah pakan!'
+                    },
+                    {
+                        id: `harga-pakan-${index}`,
+                        message: 'Harap isi data harga pakan!'
+                    },
+                    {
+                        id: `total-biaya-pakan-${index}`,
+                        message: 'Harap isi data total biaya pakan!'
+                    },
+                    {
+                        id: `biaya-tenaga-kerja-${index}`,
+                        message: 'Harap isi data biaya tenaga kerja!'
+                    },
+                    {
+                        id: `biaya-listrik-${index}`,
+                        message: 'Harap isi data biaya listrik!'
+                    },
+                    {
+                        id: `biaya-ovk-${index}`,
+                        message: 'Harap isi data biaya ovk!'
+                    },
+                    {
+                        id: `biaya-op-awal-${index}`,
+                        message: 'Harap isi data biaya operasional!'
+                    },
+                    {
+                        id: `total-biaya-operasional-${index}`,
+                        message: 'Harap isi data biaya operasional variable cost!'
+                    },
+                    {
+                        id: `total-variable-cost-${index}`,
+                        message: 'Harap isi data total variable cost!'
+                    },
+                    {
+                        id: `sewa-kandang-${index}`,
+                        message: 'Harap isi data sewa kandang!'
+                    },
+                    {
+                        id: `penyusutan-itik-${index}`,
+                        message: 'Harap isi data penyusutan itik!'
+                    },
+                    {
+                        id: `biaya-fixed-cost-awal-${index}`,
+                        message: 'Harap isi data total biaya!'
+                    },
+                    {
+                        id: `total-fixed-cost-${index}`,
+                        message: 'Harap isi data total biaya fixed cost!'
+                    },
+                    {
+                        id: `total-cost-${index}`,
+                        message: 'Harap isi data total cost!'
+                    },
+                    {
+                        id: `mos-${index}`,
+                        message: 'Harap isi data mos!'
+                    },
+                    {
+                        id: `rc-${index}`,
+                        message: 'Harap isi data rc!'
+                    },
+                    {
+                        id: `bep-harga-${index}`,
+                        message: 'Harap isi data bep harga!'
+                    },
+                    {
+                        id: `bep-hasil-${index}`,
+                        message: 'Harap isi data bep hasil!'
+                    },
+                    {
+                        id: `laba-${index}`,
+                        message: 'Harap isi data laba!'
+                    }
+                ];
 
+                const formData = {};
 
-                for (var i = 1; i <= 4; i++) {
-                    var formId = '#data-form-' + i;
-                    var formData = $(formId).serializeArray();
-                    var dataObject = {};
+                for (const field of fields) {
+                    const element = document.getElementById(field.id);
 
-                    var standardPakan = document.querySelector(`#standard-pakan-${i}`) ? convertToNumber(document
-                        .querySelector(`#standard-pakan-${i}`).value) : 0;
-                    var jumlahPakan = document.querySelector(`#jumlah-pakan-${i}`) ? convertToNumber(document
-                        .querySelector(`#jumlah-pakan-${i}`).value) : 0;
+                    if (element) {
+                        let value = element.value.trim();
+                        if (value === "") {
+                            isValid = false;
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Oops...',
+                                text: field.message,
+                                confirmButtonText: 'OK'
+                            });
+                            return;
+                        }
 
-                    formData.forEach(function(field) {
-                        dataObject[field.name] = convertToNumber(field.value);
-                    });
+                        if (field.id.includes('bep-hasil')) {
+                            value = removeFormatSatuan(value);
+                        }
 
-                    dataObject.standard_pakan = standardPakan;
-                    dataObject.jumlah_pakan = jumlahPakan;
-
-                    penggemukanData.details.push({
-                        periode: i,
-                        ...dataObject
-                    });
+                        formData[field.id] = value;
+                    } else {
+                        isValid = false;
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: `Element dengan ID ${field.id} tidak ditemukan.`,
+                            confirmButtonText: 'OK'
+                        });
+                        return;
+                    }
                 }
 
-                return penggemukanData;
+                if (isValid) {
+                    sessionStorage.setItem(`dataPeriode-${index}`, JSON.stringify(formData));
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Data berhasil disimpan!',
+                        text: 'Data Anda telah disimpan sementara.',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3085d6'
+                    }).then(() => {
+                        const nextIndex = index + 1;
+                        const nextTab = document.querySelector(`#tab-${nextIndex}`);
+
+                        if (nextTab) {
+                            nextTab.click();
+                        } else {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Selesai',
+                                text: 'Simpan Permanen dan tampilkan grafik?.',
+                                confirmButtonText: 'Kirim',
+                                cancelButtonText: 'Batal',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33'
+                            }).then(result => {
+                                if (result.isConfirmed) {
+                                    const data = allData();
+                                    save(data);
+                                }
+                            });
+                        }
+                    });
+                }
             }
 
-            document.querySelectorAll('button[id^="submit-button-"]').forEach(function(button) {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    var allFormData =
-                        collectFormData();
-                    console.log('Penggemukan and details data collected:', allFormData);
+            function allData() {
+                const allData = [];
+                let index = 1;
 
-                    fetch('/penggemukan', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector(
-                                    'meta[name="csrf-token"]').getAttribute(
-                                    'content')
-                            },
-                            body: JSON.stringify(allFormData)
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Data received:', data);
-                            if (data.message) {
-                                alert(data.message);
-                                location.reload();
-                            } else {
-                                alert('Data saved successfully!');
+                while (true) {
+                    const data = sessionStorage.getItem(`dataPeriode-${index}`);
+                    if (!data) break;
+                    allData.push(JSON.parse(data));
+                    index++;
+                }
 
-                                // Ambil data chart dari respons
-                                const chartData = data.chart;
+                return allData;
+            }
 
-                                if (chartData) {
-                                    // Render chart using LarapexCharts BarChart
-                                    var chart = new LarapexCharts.BarChart({
-                                        element: '#chart-container',
-                                        data: {
-                                            labels: chartData.labels,
-                                            series: [{
-                                                    name: 'Total Revenue',
-                                                    data: chartData.total_revenue
-                                                },
-                                                {
-                                                    name: 'Total Cost',
-                                                    data: chartData.total_cost
-                                                }
-                                            ]
-                                        },
-                                        xaxis: {
-                                            title: 'Periods'
-                                        },
-                                        yaxis: {
-                                            title: 'Amount'
-                                        }
-                                    });
-                                    chart.render();
-                                } else {
-                                    console.error('No chart data received.');
-                                }
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('An error occurred while saving data.');
+            function save(data) {
+                fetch('/penggemukan', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(result => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Data berhasil diproses!',
+                            text: 'Data Anda telah berhasil disimpan permanen.',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#3085d6'
                         });
+
+                        sessionStorage.clear();
+                        window.location.href = '/riwayat';
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Terjadi kesalahan',
+                            text: `Gagal mengirim data ke server. ${error.message}`,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#d33'
+                        });
+                    });
+
+            }
+
+            const forms = document.querySelectorAll('form[data-index]');
+            forms.forEach(form => {
+                const index = parseInt(form.dataset.index);
+                form.addEventListener('submit', function(event) {
+                    validateForm(event, index);
                 });
+
+                // load session
+                const storedData = sessionStorage.getItem(`dataPeriode-${index}`);
+                if (storedData) {
+                    const formData = JSON.parse(storedData);
+                    for (const [key, value] of Object.entries(formData)) {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.value = value;
+                        }
+                    }
+                }
             });
         });
-    </script>
-    <script>
+
+        document.getElementById("tab-1").click();
+
         function openTab(evt, tabName, periode) {
             var i, tabcontent, tablinks;
 
@@ -924,55 +1080,46 @@
             document.getElementById(tabName).classList.remove("hidden");
             evt.currentTarget.classList.add("text-brown-600", "bg-gray-100", "dark:bg-gray-800", "dark:text-brown-500");
 
-            var submitButton = document.getElementById('submit-button-4');
+            var submitButton = document.getElementById('submit-button-6');
             if (submitButton) {
-                if (periode === 4) {
+                if (periode === 6) {
                     submitButton.innerText = 'Simpan dan Mulai Analisis';
                 } else {
-                    submitButton.innerText = 'Simpan';
+                    submitButton.innerText = 'Simpan dan Lanjutkan';
                 }
             }
-        }
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function saveToSessionStorage() {
-            const inputs = document.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                sessionStorage.setItem(input.id, input.value);
-            });
-        }
-
-        function loadFromSessionStorage() {
-            const inputs = document.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                const value = sessionStorage.getItem(input.id);
-                if (value !== null) {
-                    input.value = value;
-                    if (input.type === 'checkbox' || input.type === 'radio') {
-                        input.checked = value === 'true';
-                    }
-                }
-            });
         }
 
         function formatRupiah(input) {
-            let value = input.value.replace(/[^,\d]/g, '');
-            if (value) {
-                value = parseFloat(value.replace(',', '.'));
-                input.value = 'Rp. ' + value.toLocaleString('id-ID');
-            } else {
-                input.value = '';
+            var value = input.value.replace(/[^,\d]/g, '').toString();
+            var split = value.split(',');
+            var sisa = split[0].length % 3;
+            var rupiah = split[0].substr(0, sisa);
+            var ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            if (ribuan) {
+                var separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
             }
-            if (input.id.startsWith('harga-pakan-')) {
-                calculateJumlahPakan(input.id.split('-').pop());
-            } else {
-                updateTotalRevenue(input);
-            }
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            input.value = 'Rp ' + rupiah;
         }
 
-        function formatPresentase(element) {
-            let value = parseInt(element.value.replace(/[^0-9]/g, ''), 10);
+        function formatRibuan(index) {
+            const inputElement = document.getElementById(`jumlah-itik-awal-${index}`);
+            let value = inputElement.value;
+
+            value = value.replace(/\./g, '');
+
+            if (!isNaN(value) && value !== "") {
+                value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+
+            inputElement.value = value;
+        }
+
+
+        function formatPresentase(input) {
+            let value = parseInt(input.value.replace(/[^0-9]/g, ''), 10);
 
             if (isNaN(value) || value < 0) {
                 value = 0;
@@ -980,291 +1127,247 @@
                 value = 100;
             }
 
-            element.value = value + '%';
-            updateJumlahItik(element);
+            input.value = value + '%';
         }
 
-
-
-        function validateInputIsNumber(inputId) {
-            const inputElement = document.getElementById(inputId);
-            const value = inputElement.value.replace(/\D/g, '');
-            if (value === '') {
-                alert(`Input dengan ID ${inputId} harus berisi angka.`);
-                inputElement.focus();
-                return false;
-            }
-            return true;
+        function parseValue(id) {
+            var value = document.getElementById(id).value.replace(/[^,\d]/g, '').replace(',', '.');
+            return isNaN(value) || value === '' ? 0 : parseInt(value);
         }
 
+        function formatRupiahValue(number) {
+            return 'Rp ' + number.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
+                '.');
+        }
 
-        function updateJumlahItik(input) {
-            let index = input.id.split('-').pop();
-            let jumlahAwal = parseInt(document.getElementById(`jumlah-itik-awal-${index}`).value);
-            let presentaseMortalitas = parseFloat(document.getElementById(`presentase-mortalitas-${index}`).value.replace(
-                '%', ''));
-            let hargaItik = parseInt(document.getElementById(`harga-itik-${index}`).value.replace(/[^,\d]/g, '').replace(
-                ',', '.'));
+        function formatPresentaseValue(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' %';
+        }
 
-            if (!isNaN(jumlahAwal)) {
-                document.getElementById(`jumlah-itik-pembelian-pakan-${index}`).value = jumlahAwal;
-                document.getElementById(`jumlah-itik-op-${index}`).value = jumlahAwal;
-                document.getElementById(`jumlah-itik-fixed-cost-${index}`).value = jumlahAwal;
-            }
+        function formatRibuanValue(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
 
-            if (!isNaN(jumlahAwal) && !isNaN(presentaseMortalitas)) {
-                let jumlahItik = jumlahAwal * (1 - (presentaseMortalitas / 100));
-                document.getElementById(`jumlah-itik-${index}`).value = jumlahItik;
+        function removeFormatSatuan(value) {
+            return value.replace(/\D/g, '');
+        }
 
-                let totalRevenue = jumlahItik * (isNaN(hargaItik) ? 0 : hargaItik);
-                document.getElementById(`total-revenue-${index}`).value = formatRupiahNumber(totalRevenue);
+        function hitungRevenue(index) {
+            var jumlahItikAwal = parseValue(`jumlah-itik-awal-${index}`);
+            var presentaseMortalitas = parseValue(`presentase-mortalitas-${index}`);
+            var hargaItik = parseValue(`harga-itik-${index}`);
+
+            if (!isNaN(jumlahItikAwal) && !isNaN(presentaseMortalitas)) {
+                var jumlahItikAkhirSetelahMortalitas = (jumlahItikAwal * presentaseMortalitas) / 100;
+                var jumlahItikDijual = jumlahItikAwal - jumlahItikAkhirSetelahMortalitas;
+                var totalRevenue = jumlahItikDijual * (isNaN(hargaItik) ? 0 : hargaItik);
+
+                // revenue
+                document.getElementById(`jumlah-itik-akhir-setelah-mortalitas-${index}`).value =
+                    jumlahItikDijual.toLocaleString('id-ID', {
+                        minimumFractionDigits: 0
+                    });
+                document.getElementById(`jumlah-itik-akhir-${index}`).value =
+                    jumlahItikDijual.toLocaleString('id-ID', {
+                        minimumFractionDigits: 0
+                    });
+                document.getElementById(`total-revenue-${index}`).value = formatRupiahValue(totalRevenue.toFixed(0));
+
+                // variable cost
+                document.getElementById(`jumlah-itik-pembelian-pakan-${index}`).value = formatRibuanValue(jumlahItikAwal
+                    .toFixed(0));
+                document.getElementById(`jumlah-itik-op-${index}`).value = formatRibuanValue(jumlahItikAwal.toFixed(0));
+
+                // fixed cost
+                document.getElementById(`jumlah-itik-fixed-cost-${index}`).value = formatRibuanValue(jumlahItikAwal.toFixed(
+                    0));
             } else {
-                document.getElementById(`jumlah-itik-${index}`).value = '-';
-                document.getElementById(`total-revenue-${index}`).value = '-';
+                document.getElementById(`jumlah-itik-akhir-setelah-mortalitas-${index}`).value = '0';
+                document.getElementById(`jumlah-itik-akhir-${index}`).value = '0';
+                document.getElementById(`total-revenue-${index}`).value = 'Rp 0';
             }
-            calculateJumlahPakan(index);
-            updateTotalVariableCost(index);
-            saveToSessionStorage();
-            calculateFixedCost(index)
         }
 
-        function updateTotalRevenue(input) {
-            let index = input.id.split('-').pop();
-            let jumlahItik = parseFloat(document.getElementById(`jumlah-itik-${index}`).value);
-            let hargaItik = parseFloat(input.value.replace(/[^,\d]/g, '').replace(',', '.'));
+        function hitungPembelianPakan(index) {
+            var standardPakan = parseValue(`standard-pakan-${index}`);
+            var jumlahHari = parseValue(`jumlah-hari-${index}`);
+            var jumlahItik = parseValue(`jumlah-itik-awal-${index}`);
 
-            if (!isNaN(jumlahItik) && !isNaN(hargaItik)) {
-                let totalRevenue = jumlahItik * hargaItik;
-                document.getElementById(`total-revenue-${index}`).value = formatRupiahNumber(totalRevenue);
+            if (!isNaN(jumlahItik)) {
+                var hargaPakan = parseValue(`harga-pakan-${index}`);
+
+                var jumlahPakanKilogram = (standardPakan * jumlahHari * jumlahItik) / 1000;
+                var totalBiayaPakan = jumlahPakanKilogram * hargaPakan;
+
+                document.getElementById(`jumlah-pakan-${index}`).value = formatRupiahValue(jumlahPakanKilogram.toFixed(0));
+                document.getElementById(`jumlah-pakan-kilogram-${index}`).value = formatRupiahValue(jumlahPakanKilogram
+                    .toFixed(0));
+                document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = formatRupiahValue(totalBiayaPakan
+                    .toFixed(0));
+                document.getElementById(`total-biaya-pakan-${index}`).value = formatRupiahValue(totalBiayaPakan
+                    .toFixed(0));
             } else {
-                document.getElementById(`total-revenue-${index}`).value = '-';
+                document.getElementById(`jumlah-pakan-${index}`).value = formatRupiahValue(0);
+                document.getElementById(`jumlah-pakan-kilogram-${index}`).value = formatRupiahValue(0);
+                document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = formatRupiahValue(0);
+                document.getElementById(`total-biaya-pakan-${index}`).value = formatRupiahValue(0);
             }
-            updateTotalVariableCost(index);
-            saveToSessionStorage();
-            calculateFixedCost(index)
         }
 
-        function updateTotalVariableCost(index) {
-            let totalBiayaOperasional = parseFloat(document.getElementById(`total-bo-${index}`).value.replace(/[^,\d]/g, '')
-                .replace(',', '.')) || 0;
-            let totalBiayaPakan = parseFloat(document.getElementById(`total-biaya-pakan-${index}`).value.replace(/[^,\d]/g,
-                '').replace(',', '.')) || 0;
+        function hitungBiayaOperasional(index) {
+            var biayaTenagaKerja = parseValue(`biaya-tenaga-kerja-${index}`);
+            var biayaListrik = parseValue(`biaya-listrik-${index}`);
+            var biayaOVK = parseValue(`biaya-ovk-${index}`);
+            var jumlahItik = parseValue(`jumlah-itik-op-${index}`);
+            var jumlahHari = parseValue(`jumlah-hari-operasional-${index}`);
 
-            let totalVariableCost = totalBiayaOperasional + totalBiayaPakan;
-            document.getElementById(`total-variable-cost-${index}`).value = formatRupiahNumber(totalVariableCost);
-            document.getElementById(`total-var-cost-${index}`).value = formatRupiahNumber(totalVariableCost);
-            saveToSessionStorage();
-            calculateFixedCost(index)
+            if (!isNaN(biayaTenagaKerja) && !isNaN(biayaListrik) && !isNaN(biayaOVK) && !isNaN(jumlahItik)) {
+                var biayaOperasional = biayaTenagaKerja + biayaListrik + biayaOVK;
+                var totalBiayaOperasional = biayaOperasional * jumlahItik * jumlahHari;
+
+                document.getElementById(`biaya-op-${index}`).value = formatRupiahValue(biayaOperasional.toFixed(0));
+                document.getElementById(`biaya-op-awal-${index}`).value = formatRupiahValue(biayaOperasional.toFixed(0));
+                document.getElementById(`total-biaya-operasional-${index}`).value = formatRupiahValue(totalBiayaOperasional
+                    .toFixed(0));
+                document.getElementById(`total-bo-${index}`).value = formatRupiahValue(totalBiayaOperasional
+                    .toFixed(0));
+            } else {
+                document.getElementById(`biaya-op-${index}`).value = formatRupiahValue(0);
+                document.getElementById(`biaya-op-awal-${index}`).value = formatRupiahValue(0);
+                document.getElementById(`total-biaya-operasional-${index}`).value = formatRupiahValue(0);
+                document.getElementById(`total-bo-${index}`).value = formatRupiahValue(0);
+            }
         }
 
+        function hitungVariableCost(index) {
+            var totalBiayaOperasional = parseValue(`total-bo-${index}`);
+            var totalBiayaPakan = parseValue(`total-biaya-pakan-${index}`);
+            var penerimaan = parseValue(`total-revenue-${index}`);
 
-        function calculateJumlahPakan(index) {
-            let standardPakan = parseFloat(document.getElementById(`standard-pakan-${index}`).value);
-            let jumlahHari = parseFloat(document.getElementById(`jumlah-hari-${index}`).value);
-            let jumlahItik = parseFloat(document.getElementById(`jumlah-itik-pembelian-pakan-${index}`).value);
-            let hargaPakanElement = document.getElementById(`harga-pakan-${index}`);
+            if (penerimaan != 0) {
+                var totalVariableCost = totalBiayaOperasional + totalBiayaPakan;
 
-            if (hargaPakanElement) {
-                let hargaPakan = parseFloat(hargaPakanElement.value.replace(/[^,\d]/g, '').replace(',', '.'));
+                document.getElementById(`total-variable-cost-${index}`).value = formatRupiahValue(totalVariableCost.toFixed(
+                    0));
+                document.getElementById(`total-var-cost-${index}`).value = formatRupiahValue(totalVariableCost.toFixed(
+                    0));
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Data penerimaan tidak lengkap',
+                    text: `Harap isi data penerimaan!`,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#d33'
+                });
+            }
+        }
 
-                if (!isNaN(standardPakan) && !isNaN(jumlahHari) && !isNaN(jumlahItik)) {
-                    let jumlahPakan = (standardPakan * jumlahHari * jumlahItik) / 1000;
-                    document.getElementById(`jumlah-pakan-${index}`).value = jumlahPakan.toFixed(0);
+        function hitungFixedCost(index) {
+            var sewaKandang = parseValue(`sewa-kandang-${index}`);
+            var penyusutanItik = parseValue(`penyusutan-itik-${index}`);
+            var jumlahItik = parseValue(`jumlah-itik-fixed-cost-${index}`);
+            var jumlahHari = parseValue(`jumlah-hari-${index}`);
+            var penerimaan = parseValue(`total-revenue-${index}`);
 
-                    if (!isNaN(hargaPakan)) {
-                        let totalBiayaPakan = jumlahPakan * hargaPakan;
-                        document.getElementById(`total-biaya-pakan-${index}`).value = formatRupiahNumber(totalBiayaPakan);
-                        document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = formatRupiahNumber(
-                            totalBiayaPakan);
-                    } else {
-                        document.getElementById(`total-biaya-pakan-${index}`).value = '-';
-                        document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = '-';
-                    }
+            if (penerimaan != 0) {
+                if (!isNaN(sewaKandang) && !isNaN(penyusutanItik) && !isNaN(jumlahItik)) {
+                    var totalBiaya = sewaKandang + penyusutanItik;
+                    var fixedCost = totalBiaya * jumlahItik * jumlahHari;
+
+                    document.getElementById(`biaya-fixed-cost-awal-${index}`).value = formatRupiahValue(totalBiaya.toFixed(
+                        0));
+                    document.getElementById(`total-biaya-fixed-cost-awal-${index}`).value = formatRupiahValue(totalBiaya
+                        .toFixed(0));
+                    document.getElementById(`total-fixed-cost-${index}`).value = formatRupiahValue(fixedCost.toFixed(0));
+                    document.getElementById(`total-fixed-cost-akhir-${index}`).value = formatRupiahValue(fixedCost.toFixed(
+                        0));
                 } else {
-                    document.getElementById(`jumlah-pakan-${index}`).value = '-';
-                    document.getElementById(`total-biaya-pakan-${index}`).value = '-';
-                    document.getElementById(`total-biaya-pakan-pembelian-${index}`).value = '-';
+                    document.getElementById(`biaya-fixed-cost-awal-${index}`).value = formatRupiahValue(0);
+                    document.getElementById(`total-biaya-fixed-cost-awal-${index}`).value = formatRupiahValue(0);
+                    document.getElementById(`total-fixed-cost-${index}`).value = formatRupiahValue(0);
+                    document.getElementById(`total-fixed-cost-akhir-${index}`).value = formatRupiahValue(0);
                 }
             } else {
-                console.error(`Element with ID harga-pakan-${index} not found`);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Data penerimaan tidak lengkap',
+                    text: `Harap isi data penerimaan!`,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#d33'
+                });
             }
-            updateTotalVariableCost(index);
-            saveToSessionStorage();
-            calculateFixedCost(index)
         }
 
-        function calculateOperationalCost(i) {
-            const tenagaKerja = parseInt(document.getElementById(`biaya-tenaga-kerja-${i}`).value.replace(/\D/g, ''), 10) ||
-                0;
-            const listrik = parseInt(document.getElementById(`biaya-listrik-${i}`).value.replace(/\D/g, ''), 10) || 0;
-            const ovk = parseInt(document.getElementById(`biaya-ovk-${i}`).value.replace(/\D/g, ''), 10) || 0;
+        function hitungCost(index) {
+            var variableCost = parseValue(`total-var-cost-${index}`);
+            var fixedCost = parseValue(`total-fixed-cost-akhir-${index}`);
 
-            const total = tenagaKerja + listrik + ovk;
-
-            document.getElementById(`biaya-op-${i}`).value = formatRupiahNumber(total);
-            document.getElementById(`biaya-op-awal-${i}`).value = formatRupiahNumber(total);
-            saveToSessionStorage();
+            var totalCost = variableCost + fixedCost;
+            document.getElementById(`total-cost-${index}`).value = formatRupiahValue(totalCost.toFixed(0));
         }
 
-        function calculateTotalOperationalCost(index) {
-
-            const biayaAwalId = `biaya-op-awal-${index}`;
-            const jumlahItikId = `jumlah-itik-op-${index}`;
-            const jumlahHariOperasionalId = `jumlah-hari-operasional-${index}`;
-
-            const biayaAwal = parseInt(document.getElementById(biayaAwalId).value.replace(/\D/g, ''), 10);
-            const jumlahItik = parseInt(document.getElementById(jumlahItikId).value.replace(/\D/g, ''), 10);
-            const jumlahHariOperasional = parseInt(document.getElementById(jumlahHariOperasionalId).value.replace(/\D/g,
-                ''), 10);
-
-            const totalBiaya = biayaAwal * jumlahItik * jumlahHariOperasional;
-
-            document.getElementById(`total-biaya-operasional-${index}`).value = `Rp. ${totalBiaya.toLocaleString('id-ID')}`;
-            document.getElementById(`total-bo-${index}`).value = `Rp. ${totalBiaya.toLocaleString('id-ID')}`;
-
-            updateTotalVariableCost(index);
-            saveToSessionStorage();
-            calculateFixedCost(index)
+        function formatResultRupiah(value) {
+            return formatRupiahValue(value.toFixed(0));
         }
 
-
-        function formatRupiahNumber(number) {
-            return 'Rp. ' + number.toLocaleString('id-ID');
+        function formatResultPresentase(value) {
+            return formatPresentaseValue(value.toFixed(0));
         }
 
-        function formatAsPercentage(value) {
-            return new Intl.NumberFormat('id-ID', {
-                style: 'percent',
-                maximumFractionDigits: 2 // Atur sesuai kebutuhan
-            }).format(value / 100);
+        function formatResultRibuan(value) {
+            return formatRibuanValue(value.toFixed(0)) + ' Itik';
         }
 
-        function calculateFixedCost(index) {
-            let sewaKandang = parseInt(document.getElementById(`sewa-kandang-${index}`).value.replace(/[^0-9]/g, '')) || 0;
-            let penyusutanItik = parseInt(document.getElementById(`penyusutan-itik-${index}`).value.replace(/[^0-9]/g,
-                '')) || 0;
-            let jumlahItikFixedCost = parseInt(document.getElementById(`jumlah-itik-fixed-cost-${index}`).value.replace(
-                /[^0-9]/g, '')) || 0;
-            let jumlahHari = parseInt(document.getElementById(`jumlah-hari-${index}`).value.replace(/[^0-9]/g, '')) || 0;
-
-            let totalVariableCost = parseInt(document.getElementById(`total-variable-cost-${index}`).value.replace(
-                /[^0-9]/g, '')) || 0;
-
-            let totalRevenue = parseInt(document.getElementById(`total-revenue-${index}`).value.replace(/[^0-9]/g, '')) ||
-                0;
-
-            let jmlitik = parseInt(document.getElementById(`jumlah-itik-${index}`).value.replace(/[^0-9]/g, '')) ||
-                0;
-            let hrgitik = parseInt(document.getElementById(`harga-itik-${index}`).value.replace(/[^0-9]/g, '')) ||
-                0;
-
-            let totalBiayaAwal = sewaKandang + penyusutanItik;
-            let totalFixedCost = totalBiayaAwal * jumlahItikFixedCost * jumlahHari;
-
-            let totalCost = totalFixedCost + totalVariableCost;
-
-
-            //bahan analisis
-            biayavarunit = totalVariableCost / jmlitik;
-
-            // analisis
-            let totalLaba = totalRevenue - totalCost;
-            let totalRcratio = totalRevenue / totalCost;
-            let BEPHasil = totalFixedCost / (hrgitik - biayavarunit);
-            let BEPHarga = totalFixedCost / (1 - (biayavarunit / hrgitik));
-            let MOS = ((totalRevenue - BEPHarga) / totalRevenue) * 100;
-
-
-            document.getElementById(`biaya-fixed-cost-awal-${index}`).value = new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR'
-            }).format(totalBiayaAwal);
-
-            document.getElementById(`total-biaya-fixed-cost-awal-${index}`).value = new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR'
-            }).format(totalBiayaAwal);
-
-            document.getElementById(`total-fixed-cost-${index}`).value = new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR'
-            }).format(totalFixedCost);
-
-            document.getElementById(`total-fixed-cost-akhir-${index}`).value = new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR'
-            }).format(totalFixedCost);
-
-            document.getElementById(`total-cost-${index}`).value = new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR'
-            }).format(totalCost);
-            document.getElementById(`laba-${index}`).value = new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR'
-            }).format(totalLaba);
-            document.getElementById(`rc-ratio-${index}`).value = new Intl.NumberFormat('id-ID', {
-                maximumFractionDigits: 2
-            }).format(totalRcratio);
-            document.getElementById(`BEP-hasil-${index}`).value = new Intl.NumberFormat('id-ID', {
-                maximumFractionDigits: 0
-            }).format(BEPHasil);
-            document.getElementById(`BEP-harga-${index}`).value = new Intl.NumberFormat('id-ID', {
-                maximumFractionDigits: 0
-            }).format(BEPHarga);
-            document.getElementById(`margin-of-safety-${index}`).value = formatAsPercentage(MOS);
-
-            saveToSessionStorage();
-
+        function Hasil(index) {
+            hitungMOS(index);
+            hitungRC(index);
+            hitungBepHarga(index);
+            hitungBepHasil(index);
+            hitungLaba(index);
         }
 
+        function hitungMOS(index) {
+            var penerimaan = parseValue(`total-revenue-${index}`);
+            var bepHarga = parseValue(`bep-harga-${index}`);
+            var mos = penerimaan ? ((penerimaan - bepHarga) / penerimaan) * 100 : 0;
+            document.getElementById(`mos-${index}`).value = formatResultPresentase(mos);
+        }
 
+        function hitungRC(index) {
+            var penerimaan = parseValue(`total-revenue-${index}`);
+            var pengeluaran = parseValue(`total-cost-${index}`);
+            var rc = pengeluaran ? penerimaan / pengeluaran : 0;
+            document.getElementById(`rc-${index}`).value = rc.toFixed(2);
+        }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            loadFromSessionStorage();
+        function hitungBepHarga(index) {
+            var jumlahItik = parseValue(`jumlah-itik-awal-${index}`);
+            var hargaItik = parseValue(`harga-itik-${index}`);
+            var totalFixedCost = parseValue(`total-fixed-cost-${index}`);
 
-            document.querySelectorAll(
-                'input[id^="jumlah-itik-awal-"], input[id^="presentase-mortalitas-"], input[id^="standard-pakan-"], input[id^="jumlah-hari-"], input[id^="harga-pakan-"]'
-            ).forEach(input => {
-                input.addEventListener('input', function() {
-                    let index = this.id.split('-').pop();
-                    if (this.id.startsWith('harga-pakan-')) {
-                        formatRupiah(this);
-                    } else {
-                        updateJumlahItik(this);
-                    }
-                });
-            });
+            var variablePerItik = totalFixedCost / jumlahItik;
 
-            document.querySelectorAll(
-                'input[id^="biaya-tenaga-kerja-"], input[id^="biaya-listrik-"], input[id^="biaya-ovk-"], input[id^="jumlah-itik-op-"], input[id^="jumlah-hari-operasional-"]'
-            ).forEach(input => {
-                input.addEventListener('input', function() {
-                    let index = this.id.split('-').pop();
-                    calculateOperationalCost(index);
-                    calculateTotalOperationalCost(index);
-                });
-            });
+            var bepHarga = hargaItik ? totalFixedCost / (1 - (variablePerItik / hargaItik)) : 0;
+            document.getElementById(`bep-harga-${index}`).value = formatResultRupiah(bepHarga);
+        }
 
-            document.querySelectorAll(
-                'input[id^="total-biaya-pakan-"], input[id^="total-revenue-"]'
-            ).forEach(input => {
-                input.addEventListener('input', function() {
-                    let index = this.id.split('-').pop();
-                    calculateTotalVariableCost(index);
-                });
-            });
+        function hitungBepHasil(index) {
+            var jumlahItik = parseValue(`jumlah-itik-awal-${index}`);
+            var hargaItik = parseValue(`harga-itik-${index}`);
+            var totalFixedCost = parseValue(`total-fixed-cost-${index}`);
 
-            document.querySelectorAll(
-                'input[id^="sewa-kandang-"], input[id^="penyusutan-itik-"], input[id^="jumlah-itik-fixed-cost-"], input[id^="jumlah-hari-"]'
-            ).forEach(input => {
-                input.addEventListener('input', function() {
-                    let index = this.id.split('-').pop();
-                    calculateFixedCost(index);
-                });
-            });
-        });
-        document.getElementById("tab-1").click();
+            var variablePerItik = totalFixedCost / jumlahItik;
+
+            var bepHasil = hargaItik ? totalFixedCost / (hargaItik - variablePerItik) : 0;
+            document.getElementById(`bep-hasil-${index}`).value = formatResultRibuan(bepHasil);
+        }
+
+        function hitungLaba(index) {
+            var penerimaan = parseValue(`total-revenue-${index}`);
+            var pengeluaran = parseValue(`total-cost-${index}`);
+            var laba = penerimaan - pengeluaran;
+            document.getElementById(`laba-${index}`).value = formatResultRupiah(laba);
+        }
     </script>
 
     <style>
@@ -1276,5 +1379,4 @@
             color: #8B4513;
         }
     </style>
-
 @endsection

@@ -40,8 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('penetasan', [PenetasanController::class, 'index'])->name('penetasan');
     Route::post('penetasan', [PenetasanController::class, 'store'])->name('penetasan.store');
 
-    Route::resource('penggemukan', PenggemukanController::class);
-    Route::resource('layer', LayerController::class);
+    Route::get('penggemukan', [PenggemukanController::class, 'index'])->name('penggemukan');
+    Route::post('penggemukan', [PenggemukanController::class, 'store'])->name('penggemukan.store');
 
     Route::get('layer', [LayerController::class, 'index'])->name('layer');
 

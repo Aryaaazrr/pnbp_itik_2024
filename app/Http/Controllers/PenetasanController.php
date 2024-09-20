@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Analisis;
 use App\Models\DetailPenetasan;
 use App\Models\Penetasan;
 use Exception;
@@ -34,37 +35,8 @@ class PenetasanController extends Controller
     public function index()
     {
         $userId = auth()->id();
-        $penetasan = Penetasan::where('id_users', $userId)
-            ->latest()
-            ->with('detail_penetasan')
-            ->first();
-        $details = $penetasan ? collect($penetasan->detail_penetasan) : collect([]);
 
-        if ($details->isEmpty()) {
-            $details = collect([
-                (object)[
-                    'periode' => 'No Data',
-                    'total_revenue' => 0,
-                    'total_cost' => 0,
-                ]
-            ]);
-        }
-
-        $chart = (new LarapexChart)->barChart()
-            ->setTitle('Total Revenue vs Total Cost')
-            ->setDataset([
-                [
-                    'name' => 'Total Revenue',
-                    'data' => $details->pluck('total_revenue')->toArray()
-                ],
-                [
-                    'name' => 'Total Cost',
-                    'data' => $details->pluck('total_cost')->toArray()
-                ]
-            ])
-            ->setLabels($details->pluck('periode')->toArray());
-
-        return view('pages.analisis.penetasan.index', compact('userId', 'chart', 'details'));
+        return view('pages.analisis.penetasan.index', compact('userId'));
     }
 
 
@@ -89,15 +61,16 @@ class PenetasanController extends Controller
             Log::info('Data diterima:', $request->all());
             $data = $request->all();
 
-            $penetasan = Penetasan::create([
+            $analisis = Analisis::create([
                 'id_users' => $data[0]['user-id'],
-                'image_diagram' => '-'
+                'id_tipe_analisis' => 1,
             ]);
+
             for ($index = 0; $index < 6; $index++) {
                 $periodeData = $data[$index] ?? [];
 
                 DetailPenetasan::create([
-                    'id_penetasan' => $penetasan->id_penetasan,
+                    'id_analisis' => $analisis->id_analisis,
                     'periode' => $index + 1,
                     'jumlah_telur' => $this->formatNumber($periodeData['jumlah-telur-' . ($index + 1)]),
                     'presentase_menetas' => $this->formatPresentase($periodeData['presentase-menetas-' . ($index + 1)]),

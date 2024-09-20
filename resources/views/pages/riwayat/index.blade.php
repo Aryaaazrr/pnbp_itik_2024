@@ -29,38 +29,47 @@
                 </div>
 
                 <div id="data" class="mt-6 flow-root sm:mt-8">
-                    @if ($penetasan->count())
-                        <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                            {{-- data looping --}}
-                            @foreach ($penetasan as $item)
+                    @if ($data->count() != null)
+                        @forelse ($data as $item => $items)
+                            <div class="divide-y divide-gray-200 dark:divide-gray-700">
                                 <div class="flex flex-wrap items-center gap-y-4 py-6">
                                     <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                         <dt class="text-base font-medium text-gray-500 dark:text-gray-400">No :</dt>
                                         <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                                            <a href="" class="hover:underline"># {{ $loop->iteration }}</a>
+                                            <a href="#" class="hover:underline"># {{ $loop->iteration }}</a>
                                         </dd>
                                     </dl>
 
                                     <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-                                        <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Tanggal Analisis
-                                            :
-                                        </dt>
+                                        <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Tanggal
+                                            Analisis :</dt>
                                         <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                                            {{ $item->created_at }}</dd>
+                                            {{ $items->created_at->format('d-m-Y') }}
+                                        </dd>
                                     </dl>
 
                                     <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-                                        <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Pengguna :</dt>
+                                        <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Pengguna :
+                                        </dt>
                                         <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                                            {{ $item->users->username }}</dd>
+                                            {{ $items->users->username }}
+                                        </dd>
                                     </dl>
 
                                     <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                         <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Status :</dt>
                                         <dd
-                                            class="me-2 mt-1.5 inline-flex items-center rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
+                                            class="me-2 mt-1.5 inline-flex itemss-center rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
                                             <i class="me-1 fas fa-save h-3 w-3"></i>
                                             Tersimpan
+                                        </dd>
+                                    </dl>
+
+                                    <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
+                                        <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Tipe Analisis
+                                            :</dt>
+                                        <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
+                                            {{ $items->tipe_analisis->nama_tipe }}
                                         </dd>
                                     </dl>
 
@@ -68,28 +77,22 @@
                                         class="w-full grid sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4">
                                         <button type="button"
                                             class="w-full rounded-lg border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto"
-                                            onclick="confirmDelete({{ $item->id_penetasan }})">Hapus
+                                            onclick="">Hapus
                                             Riwayat</button>
-                                        <a href="{{ route('riwayat.show', $item->id_penetasan) }}"
-                                            class="w-full inline-flex justify-center rounded-lg text-center  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:w-auto">View
-                                            details</a>
+                                        <a href="{{ route('riwayat.show', $items->id_analisis) }}"
+                                            class="w-full inline-flex justify-center rounded-lg text-center border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:w-auto">
+                                            View Details
+                                        </a>
                                     </div>
                                 </div>
-
-                                <nav class="mt-6 flex items-center justify-center sm:mt-8"
-                                    aria-label="Page navigation example">
-                                    {{ $penetasan->links('pagination::tailwind') }}
-                                </nav>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     @else
                         <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                            {{-- kosong --}}
                             <div class="flex flex-wrap items-center gap-y-4 py-6">
-                                <dl class="w-1/2 sm:w-1/4 lg:w-auto text-center lg:flex-1">
-                                    <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Data riwayat analisa
-                                        masih kosong.</dt>
-                                </dl>
+                                <div class="w-full flex justify-center">
+                                    <h1>Data daftar riwayat masih kosong</h1>
+                                </div>
                             </div>
                         </div>
                     @endif
