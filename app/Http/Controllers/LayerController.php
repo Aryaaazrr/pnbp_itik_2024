@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Analisis;
 use Illuminate\Http\Request;
 use App\Models\Layer;
 use App\Models\DetailLayer;
@@ -14,32 +15,8 @@ class LayerController extends Controller
     public function index()
     {
         $userId = auth()->id();
-        $layer = Layer::where('id_users', $userId)->latest()->first();
-        $details = $layer ? $layer->details : collect([]);
-        if ($details->isEmpty()) {
-            $details = collect([
-                (object)[
-                    'periode' => 'No Data',
-                    'total_revenue' => 0,
-                    'total_cost' => 0,
-                ]
-            ]);
-        }
-        $chart = (new LarapexChart)->barChart()
-            ->setTitle('Total Revenue vs Total Cost')
-            ->setDataset([
-                [
-                    'name' => 'Total Revenue',
-                    'data' => $details->pluck('total_revenue')->toArray()
-                ],
-                [
-                    'name' => 'Total Cost',
-                    'data' => $details->pluck('total_cost')->toArray()
-                ]
-            ])
-            ->setLabels($details->pluck('periode')->toArray());
 
-        return view('pages.analisis.layer.index', compact('userId', 'chart'));
+        return view('pages.analisis.layer.index', compact('userId'));
     }
 
     public function create() {}
@@ -49,7 +26,7 @@ class LayerController extends Controller
         $data = $request->json()->all();
         Log::info('Data yang diterima', ['data' => $data]);
 
-        $layer = Layer::create([
+        $layer = Analisis::create([
             'id_users' => $data['id_users'],
             'image_diagram' => $data['image_diagram'] ?? null,
         ]);

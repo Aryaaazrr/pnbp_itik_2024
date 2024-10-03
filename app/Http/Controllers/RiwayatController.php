@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Analisis;
+use App\Models\DetailLayer;
 use App\Models\DetailPenetasan;
+use App\Models\DetailPenggemukan;
+use App\Models\Layer;
 use App\Models\Penetasan;
+use App\Models\Penggemukan;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Illuminate\Http\Request;
 
@@ -15,12 +20,13 @@ class RiwayatController extends Controller
     public function index()
     {
         $userId = auth()->id();
-        $penetasan = Penetasan::where('id_users', $userId)
-            ->with('detail_penetasan')
+        $data = Analisis::where('id_users', $userId)
+            ->with('tipe_analisis')
+            ->with('users')
             ->where('deleted_at', null)
-            ->paginate(10);
+            ->get();
 
-        return view('pages.riwayat.index', ['penetasan' => $penetasan]);
+        return view('pages.riwayat.index', ['data' => $data]);
     }
 
     /**
@@ -44,8 +50,9 @@ class RiwayatController extends Controller
      */
     public function show(string $id)
     {
-        $penetasan = Penetasan::where('id_penetasan', $id)->with('detail_penetasan')->get();
-        return view('pages.riwayat.detail.index', ['penetasan' => $penetasan]);
+        $data = Analisis::where('id_analisis', $id)->with('tipe_analisis')->first();
+
+        return view('pages.riwayat.detail.index', ['data' => $data]);
     }
 
     /**
@@ -54,9 +61,19 @@ class RiwayatController extends Controller
     public function showData(Request $request, string $id)
     {
         $periode = $request->query('periode', 1);
-        $penetasan = DetailPenetasan::where('id_penetasan', $id)->orderBy('periode')->get();
-        $data = 1;
-        return view('pages.riwayat.detail.show', ['penetasan' => $penetasan, 'data' => $data, 'currentPeriod' => $periode]);
+        $show = 'data';
+        $analisis = Analisis::where('id_analisis', $id)->with('tipe_analisis')->first();
+        $tipe = $analisis->tipe_analisis->nama_tipe;
+
+        if ($tipe == 'Penetasan') {
+            $detail = DetailPenetasan::where('id_analisis', $id)->orderBy('periode')->get();
+        } elseif ($tipe == 'Penggemukan') {
+            $detail = DetailPenggemukan::where('id_analisis', $id)->orderBy('periode')->get();
+        } else {
+            $detail = DetailLayer::where('id_analisis', $id)->orderBy('periode')->get();
+        }
+
+        return view('pages.riwayat.detail.show', ['show' => $show, 'currentPeriod' => $periode, 'detail' => $detail, 'type' => $tipe]);
     }
 
     /**
@@ -64,10 +81,19 @@ class RiwayatController extends Controller
      */
     public function showGrafik(string $id)
     {
-        $penetasan = Penetasan::where('id_penetasan', $id)->with('detail_penetasan')->first();
-        $data = 0;
+        $show = 'grafik';
+        $analisis = Analisis::where('id_analisis', $id)->with('tipe_analisis')->first();
+        $type = $analisis->tipe_analisis->nama_tipe;
 
-        $details = $penetasan ? collect($penetasan->detail_penetasan) : collect([]);
+        $details = collect();
+
+        if ($type == 'Penetasan') {
+            $details = DetailPenetasan::where('id_analisis', $id)->get();
+        } elseif ($type == 'Penggemukan') {
+            $details = DetailPenggemukan::where('id_analisis', $id)->get();
+        } else {
+            $details = DetailLayer::where('id_analisis', $id)->get();
+        }
 
         if ($details->isEmpty()) {
             $details = collect([
@@ -102,15 +128,22 @@ class RiwayatController extends Controller
             ])
             ->setLabels($labels);
 
-        return view('pages.riwayat.detail.show', ['penetasan' => $penetasan, 'data' => $data, 'chart' => $chart]);
+        $data = $details;
+
+        return view('pages.riwayat.detail.show', [
+            'data' => $data,
+            'chart' => $chart,
+            'show' => $show,
+        ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit()
     {
-        $penetasan = Penetasan::onlyTrashed()->paginate(10);
+        $penetasan = Analisis::onlyTrashed()->paginate(10);
 
         return view('pages.riwayat.trash.index', ['penetasan' => $penetasan]);
     }
@@ -128,7 +161,7 @@ class RiwayatController extends Controller
      */
     public function destroy($id)
     {
-        $penetasan = Penetasan::find($id);
+        $penetasan = Analisis::find($id);
         if ($penetasan) {
             $penetasan->delete();
             return response()->json(['message' => 'Data berhasil dipindahkan ke sampah.']);
@@ -138,7 +171,7 @@ class RiwayatController extends Controller
 
     public function restore($id)
     {
-        $penetasan = Penetasan::withTrashed()->find($id);
+        $penetasan = Analisis::withTrashed()->find($id);
         if ($penetasan) {
             $penetasan->restore();
             return response()->json(['message' => 'Data berhasil dipulihkan.']);
@@ -148,7 +181,7 @@ class RiwayatController extends Controller
 
     public function forceDelete($id)
     {
-        $penetasan = Penetasan::withTrashed()->find($id);
+        $penetasan = Analisis::withTrashed()->find($id);
         if ($penetasan) {
             $penetasan->forceDelete();
             return response()->json(['message' => 'Data berhasil dihapus permanen.']);
