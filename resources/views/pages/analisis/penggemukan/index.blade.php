@@ -318,24 +318,24 @@
                                         <div class="w-full sm:w-1/5">
                                             <label for="standard-pakan-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                Standard Pakan (Gram)
+                                                Standard Pakan (Kilogram)
                                             </label>
-                                            <input type="text" id="standard-pakan-{{ $i }}" value="70"
+                                            <input type="text" id="standard-pakan-{{ $i }}" value="3"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 readonly>
                                         </div>
 
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
+                                        {{-- <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round">
                                                 <line x1="18" y1="6" x2="6" y2="18" />
                                                 <line x1="6" y1="6" x2="18" y2="18" />
                                             </svg>
-                                        </span>
+                                        </span> --}}
 
                                         <!-- Jumlah Hari -->
-                                        <div class="w-full sm:w-1/5">
+                                        {{-- <div class="w-full sm:w-1/5">
                                             <label for="jumlah-hari-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Hari
@@ -343,7 +343,7 @@
                                             <input type="text" id="jumlah-hari-{{ $i }}" value="80"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 readonly>
-                                        </div>
+                                        </div> --}}
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
@@ -546,16 +546,16 @@
                                                 placeholder="0" readonly>
                                         </div>
 
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
+                                        {{-- <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round">
                                                 <line x1="18" y1="6" x2="6" y2="18" />
                                                 <line x1="6" y1="6" x2="18" y2="18" />
                                             </svg>
-                                        </span>
+                                        </span> --}}
 
-                                        <div class="w-full sm:w-1/5">
+                                        {{-- <div class="w-full sm:w-1/5">
                                             <label for="jumlah-hari-operasional-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Hari Operasional
@@ -564,7 +564,7 @@
                                                 value="80" id="jumlah-hari-operasional-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="0" readonly>
-                                        </div>
+                                        </div> --}}
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
@@ -613,7 +613,7 @@
                                         <div class="w-full sm:w-1/4">
                                             <label for="penyusutan-itik-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Penyusutan
-                                                Itik</label>
+                                                Alat</label>
                                             <input type="text" name="penyusutan-itik-{{ $i }}"
                                                 id="penyusutan-itik-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -679,7 +679,7 @@
                                             </svg>
                                         </span>
 
-                                        <div class="w-full sm:w-1/5">
+                                        {{-- <div class="w-full sm:w-1/5">
                                             <label for="jumlah-hari-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Hari</label>
@@ -687,7 +687,7 @@
                                                 id="jumlah-hari-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="0" readonly>
-                                        </div>
+                                        </div> --}}
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
@@ -834,10 +834,10 @@
                         id: `standard-pakan-${index}`,
                         message: 'Harap isi data standard pakan!'
                     },
-                    {
-                        id: `jumlah-hari-${index}`,
-                        message: 'Harap isi data jumlah hari!'
-                    },
+                    // {
+                    //     id: `jumlah-hari-${index}`,
+                    //     message: 'Harap isi data jumlah hari!'
+                    // },
                     {
                         id: `jumlah-pakan-${index}`,
                         message: 'Harap isi data jumlah pakan!'
@@ -880,7 +880,7 @@
                     },
                     {
                         id: `penyusutan-itik-${index}`,
-                        message: 'Harap isi data penyusutan itik!'
+                        message: 'Harap isi data penyusutan alat!'
                     },
                     {
                         id: `biaya-fixed-cost-awal-${index}`,
@@ -1190,13 +1190,13 @@
 
         function hitungPembelianPakan(index) {
             var standardPakan = parseValue(`standard-pakan-${index}`);
-            var jumlahHari = parseValue(`jumlah-hari-${index}`);
+            // var jumlahHari = parseValue(`jumlah-hari-${index}`);
             var jumlahItik = parseValue(`jumlah-itik-awal-${index}`);
 
             if (!isNaN(jumlahItik)) {
                 var hargaPakan = parseValue(`harga-pakan-${index}`);
 
-                var jumlahPakanKilogram = (standardPakan * jumlahHari * jumlahItik) / 1000;
+                var jumlahPakanKilogram = (standardPakan * jumlahItik);
                 var totalBiayaPakan = jumlahPakanKilogram * hargaPakan;
 
                 document.getElementById(`jumlah-pakan-${index}`).value = formatRupiahValue(jumlahPakanKilogram.toFixed(0));
@@ -1219,11 +1219,11 @@
             var biayaListrik = parseValue(`biaya-listrik-${index}`);
             var biayaOVK = parseValue(`biaya-ovk-${index}`);
             var jumlahItik = parseValue(`jumlah-itik-op-${index}`);
-            var jumlahHari = parseValue(`jumlah-hari-operasional-${index}`);
+            // var jumlahHari = parseValue(`jumlah-hari-operasional-${index}`);
 
             if (!isNaN(biayaTenagaKerja) && !isNaN(biayaListrik) && !isNaN(biayaOVK) && !isNaN(jumlahItik)) {
                 var biayaOperasional = biayaTenagaKerja + biayaListrik + biayaOVK;
-                var totalBiayaOperasional = biayaOperasional * jumlahItik * jumlahHari;
+                var totalBiayaOperasional = biayaOperasional * jumlahItik;
 
                 document.getElementById(`biaya-op-${index}`).value = formatRupiahValue(biayaOperasional.toFixed(0));
                 document.getElementById(`biaya-op-awal-${index}`).value = formatRupiahValue(biayaOperasional.toFixed(0));
@@ -1266,13 +1266,13 @@
             var sewaKandang = parseValue(`sewa-kandang-${index}`);
             var penyusutanItik = parseValue(`penyusutan-itik-${index}`);
             var jumlahItik = parseValue(`jumlah-itik-fixed-cost-${index}`);
-            var jumlahHari = parseValue(`jumlah-hari-${index}`);
+            // var jumlahHari = parseValue(`jumlah-hari-${index}`);
             var penerimaan = parseValue(`total-revenue-${index}`);
 
             if (penerimaan != 0) {
                 if (!isNaN(sewaKandang) && !isNaN(penyusutanItik) && !isNaN(jumlahItik)) {
                     var totalBiaya = sewaKandang + penyusutanItik;
-                    var fixedCost = totalBiaya * jumlahItik * jumlahHari;
+                    var fixedCost = totalBiaya * jumlahItik;
 
                     document.getElementById(`biaya-fixed-cost-awal-${index}`).value = formatRupiahValue(totalBiaya.toFixed(
                         0));

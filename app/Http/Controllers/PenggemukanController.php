@@ -62,7 +62,7 @@ class PenggemukanController extends Controller
                     'harga_itik_dijual' => $this->formatRupiah($periodeData['harga-itik-' . ($index + 1)]),
                     'total_revenue' => $this->formatRupiah($periodeData['total-revenue-' . ($index + 1)]),
                     'standard_pakan' => $this->formatNumber($periodeData['standard-pakan-' . ($index + 1)]),
-                    'jumlah_hari' => $this->formatNumber($periodeData['jumlah-hari-' . ($index + 1)]),
+                    // 'jumlah_hari' => $this->formatNumber($periodeData['jumlah-hari-' . ($index + 1)]),
                     'jumlah_pakan' => $this->formatRupiah($periodeData['jumlah-pakan-' . ($index + 1)]),
                     'harga_pakan' => $this->formatRupiah($periodeData['harga-pakan-' . ($index + 1)]),
                     'total_biaya_pakan' => $this->formatRupiah($periodeData['total-biaya-pakan-' . ($index + 1)]),

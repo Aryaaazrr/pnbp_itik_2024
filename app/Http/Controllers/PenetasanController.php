@@ -83,7 +83,7 @@ class PenetasanController extends Controller
                     'biaya_listrik' => $this->formatRupiah($periodeData['biaya-listrik-' . ($index + 1)]),
                     'biaya_ovk' => $this->formatRupiah($periodeData['biaya-ovk-' . ($index + 1)]),
                     'biaya_operasional' => $this->formatRupiah($periodeData['biaya-op-variable-cost-' . ($index + 1)]),
-                    'jumlah_hari' => $this->formatRupiah($periodeData['jumlah-hari-' . ($index + 1)]),
+                    // 'jumlah_hari' => $this->formatRupiah($periodeData['jumlah-hari-' . ($index + 1)]),
                     'total_biaya_operasional' => $this->formatRupiah($periodeData['total-biaya-op-' . ($index + 1)]),
                     'total_variable_cost' => $this->formatRupiah($periodeData['total-variable-cost-' . ($index + 1)]),
                     'sewa_kandang' => $this->formatRupiah($periodeData['sewa-kandang-pertama-' . ($index + 1)]),

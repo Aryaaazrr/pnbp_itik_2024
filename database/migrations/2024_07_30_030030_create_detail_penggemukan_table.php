@@ -20,7 +20,6 @@ return new class extends Migration
             $table->decimal('harga_itik_dijual', 20, 2);
             $table->decimal('total_revenue', 20, 2);
             $table->integer('standard_pakan');
-            $table->integer('jumlah_hari');
             $table->decimal('jumlah_pakan', 20, 2);
             $table->decimal('harga_pakan', 20, 2);
             $table->decimal('total_biaya_pakan', 20, 2);

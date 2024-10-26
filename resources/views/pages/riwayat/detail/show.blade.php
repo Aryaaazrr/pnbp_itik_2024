@@ -861,7 +861,7 @@
                                                         </svg>
                                                     </span>
 
-                                                    <div class="w-full sm:w-1/5">
+                                                    {{-- <div class="w-full sm:w-1/5">
                                                         <label for="jumlah-hari-{{ $i }}"
                                                             class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                             Hari</label>
@@ -869,7 +869,7 @@
                                                             id="jumlah-hari-{{ $i }}"
                                                             class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                             placeholder="60 Hari" readonly value="60">
-                                                    </div>
+                                                    </div> --}}
 
                                                     <span class="flex items-center justify-center sm:w-auto w-full">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
@@ -1007,7 +1007,7 @@
                                                         </svg>
                                                     </span>
 
-                                                    <div class="w-full sm:w-1/5">
+                                                    {{-- <div class="w-full sm:w-1/5">
                                                         <label for="jumlah-hari-{{ $i }}"
                                                             class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                             Hari</label>
@@ -1015,7 +1015,7 @@
                                                             id="jumlah-hari-{{ $i }}"
                                                             class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                             placeholder="60 Hari" readonly value="60">
-                                                    </div>
+                                                    </div> --}}
 
                                                     <span class="flex items-center justify-center sm:w-auto w-full">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
@@ -1108,8 +1108,7 @@
                                                 <span class="flex items-center justify-center sm:w-auto w-full">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                         <line x1="5" y1="9" x2="19"
                                                             y2="9" />
                                                         <line x1="5" y1="15" x2="19"
