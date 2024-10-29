@@ -344,13 +344,8 @@
                                             <input type="text" name="harga-telur-{{ $i }}"
                                                 id="harga-telur-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 0" required
-                                                oninput="formatRupiah(this); hitungPembelianTelur({{ $i }})">
-                                            {{-- <input type="text" name="biaya-tenaga-kerja-{{ $i }}"
-                                                id="biaya-tenaga-kerja-{{ $i }}"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Rp 0" required
-                                                oninput="formatRupiah(this); hitungBiayaOperasional({{ $i }}); hitungVariableCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})"> --}}
+                                                oninput="formatRupiah(this); hitungPembelianTelur({{ $i }})"
+                                                placeholder="Rp 0" required>
                                         </div>
 
                                         <span
@@ -448,7 +443,7 @@
                                                 placeholder="Rp 0" readonly>
                                         </div>
 
-                                        <div class="w-full sm:w-1/5">
+                                        <div class="w-full sm:w-1/4">
                                             <label for="biaya-op-variable-cost-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
                                                 Operasional</label>
@@ -467,7 +462,7 @@
                                             </svg>
                                         </span>
 
-                                        <div class="w-full sm:w-1/5">
+                                        <div class="w-full sm:w-1/4">
                                             <label for="jumlah-telur-variable-cost-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Telur (Butir)</label>
@@ -478,25 +473,6 @@
                                                 readonly>
                                         </div>
 
-                                        {{-- <span class="flex items-center justify-center sm:w-auto w-full">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <line x1="18" y1="6" x2="6" y2="18" />
-                                                <line x1="6" y1="6" x2="18" y2="18" />
-                                            </svg>
-                                        </span> --}}
-
-                                        {{-- <div class="w-full sm:w-1/5">
-                                            <label for="jumlah-hari-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                Hari</label>
-                                            <input type="text" name="jumlah-hari-{{ $i }}"
-                                                id="jumlah-hari-{{ $i }}"
-                                                class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="60" readonly value="60">
-                                        </div> --}}
-
                                         <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2"
@@ -506,7 +482,7 @@
                                             </svg>
                                         </span>
 
-                                        <div class="w-full sm:w-1/4">
+                                        <div class="w-full sm:w-1/3">
                                             <label for="total-biaya-op-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
                                                 Biaya Operasional</label>
@@ -522,11 +498,11 @@
                                         {{ $i }}</h2>
                                     <div class="flex flex-wrap gap-4 mb-4 justify-center">
                                         <div class="w-full sm:w-1/4">
-                                            <label for="sewa-kandang-pertama-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
-                                                Mesin</label>
-                                            <input type="text" name="sewa-kandang-pertama-{{ $i }}"
-                                                id="sewa-kandang-pertama-{{ $i }}"
+                                            <label for="penyusutan-alat-{{ $i }}"
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Penyusutan
+                                                Alat</label>
+                                            <input type="text" name="penyusutan-alat-{{ $i }}"
+                                                id="penyusutan-alat-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp 0" required
                                                 oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
@@ -542,11 +518,11 @@
                                         </span>
 
                                         <div class="w-full sm:w-1/4">
-                                            <label for="penyusutan-{{ $i }}"
-                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Penyusutan
-                                                Peralatan</label>
-                                            <input type="text" name="penyusutan-{{ $i }}"
-                                                id="penyusutan-{{ $i }}"
+                                            <label for="sewa-mesin-{{ $i }}"
+                                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
+                                                Mesin</label>
+                                            <input type="text" name="sewa-mesin-{{ $i }}"
+                                                id="sewa-mesin-{{ $i }}"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="Rp 0" required
                                                 oninput="formatRupiah(this); hitungFixedCost({{ $i }}); hitungCost({{ $i }}); Hasil({{ $i }})">
@@ -571,7 +547,7 @@
                                                 placeholder="Rp 0" readonly>
                                         </div>
 
-                                        <div class="w-full sm:w-1/5">
+                                        <div class="w-full sm:w-1/4">
                                             <label for="total-biaya-fixed-cost-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
                                                 Biaya</label>
@@ -590,7 +566,7 @@
                                             </svg>
                                         </span>
 
-                                        <div class="w-full sm:w-1/5">
+                                        <div class="w-full sm:w-1/4">
                                             <label for="jumlah-telur-fixed-cost-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Telur (Butir)</label>
@@ -599,25 +575,6 @@
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="0" required readonly>
                                         </div>
-
-                                        {{-- <span class="flex items-center justify-center sm:w-auto w-full">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                                    fill="none" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                    <line x1="18" y1="6" x2="6" y2="18" />
-                                                    <line x1="6" y1="6" x2="18" y2="18" />
-                                                </svg>
-                                            </span>
-
-                                            <div class="w-full sm:w-1/5">
-                                                <label for="jumlah-hari-{{ $i }}"
-                                                    class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                    Hari</label>
-                                                <input type="text" name="jumlah-hari-{{ $i }}"
-                                                    id="jumlah-hari-{{ $i }}"
-                                                    class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                    placeholder="60" readonly value="60">
-                                            </div> --}}
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
@@ -628,7 +585,7 @@
                                             </svg>
                                         </span>
 
-                                        <div class="w-full sm:w-1/4">
+                                        <div class="w-full sm:w-1/3">
                                             <label for="total-fixed-cost-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
                                                 Fixed Cost</label>
@@ -825,12 +782,12 @@
                         message: 'Harap isi data total biaya operasional!'
                     },
                     {
-                        id: `sewa-kandang-pertama-${index}`,
+                        id: `penyusutan-alat-${index}`,
                         message: 'Harap isi data sewa kandang!'
                     },
                     {
-                        id: `penyusutan-${index}`,
-                        message: 'Harap isi data penyusutan peralatan!'
+                        id: `sewa-mesin-${index}`,
+                        message: 'Harap isi data sewa-mesin peralatan!'
                     },
                     {
                         id: `total-biaya-${index}`,
@@ -840,10 +797,6 @@
                         id: `total-biaya-fixed-cost-${index}`,
                         message: 'Harap isi data total biaya fixed cost!'
                     },
-                    // {
-                    //     id: `jumlah-hari-${index}`,
-                    //     message: 'Harap isi data jumlah hari!'
-                    // },
                     {
                         id: `total-fixed-cost-${index}`,
                         message: 'Harap isi data total fixed cost!'
@@ -1180,6 +1133,7 @@
             var hargaTelur = parseInt(document.getElementById(`harga-telur-${index }`).value.replace(/[^,\d]/g,
                 '').replace(',', '.'), 10);
             var jumlahTelur = parseInt(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
+            var hargaTelur = parseInt(document.getElementById(`harga-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
 
             if (!isNaN(jumlahTelur)) {
                 var totalPembelianTelur = jumlahTelur * hargaTelur;
@@ -1227,17 +1181,17 @@
         }
 
         function hitungFixedCost(index) {
-            var sewaKandangPertama = parseInt(document.getElementById(`sewa-kandang-pertama-${index}`).value.replace(
+            var sewaKandang = parseInt(document.getElementById(`penyusutan-alat-${index}`).value.replace(
                 /[^,\d]/g,
                 '').replace(',', '.'), 10);
-            var sewaKandangKedua = parseInt(document.getElementById(`penyusutan-${index}`).value.replace(/[^,\d]/g,
+            var sewaMesin = parseInt(document.getElementById(`sewa-mesin-${index}`).value.replace(/[^,\d]/g,
                 '').replace(',', '.'), 10);
             var jumlahTelur = parseInt(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
             var penerimaan = parseValue(`total-revenue-${index}`)
 
             if (penerimaan != 0) {
-                if (!isNaN(sewaKandangPertama) && !isNaN(sewaKandangKedua) && !isNaN(jumlahTelur)) {
-                    var totalBiaya = sewaKandangPertama + sewaKandangKedua;
+                if (!isNaN(sewaKandang) && !isNaN(sewaMesin) && !isNaN(jumlahTelur)) {
+                    var totalBiaya = sewaKandang + sewaMesin;
                     var totalFixedCost = totalBiaya * jumlahTelur;
 
                     document.getElementById(`total-biaya-${index}`).value = formatRupiahValue(totalBiaya.toFixed(0));

@@ -27,8 +27,8 @@ return new class extends Migration
             $table->decimal('biaya_operasional', 20, 2);
             $table->decimal('total_biaya_operasional', 20, 2);
             $table->decimal('total_variable_cost', 20, 2);
-            $table->decimal('sewa_kandang', 20, 2);
-            $table->decimal('penyusutan_peralatan', 20, 2);
+            $table->decimal('penyusutan_alat', 20, 2);
+            $table->decimal('sewa_mesin', 20, 2);
             $table->decimal('total_biaya', 20, 2);
             $table->decimal('total_fixed_cost', 20, 2);
             $table->decimal('total_cost', 20, 2);
