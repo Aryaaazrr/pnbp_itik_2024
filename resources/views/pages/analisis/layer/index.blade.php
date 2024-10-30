@@ -20,7 +20,7 @@
         <div class="flex justify-center">
             <ul
                 class="flex flex-wrap justify-center w-full text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
-                @for ($i = 1; $i <= 3; $i++)
+                @for ($i = 1; $i <= 12; $i++)
                     <li class="me-2 mb-2">
                         <a href="#" id="tab-{{ $i }}"
                             class="tab-link inline-block duration-500 w-full p-4 sm:w-auto rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
@@ -31,7 +31,7 @@
             </ul>
         </div>
 
-        @for ($i = 1; $i <= 3; $i++)
+        @for ($i = 1; $i <= 12; $i++)
             <form id="myForm" action="" method="POST" data-index="{{ $i }}"
                 onsubmit="return validateForm(event, {{ $i }})">
                 @csrf
@@ -531,16 +531,16 @@
                                                 placeholder="0" oninput="formatRibuan({{ $i }})" readonly>
                                         </div>
 
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
+                                        {{-- <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round">
                                                 <line x1="18" y1="6" x2="6" y2="18" />
                                                 <line x1="6" y1="6" x2="18" y2="18" />
                                             </svg>
-                                        </span>
+                                        </span> --}}
 
-                                        <div class="w-full sm:w-1/5">
+                                        {{-- <div class="w-full sm:w-1/5">
                                             <label for="jumlah-hari-operasional-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                                 Jumlah Hari Operasional
@@ -550,7 +550,7 @@
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="80"
                                                 oninput="calculateTotalOperationalCost({{ $i }})" readonly>
-                                        </div>
+                                        </div> --}}
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
@@ -654,16 +654,16 @@
                                                 placeholder="0" readonly>
                                         </div>
 
-                                        <span class="flex items-center justify-center sm:w-auto w-full">
+                                        {{-- <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round">
                                                 <line x1="18" y1="6" x2="6" y2="18" />
                                                 <line x1="6" y1="6" x2="18" y2="18" />
                                             </svg>
-                                        </span>
+                                        </span> --}}
 
-                                        <div class="w-full sm:w-1/5">
+                                        {{-- <div class="w-full sm:w-1/5">
                                             <label for="jumlah-hari-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
                                                 Hari</label>
@@ -671,7 +671,7 @@
                                                 id="jumlah-hari-{{ $i }}"
                                                 class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 placeholder="80" readonly>
-                                        </div>
+                                        </div> --}}
 
                                         <span class="flex items-center justify-center sm:w-auto w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
@@ -769,6 +769,12 @@
                                 </div>
                             </section>
                         </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <button type="submit" id="submit-button-{{ $i }}"
+                            class="submit-button inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                            Simpan dan Lanjutkan
+                        </button>
                     </div>
                 </div>
             </form>
@@ -931,7 +937,7 @@
                 }
 
                 if (isValid) {
-                    sessionStorage.setItem(`dataPeriode-${index}`, JSON.stringify(formData));
+                    sessionStorage.setItem(`dataPeriodeLayer-${index}`, JSON.stringify(formData));
 
                     Swal.fire({
                         icon: 'success',
@@ -971,7 +977,7 @@
                 let index = 1;
 
                 while (true) {
-                    const data = sessionStorage.getItem(`dataPeriode-${index}`);
+                    const data = sessionStorage.getItem(`dataPeriodeLayer-${index}`);
                     if (!data) break;
                     allData.push(JSON.parse(data));
                     index++;
@@ -1028,7 +1034,7 @@
                 });
 
                 // load session
-                const storedData = sessionStorage.getItem(`dataPeriode-${index}`);
+                const storedData = sessionStorage.getItem(`dataPeriodeLayer-${index}`);
                 if (storedData) {
                     const formData = JSON.parse(storedData);
                     for (const [key, value] of Object.entries(formData)) {
@@ -1061,7 +1067,7 @@
 
             var submitButton = document.getElementById('submit-button-6');
             if (submitButton) {
-                if (periode === 6) {
+                if (periode === 12) {
                     submitButton.innerText = 'Simpan dan Mulai Analisis';
                 } else {
                     submitButton.innerText = 'Simpan dan Lanjutkan';

@@ -859,7 +859,7 @@
                 }
 
                 if (isValid) {
-                    sessionStorage.setItem(`dataPeriode-${index}`, JSON.stringify(formData));
+                    sessionStorage.setItem(`dataPeriodePenetasan-${index}`, JSON.stringify(formData));
 
                     Swal.fire({
                         icon: 'success',
@@ -899,7 +899,7 @@
                 let index = 1;
 
                 while (true) {
-                    const data = sessionStorage.getItem(`dataPeriode-${index}`);
+                    const data = sessionStorage.getItem(`dataPeriodePenetasan-${index}`);
                     if (!data) break;
                     allData.push(JSON.parse(data));
                     index++;
@@ -956,7 +956,7 @@
                 });
 
                 // load session
-                const storedData = sessionStorage.getItem(`dataPeriode-${index}`);
+                const storedData = sessionStorage.getItem(`dataPeriodePenetasan-${index}`);
                 if (storedData) {
                     const formData = JSON.parse(storedData);
                     for (const [key, value] of Object.entries(formData)) {
