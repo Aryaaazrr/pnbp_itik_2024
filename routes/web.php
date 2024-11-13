@@ -32,7 +32,7 @@ Route::middleware('guest')->group(function () {
     Route::get('forgot-password', [AuthController::class, 'edit'])->name('forgot');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('logout', [AuthController::class, 'destroy'])->name('logout');
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -44,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('penggemukan', [PenggemukanController::class, 'store'])->name('penggemukan.store');
 
     Route::get('layer', [LayerController::class, 'index'])->name('layer');
+    Route::post('layer', [LayerController::class, 'store'])->name('layer.store');
 
     Route::get('riwayat', [RiwayatController::class, 'index'])->name('riwayat');
     Route::get('riwayat/trash', [RiwayatController::class, 'edit'])->name('riwayat.edit');

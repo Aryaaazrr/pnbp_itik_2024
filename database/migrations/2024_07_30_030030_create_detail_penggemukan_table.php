@@ -28,6 +28,8 @@ return new class extends Migration
             $table->decimal('biaya_ovk', 20, 2);
             $table->decimal('biaya_operasional', 20, 2);
             $table->decimal('total_biaya_operasional', 20, 2);
+            $table->decimal('harga_beli_itik', 20, 2);
+            $table->decimal('total_bpi', 20, 2);
             $table->decimal('total_variable_cost', 20, 2);
             $table->decimal('sewa_kandang', 20, 2);
             $table->decimal('penyusutan_itik', 20, 2);
