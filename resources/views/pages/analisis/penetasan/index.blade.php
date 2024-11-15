@@ -111,7 +111,7 @@
                                         <div class="w-full sm:w-1/3">
                                             <label for="jumlah-dod-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                Jumlah DOD
+                                                Jumlah DOD (Ekor)
                                             </label>
                                             <input type="text" name="jumlah-dod-{{ $i }}"
                                                 id="jumlah-dod-{{ $i }}"
@@ -125,7 +125,7 @@
                                         <div class="w-full sm:w-1/4">
                                             <label for="revenue-jumlah-dod-{{ $i }}"
                                                 class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                Jumlah DOD
+                                                Jumlah DOD (Ekor)
                                             </label>
                                             <input type="text" name="revenue-jumlah-dod-{{ $i }}"
                                                 id="revenue-jumlah-dod-{{ $i }}"
@@ -1135,7 +1135,7 @@
             var jumlahTelur = parseInt(document.getElementById(`jumlah-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
             var hargaTelur = parseInt(document.getElementById(`harga-telur-${index}`).value.replace(/[^0-9]/g, ''), 10);
 
-            if (!isNaN(jumlahTelur)) {
+            if (!isNaN(jumlahTelur) && !isNaN(hargaTelur)) {
                 var totalPembelianTelur = jumlahTelur * hargaTelur;
 
                 document.getElementById(`total-biaya-pembelian-telur-${index}`).value = formatRupiahValue(
