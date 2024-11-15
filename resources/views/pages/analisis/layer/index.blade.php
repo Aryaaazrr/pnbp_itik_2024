@@ -1186,7 +1186,7 @@
             if (!isNaN(jumlahItik)) {
                 var hargaPakan = parseValue(`harga-pakan-${index}`);
 
-                var jumlahPakanKilogram = (standardPakan * jumlahItik) / 1000;
+                var jumlahPakanKilogram = standardPakan * jumlahItik;
                 var totalBiayaPakan = jumlahPakanKilogram * hargaPakan;
 
                 document.getElementById(`jumlah-pakan-${index}`).value = formatRibuanValue(jumlahPakanKilogram.toFixed(0));
