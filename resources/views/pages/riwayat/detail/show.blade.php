@@ -49,7 +49,7 @@
                     <div id="accordion-collapse-periode-{{ $i }}" data-accordion="collapse" class="py-8">
                         @if ($currentPeriodeData->count())
                             @if ($type == 'Penetasan')
-                                {{-- Penerimaan --}}
+                                {{-- Penerimaan Penetasan --}}
                                 <h2 id="accordion-collapse-heading-penerimaan-{{ $i }}">
                                     <button type="button"
                                         class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
@@ -211,7 +211,7 @@
                                     </section>
                                 </div>
                             @elseif ($type == 'Penggemukan')
-                                {{-- Penerimaan --}}
+                                {{-- Penerimaan Penggemukan --}}
                                 <h2 id="accordion-collapse-heading-penerimaan-{{ $i }}">
                                     <button type="button"
                                         class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
@@ -369,7 +369,7 @@
                                     </section>
                                 </div>
                             @else
-                                {{-- Penerimaan --}}
+                                {{-- Penerimaan Layer --}}
                                 <h2 id="accordion-collapse-heading-penerimaan-{{ $i }}">
                                     <button type="button"
                                         class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
@@ -391,125 +391,134 @@
                                             <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Data
                                                 Penerimaan Periode
                                                 {{ $i }}</h2>
-                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="jumlah-itik-awal-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                        Itik Awal (Ekor)</label>
-                                                    <input type="text" name="jumlah-itik-awal-{{ $i }}"
-                                                        id="jumlah-itik-awal-{{ $i }}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="0"
-                                                        oninput="formatRibuan({{ $i }}); hitungRevenue({{ $i }})">
+                                            @foreach ($currentPeriodeData as $item)
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-itik-awal-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                            Itik Awal (Ekor)</label>
+                                                        <input type="text" name="jumlah-itik-awal-{{ $i }}"
+                                                            id="jumlah-itik-awal-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <!-- Icon X -->
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="presentase-bertelur-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Presentase
+                                                            Bertelur</label>
+                                                        <input type="text"
+                                                            name="presentase-bertelur-{{ $i }}"
+                                                            id="presentase-bertelur-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ $item->presentase_bertelur }}%" required readonly>
+                                                    </div>
+
+                                                    <!-- Icon = -->
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="jumlah-telur-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                            Telur (1 periode)</label>
+                                                        <input type="text" name="jumlah-telur-{{ $i }}"
+                                                            id="jumlah-telur-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_telur, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-telur-2-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                            Telur (1 periode)</label>
+                                                        <input type="text" name="jumlah-telur-2-{{ $i }}"
+                                                            id="jumlah-telur-2-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_telur, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <!-- Icon X -->
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="harga-telur-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Harga
+                                                            Telur</label>
+                                                        <input type="text" name="harga-telur-{{ $i }}"
+                                                            id="harga-telur-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->harga_telur, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <!-- Icon = -->
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-revenue-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Revenue</label>
+                                                        <input type="text" name="total-revenue-{{ $i }}"
+                                                            id="total-revenue-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_revenue, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
                                                 </div>
-
-                                                <!-- Icon X -->
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="18" y1="6" x2="6"
-                                                            y2="18" />
-                                                        <line x1="6" y1="6" x2="18"
-                                                            y2="18" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="presentase-bertelur-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Presentase
-                                                        Bertelur</label>
-                                                    <input type="text" name="presentase-bertelur-{{ $i }}"
-                                                        id="presentase-bertelur-{{ $i }}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="0%"
-                                                        oninput="formatPresentase(this); hitungRevenue({{ $i }})">
-                                                </div>
-
-                                                <!-- Icon = -->
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/3">
-                                                    <label for="jumlah-telur-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                        Telur (1 periode)</label>
-                                                    <input type="text" name="jumlah-telur-{{ $i }}"
-                                                        id="jumlah-telur-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="0" readonly>
-                                                </div>
-
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="jumlah-telur-2-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                        Telur (1 periode)</label>
-                                                    <input type="text" name="jumlah-telur-2-{{ $i }}"
-                                                        id="jumlah-telur-2-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="0" readonly>
-                                                </div>
-
-                                                <!-- Icon X -->
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="18" y1="6" x2="6"
-                                                            y2="18" />
-                                                        <line x1="6" y1="6" x2="18"
-                                                            y2="18" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="harga-telur-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Harga
-                                                        Telur</label>
-                                                    <input type="text" name="harga-telur-{{ $i }}"
-                                                        id="harga-telur-{{ $i }}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="Rp 0"
-                                                        oninput="formatRupiah(this); hitungRevenue({{ $i }})">
-                                                </div>
-
-                                                <!-- Icon = -->
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/3">
-                                                    <label for="total-revenue-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                        Revenue</label>
-                                                    <input type="text" name="total-revenue-{{ $i }}"
-                                                        id="total-revenue-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder="Rp 0" readonly>
-                                                </div>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </section>
                                 </div>
                             @endif
 
                             @if ($type == 'Penetasan')
-                                {{-- Pengeluaran --}}
+                                {{-- Pengeluaran Penetasan --}}
                                 <h2 id="accordion-collapse-heading-pengeluaran-{{ $i }}">
                                     <button type="button"
                                         class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
@@ -1046,7 +1055,7 @@
                                     </section>
                                 </div>
                             @elseif ($type == 'Penggemukan')
-                                {{-- Pengeluaran --}}
+                                {{-- Pengeluaran Penggemukan --}}
                                 <h2 id="accordion-collapse-heading-pengeluaran-{{ $i }}">
                                     <button type="button"
                                         class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
@@ -1064,637 +1073,1209 @@
                                 <div id="accordion-collapse-body-pengeluaran-{{ $i }}" class="hidden"
                                     aria-labelledby="accordion-collapse-heading-pengeluaran-{{ $i }}">
                                     <section class="bg-white dark:bg-gray-900">
-                                        <div class="py-4 px-4 mx-auto max-w-6xl lg:py-8">
-
-                                            <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Data
-                                                Pengeluaran
-                                                Periode
-                                                {{ $i }}</h2>
-                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="total-var-cost-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                        Variable Cost</label>
-                                                    <input type="text" name="total-var-cost-{{ $i }}"
-                                                        id="total-var-cost-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_variable_cost, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12"
-                                                            y2="19" />
-                                                        <line x1="5" y1="12" x2="19"
-                                                            y2="12" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="total-fixed-cost-akhir-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                        Fixed Cost</label>
-                                                    <input type="text"
-                                                        name="total-fixed-cost-akhir-{{ $i }}"
-                                                        id="total-fixed-cost-akhir-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_fixed_cost, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/3">
-                                                    <label for="total-cost-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                        Cost</label>
-                                                    <input type="text" name="total-cost-{{ $i }}"
-                                                        id="total-cost-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_cost, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-                                            </div>
-
-                                            {{-- VAR COST --}}
-                                            <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">A. Variable
-                                                Cost
-                                                Periode {{ $i }}</h2>
-                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                                <div class="w-full sm:w-1/5">
-                                                    <label for="total-bo-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Total Biaya Operasional
-                                                    </label>
-                                                    <input type="text" name="total-bo-{{ $i }}"
-                                                        id="total-bo-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12"
-                                                            y2="19" />
-                                                        <line x1="5" y1="12" x2="19"
-                                                            y2="12" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/5">
-                                                    <label for="total-biaya-pakan-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Total Biaya Pakan
-                                                    </label>
-                                                    <input type="text" name="total-biaya-pakan-{{ $i }}"
-                                                        id="total-biaya-pakan-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_biaya_pakan, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12"
-                                                            y2="19" />
-                                                        <line x1="5" y1="12" x2="19"
-                                                            y2="12" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/5">
-                                                    <label for="total-bpi-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Total Biaya Pembelian Itik
-                                                    </label>
-                                                    <input type="text" name="total-bpi-{{ $i }}"
-                                                        id="total-bpi-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_bpi, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/5">
-                                                    <label for="total-variable-cost-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Total Variable Cost
-                                                    </label>
-                                                    <input type="text"
-                                                        name="total-variable-cost-{{ $i }}"
-                                                        id="total-variable-cost-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_variable_cost, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-                                            </div>
-
-                                            {{-- PEMBELIAN PAKAN --}}
-                                            <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">1. Jumlah
-                                                Pembelian
-                                                Pakan
-                                                Periode
-                                                {{ $i }}</h2>
-                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                                <!-- Standard Pakan (Gram) -->
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="standard-pakan-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Standard Pakan (Kilogram)
-                                                    </label>
-                                                    <input type="text" id="standard-pakan-{{ $i }}"
-                                                        value="3"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="{{ number_format($item->standard_pakan, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="18" y1="6" x2="6"
-                                                            y2="18" />
-                                                        <line x1="6" y1="6" x2="18"
-                                                            y2="18" />
-                                                    </svg>
-                                                </span>
-
-                                                <!-- Jumlah Itik -->
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="jumlah-itik-pembelian-pakan-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Jumlah Itik
-                                                    </label>
-                                                    <input type="text"
-                                                        id="jumlah-itik-pembelian-pakan-{{ $i }}"
-                                                        name="jumlah-itik-pembelian-pakan-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/3">
-                                                    <label for="jumlah-pakan-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Jumlah Pakan (Kilogram)
-                                                    </label>
-                                                    <input type="text" id="jumlah-pakan-{{ $i }}"
-                                                        name="jumlah-pakan-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="{{ number_format($item->jumlah_pakan, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="jumlah-pakan-kilogram-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Jumlah Pakan (Kilogram)
-                                                    </label>
-                                                    <input type="text"
-                                                        id="jumlah-pakan-kilogram-{{ $i }}"
-                                                        name="jumlah-pakan-kilogram-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="{{ number_format($item->jumlah_pakan, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="18" y1="6" x2="6"
-                                                            y2="18" />
-                                                        <line x1="6" y1="6" x2="18"
-                                                            y2="18" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="harga-pakan-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Harga Pakan
-                                                    </label>
-                                                    <input type="text" name="harga-pakan-{{ $i }}"
-                                                        id="harga-pakan-{{ $i }}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->harga_pakan, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/3">
-                                                    <label for="total-biaya-pakan-pembelian-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Total Biaya Pakan (Rp)
-                                                    </label>
-                                                    <input type="text"
-                                                        id="total-biaya-pakan-pembelian-{{ $i }}"
-                                                        name="total-biaya-pakan-pembelian-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_biaya_pakan, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-                                            </div>
-
-                                            <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">2. Jumlah
-                                                Biaya
-                                                Operasional Periode {{ $i }}</h2>
-                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                                {{-- Biaya Tenaga Kerja --}}
-                                                <div class="w-full sm:w-1/5">
-                                                    <label for="biaya-tenaga-kerja-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                                        Tenaga Kerja</label>
-                                                    <input type="text"
-                                                        name="biaya-tenaga-kerja-{{ $i }}"
-                                                        id="biaya-tenaga-kerja-{{ $i }}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->biaya_tk, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12"
-                                                            y2="19" />
-                                                        <line x1="5" y1="12" x2="19"
-                                                            y2="12" />
-                                                    </svg>
-                                                </span>
-
-                                                {{-- Biaya Listrik --}}
-                                                <div class="w-full sm:w-1/5">
-                                                    <label for="biaya-listrik-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                                        Listrik</label>
-                                                    <input type="text" name="biaya-listrik-{{ $i }}"
-                                                        id="biaya-listrik-{{ $i }}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->biaya_listrik, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12"
-                                                            y2="19" />
-                                                        <line x1="5" y1="12" x2="19"
-                                                            y2="12" />
-                                                    </svg>
-                                                </span>
-
-                                                {{-- Biaya OVK --}}
-                                                <div class="w-full sm:w-1/5">
-                                                    <label for="biaya-ovk-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                                        OVK</label>
-                                                    <input type="text" name="biaya-ovk-{{ $i }}"
-                                                        id="biaya-ovk-{{ $i }}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->biaya_ovk, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/5">
-                                                    <label for="biaya-op-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
-                                                        Operasional</label>
-                                                    <input type="text" name="biaya-op-{{ $i }}"
-                                                        id="biaya-op-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->biaya_operasional, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="biaya-op-awal-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Biaya Operasional
-                                                    </label>
-                                                    <input type="text" name="biaya-op-awal-{{ $i }}"
-                                                        id="biaya-op-awal-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->biaya_operasional, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="18" y1="6" x2="6"
-                                                            y2="18" />
-                                                        <line x1="6" y1="6" x2="18"
-                                                            y2="18" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="jumlah-itik-op-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Jumlah Itik
-                                                    </label>
-                                                    <input type="text" name="jumlah-itik-op-{{ $i }}"
-                                                        id="jumlah-itik-op-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/3">
-                                                    <label for="total-biaya-operasional-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                                        Total Biaya Operasional
-                                                    </label>
-                                                    <input type="text"
-                                                        name="total-biaya-operasional-{{ $i }}"
-                                                        id="total-biaya-operasional-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-                                            </div>
-
-                                            <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">3. Jumlah
-                                                Biaya
-                                                Pembelian Itik Periode {{ $i }}</h2>
-                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                                {{-- Harga Beli Itik --}}
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="harga-beli-itik-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Harga
-                                                        Beli
-                                                        Itik</label>
-                                                    <input type="text" name="harga-beli-itik-{{ $i }}"
-                                                        id="harga-beli-itik-{{ $i }}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->harga_beli_itik, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="18" y1="6" x2="6"
-                                                            y2="18" />
-                                                        <line x1="6" y1="6" x2="18"
-                                                            y2="18" />
-                                                    </svg>
-                                                </span>
-
-                                                {{-- Jumlah Itik --}}
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="jumlah-itik-bpi-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                        Itik</label>
-                                                    <input type="text" name="jumlah-itik-bpi-{{ $i }}"
-                                                        id="jumlah-itik-bpi-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/3">
-                                                    <label for="total-biaya-pembelian-itik-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                        Biaya
-                                                        Pembelian Itik</label>
-                                                    <input type="text"
-                                                        name="total-biaya-pembelian-itik-{{ $i }}"
-                                                        id="total-biaya-pembelian-itik-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="{{ number_format($item->total_bpi, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-                                            </div>
-
-                                            <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">B. Fixed Cost
-                                                Periode
-                                                {{ $i }}</h2>
-                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="sewa-kandang-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
-                                                        Kandang</label>
-                                                    <input type="text" name="sewa-kandang-{{ $i }}"
-                                                        id="sewa-kandang-{{ $i }}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->sewa_kandang, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12"
-                                                            y2="19" />
-                                                        <line x1="5" y1="12" x2="19"
-                                                            y2="12" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="penyusutan-itik-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Penyusutan
-                                                        Alat</label>
-                                                    <input type="text" name="penyusutan-itik-{{ $i }}"
-                                                        id="penyusutan-itik-{{ $i }}"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->penyusutan_itik, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/3">
-                                                    <label for="biaya-fixed-cost-awal-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                        Biaya</label>
-                                                    <input type="text"
-                                                        name="biaya-fixed-cost-awal-{{ $i }}"
-                                                        id="biaya-fixed-cost-awal-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_biaya, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-                                            </div>
-                                            <div class="flex flex-wrap gap-4 mb-4 justify-center">
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="total-biaya-fixed-cost-awal-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                        Biaya</label>
-                                                    <input type="text"
-                                                        name="total-biaya-fixed-cost-awal-{{ $i }}"
-                                                        id="total-biaya-fixed-cost-awal-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_biaya, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="18" y1="6" x2="6"
-                                                            y2="18" />
-                                                        <line x1="6" y1="6" x2="18"
-                                                            y2="18" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/4">
-                                                    <label for="jumlah-itik-fixed-cost-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                                        Itik</label>
-                                                    <input type="text"
-                                                        name="jumlah-itik-fixed-cost-{{ $i }}"
-                                                        id="jumlah-itik-fixed-cost-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
-                                                        required readonly>
-                                                </div>
-
-                                                <span class="flex items-center justify-center sm:w-auto w-full">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
-                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <line x1="5" y1="9" x2="19"
-                                                            y2="9" />
-                                                        <line x1="5" y1="15" x2="19"
-                                                            y2="15" />
-                                                    </svg>
-                                                </span>
-
-                                                <div class="w-full sm:w-1/3">
-                                                    <label for="total-fixed-cost-{{ $i }}"
-                                                        class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
-                                                        Fixed Cost</label>
-                                                    <input type="text" name="total-fixed-cost-{{ $i }}"
-                                                        id="total-fixed-cost-{{ $i }}"
-                                                        class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        value="Rp {{ number_format($item->total_fixed_cost, 0, ',', '.') }}"
+                                        @foreach ($currentPeriodeData as $item)
+                                            <div class="py-4 px-4 mx-auto max-w-6xl lg:py-8">
+                                                <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Data
+                                                    Pengeluaran
+                                                    Periode
+                                                    {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="total-var-cost-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Variable Cost</label>
+                                                        <input type="text" name="total-var-cost-{{ $i }}"
+                                                            id="total-var-cost-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_variable_cost, 0, ',', '.') }}"
                                                             required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="total-fixed-cost-akhir-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Fixed Cost</label>
+                                                        <input type="text"
+                                                            name="total-fixed-cost-akhir-{{ $i }}"
+                                                            id="total-fixed-cost-akhir-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_fixed_cost, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-cost-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Cost</label>
+                                                        <input type="text" name="total-cost-{{ $i }}"
+                                                            id="total-cost-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_cost, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+
+                                                {{-- VAR COST --}}
+                                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">A.
+                                                    Variable
+                                                    Cost
+                                                    Periode {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="total-bo-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Biaya Operasional
+                                                        </label>
+                                                        <input type="text" name="total-bo-{{ $i }}"
+                                                            id="total-bo-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="total-biaya-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Biaya Pakan
+                                                        </label>
+                                                        <input type="text"
+                                                            name="total-biaya-pakan-{{ $i }}"
+                                                            id="total-biaya-pakan-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="total-bpi-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Biaya Pembelian Itik
+                                                        </label>
+                                                        <input type="text" name="total-bpi-{{ $i }}"
+                                                            id="total-bpi-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_bpi, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="total-variable-cost-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Variable Cost
+                                                        </label>
+                                                        <input type="text"
+                                                            name="total-variable-cost-{{ $i }}"
+                                                            id="total-variable-cost-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_variable_cost, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+
+                                                {{-- PEMBELIAN PAKAN --}}
+                                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">1. Jumlah
+                                                    Pembelian
+                                                    Pakan
+                                                    Periode
+                                                    {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <!-- Standard Pakan (Gram) -->
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="standard-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Standard Pakan (Kilogram)
+                                                        </label>
+                                                        <input type="text" id="standard-pakan-{{ $i }}"
+                                                            value="3"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->standard_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <!-- Jumlah Itik -->
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-itik-pembelian-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Jumlah Itik
+                                                        </label>
+                                                        <input type="text"
+                                                            id="jumlah-itik-pembelian-pakan-{{ $i }}"
+                                                            name="jumlah-itik-pembelian-pakan-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="jumlah-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Jumlah Pakan (Kilogram)
+                                                        </label>
+                                                        <input type="text" id="jumlah-pakan-{{ $i }}"
+                                                            name="jumlah-pakan-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-pakan-kilogram-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Jumlah Pakan (Kilogram)
+                                                        </label>
+                                                        <input type="text"
+                                                            id="jumlah-pakan-kilogram-{{ $i }}"
+                                                            name="jumlah-pakan-kilogram-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="harga-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Harga Pakan
+                                                        </label>
+                                                        <input type="text" name="harga-pakan-{{ $i }}"
+                                                            id="harga-pakan-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->harga_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-biaya-pakan-pembelian-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Biaya Pakan (Rp)
+                                                        </label>
+                                                        <input type="text"
+                                                            id="total-biaya-pakan-pembelian-{{ $i }}"
+                                                            name="total-biaya-pakan-pembelian-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+
+                                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">2. Jumlah
+                                                    Biaya
+                                                    Operasional Periode {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    {{-- Biaya Tenaga Kerja --}}
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="biaya-tenaga-kerja-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                            Tenaga Kerja</label>
+                                                        <input type="text"
+                                                            name="biaya-tenaga-kerja-{{ $i }}"
+                                                            id="biaya-tenaga-kerja-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->biaya_tk, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    {{-- Biaya Listrik --}}
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="biaya-listrik-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                            Listrik</label>
+                                                        <input type="text" name="biaya-listrik-{{ $i }}"
+                                                            id="biaya-listrik-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->biaya_listrik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    {{-- Biaya OVK --}}
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="biaya-ovk-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                            OVK</label>
+                                                        <input type="text" name="biaya-ovk-{{ $i }}"
+                                                            id="biaya-ovk-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->biaya_ovk, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="biaya-op-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                            Operasional</label>
+                                                        <input type="text" name="biaya-op-{{ $i }}"
+                                                            id="biaya-op-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->biaya_operasional, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="biaya-op-awal-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Biaya Operasional
+                                                        </label>
+                                                        <input type="text" name="biaya-op-awal-{{ $i }}"
+                                                            id="biaya-op-awal-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->biaya_operasional, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-itik-op-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Jumlah Itik
+                                                        </label>
+                                                        <input type="text"
+                                                            name="jumlah-itik-op-{{ $i }}"
+                                                            id="jumlah-itik-op-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-biaya-operasional-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Biaya Operasional
+                                                        </label>
+                                                        <input type="text"
+                                                            name="total-biaya-operasional-{{ $i }}"
+                                                            id="total-biaya-operasional-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+
+                                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">3. Jumlah
+                                                    Biaya
+                                                    Pembelian Itik Periode {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    {{-- Harga Beli Itik --}}
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="harga-beli-itik-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Harga
+                                                            Beli
+                                                            Itik</label>
+                                                        <input type="text"
+                                                            name="harga-beli-itik-{{ $i }}"
+                                                            id="harga-beli-itik-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->harga_beli_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    {{-- Jumlah Itik --}}
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-itik-bpi-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                            Itik</label>
+                                                        <input type="text"
+                                                            name="jumlah-itik-bpi-{{ $i }}"
+                                                            id="jumlah-itik-bpi-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-biaya-pembelian-itik-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Biaya
+                                                            Pembelian Itik</label>
+                                                        <input type="text"
+                                                            name="total-biaya-pembelian-itik-{{ $i }}"
+                                                            id="total-biaya-pembelian-itik-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->total_bpi, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+
+                                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">B. Fixed
+                                                    Cost
+                                                    Periode
+                                                    {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="sewa-kandang-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
+                                                            Kandang</label>
+                                                        <input type="text" name="sewa-kandang-{{ $i }}"
+                                                            id="sewa-kandang-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->sewa_kandang, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="penyusutan-itik-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Penyusutan
+                                                            Alat</label>
+                                                        <input type="text"
+                                                            name="penyusutan-itik-{{ $i }}"
+                                                            id="penyusutan-itik-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->penyusutan_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="biaya-fixed-cost-awal-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Biaya</label>
+                                                        <input type="text"
+                                                            name="biaya-fixed-cost-awal-{{ $i }}"
+                                                            id="biaya-fixed-cost-awal-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="total-biaya-fixed-cost-awal-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Biaya</label>
+                                                        <input type="text"
+                                                            name="total-biaya-fixed-cost-awal-{{ $i }}"
+                                                            id="total-biaya-fixed-cost-awal-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-itik-fixed-cost-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                            Itik</label>
+                                                        <input type="text"
+                                                            name="jumlah-itik-fixed-cost-{{ $i }}"
+                                                            id="jumlah-itik-fixed-cost-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-fixed-cost-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Fixed Cost</label>
+                                                        <input type="text"
+                                                            name="total-fixed-cost-{{ $i }}"
+                                                            id="total-fixed-cost-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_fixed_cost, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </section>
                                 </div>
                             @else
+                                {{-- Pengeluaran Layer --}}
+                                <h2 id="accordion-collapse-heading-pengeluaran-{{ $i }}">
+                                    <button type="button"
+                                        class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                        data-accordion-target="#accordion-collapse-body-pengeluaran-{{ $i }}"
+                                        aria-expanded="false"
+                                        aria-controls="accordion-collapse-body-pengeluaran-{{ $i }}">
+                                        <span>II. PENGELUARAN (C = COST)</span>
+                                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M9 5 5 1 1 5" />
+                                        </svg>
+                                    </button>
+                                </h2>
+                                <div id="accordion-collapse-body-pengeluaran-{{ $i }}" class="hidden"
+                                    aria-labelledby="accordion-collapse-heading-pengeluaran-{{ $i }}">
+                                    <section class="bg-white dark:bg-gray-900">
+                                        @foreach ($currentPeriodeData as $item)
+                                            <div class="py-4 px-4 mx-auto max-w-6xl lg:py-8">
+                                                <h2 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Data
+                                                    Pengeluaran
+                                                    Periode
+                                                    {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="total-var-cost-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Variable Cost</label>
+                                                        <input type="text"
+                                                            name="total-var-cost-{{ $i }}"
+                                                            id="total-var-cost-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_variable_cost, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="total-fixed-cost-akhir-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Fixed Cost</label>
+                                                        <input type="text"
+                                                            name="total-fixed-cost-akhir-{{ $i }}"
+                                                            id="total-fixed-cost-akhir-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_fixed_cost, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-cost-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Cost</label>
+                                                        <input type="text" name="total-cost-{{ $i }}"
+                                                            id="total-cost-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-60 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_cost, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+
+                                                {{-- VAR COST --}}
+                                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">A.
+                                                    Variable
+                                                    Cost
+                                                    Periode {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="total-bo-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Biaya Operasional
+                                                        </label>
+                                                        <input type="text" name="total-bo-{{ $i }}"
+                                                            id="total-bo-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="total-biaya-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Biaya Pakan
+                                                        </label>
+                                                        <input type="text"
+                                                            name="total-biaya-pakan-{{ $i }}"
+                                                            id="total-biaya-pakan-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-variable-cost-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Variable Cost
+                                                        </label>
+                                                        <input type="text"
+                                                            name="total-variable-cost-{{ $i }}"
+                                                            id="total-variable-cost-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_variable_cost, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+
+                                                {{-- PEMBELIAN PAKAN --}}
+                                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">1. Jumlah
+                                                    Pembelian
+                                                    Pakan
+                                                    Periode
+                                                    {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <!-- Standard Pakan (Gram) -->
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="standard-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Standard Pakan (Kilogram)
+                                                        </label>
+                                                        <input type="text" id="standard-pakan-{{ $i }}"
+                                                            value="3.6"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <!-- Jumlah Itik -->
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-itik-pembelian-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Jumlah Itik
+                                                        </label>
+                                                        <input type="text"
+                                                            id="jumlah-itik-pembelian-pakan-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="jumlah-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Jumlah Pakan (Kilogram)
+                                                        </label>
+                                                        <input type="text" id="jumlah-pakan-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-pakan-kilogram-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Jumlah Pakan (Kilogram)
+                                                        </label>
+                                                        <input type="text"
+                                                            id="jumlah-pakan-kilogram-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="harga-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Harga Pakan
+                                                        </label>
+                                                        <input type="text" name="harga-pakan-{{ $i }}"
+                                                            id="harga-pakan-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->harga_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-biaya-pakan-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Biaya Pakan (Rp)
+                                                        </label>
+                                                        <input type="text"
+                                                            id="total-biaya-pakan-pembelian-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya_pakan, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+
+                                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">2. Jumlah
+                                                    Biaya
+                                                    Operasional Periode {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    {{-- Biaya Tenaga Kerja --}}
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="biaya-tenaga-kerja-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                            Tenaga Kerja</label>
+                                                        <input type="text"
+                                                            name="biaya-tenaga-kerja-{{ $i }}"
+                                                            id="biaya-tenaga-kerja-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Rp 0"
+                                                            value="Rp {{ number_format($item->biaya_tk, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    {{-- Biaya Listrik --}}
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="biaya-listrik-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                            Listrik</label>
+                                                        <input type="text" name="biaya-listrik-{{ $i }}"
+                                                            id="biaya-listrik-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->biaya_listrik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    {{-- Biaya OVK --}}
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="biaya-ovk-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                            OVK</label>
+                                                        <input type="text" name="biaya-ovk-{{ $i }}"
+                                                            id="biaya-ovk-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->biaya_ovk, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/5">
+                                                        <label for="biaya-op-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Biaya
+                                                            Operasional</label>
+                                                        <input type="text" name="biaya-op-{{ $i }}"
+                                                            id="biaya-op-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->biaya_operasional, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="biaya-op-awal-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Biaya Operasional
+                                                        </label>
+                                                        <input type="text" name="biaya-op-awal-{{ $i }}"
+                                                            id="biaya-op-awal-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->biaya_operasional, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-itik-op-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Jumlah Itik
+                                                        </label>
+                                                        <input type="text"
+                                                            name="jumlah-itik-op-{{ $i }}"
+                                                            id="jumlah-itik-op-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-biaya-operasional-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Total Biaya Operasional
+                                                        </label>
+                                                        <input type="text"
+                                                            name="total-biaya-operasional-{{ $i }}"
+                                                            id="total-biaya-operasional-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya_operasional, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+
+                                                <h2 class="my-4 text-xl font-bold text-gray-900 dark:text-white">B. Fixed
+                                                    Cost
+                                                    Periode
+                                                    {{ $i }}</h2>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="sewa-kandang-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sewa
+                                                            Kandang</label>
+                                                        <input type="text" name="sewa-kandang-{{ $i }}"
+                                                            id="sewa-kandang-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->sewa_kandang, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="12" y1="5" x2="12"
+                                                                y2="19" />
+                                                            <line x1="5" y1="12" x2="19"
+                                                                y2="12" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="penyusutan-itik-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Penyusutan
+                                                            Itik</label>
+                                                        <input type="text"
+                                                            name="penyusutan-itik-{{ $i }}"
+                                                            id="penyusutan-itik-{{ $i }}"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->penyusutan_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="biaya-fixed-cost-awal-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Biaya</label>
+                                                        <input type="text"
+                                                            name="biaya-fixed-cost-awal-{{ $i }}"
+                                                            id="biaya-fixed-cost-awal-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-wrap gap-4 mb-4 justify-center">
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="total-biaya-fixed-cost-awal-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Biaya</label>
+                                                        <input type="text"
+                                                            name="total-biaya-fixed-cost-awal-{{ $i }}"
+                                                            id="total-biaya-fixed-cost-awal-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_biaya, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="18" y1="6" x2="6"
+                                                                y2="18" />
+                                                            <line x1="6" y1="6" x2="18"
+                                                                y2="18" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/4">
+                                                        <label for="jumlah-itik-fixed-cost-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                                                            Itik</label>
+                                                        <input type="text"
+                                                            name="jumlah-itik-fixed-cost-{{ $i }}"
+                                                            id="jumlah-itik-fixed-cost-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="{{ number_format($item->jumlah_itik, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+
+                                                    <span class="flex items-center justify-center sm:w-auto w-full">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <line x1="5" y1="9" x2="19"
+                                                                y2="9" />
+                                                            <line x1="5" y1="15" x2="19"
+                                                                y2="15" />
+                                                        </svg>
+                                                    </span>
+
+                                                    <div class="w-full sm:w-1/3">
+                                                        <label for="total-fixed-cost-{{ $i }}"
+                                                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Total
+                                                            Fixed Cost</label>
+                                                        <input type="text"
+                                                            name="total-fixed-cost-{{ $i }}"
+                                                            id="total-fixed-cost-{{ $i }}"
+                                                            class="bg-secondary bg-opacity-25 border border-primary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            value="Rp {{ number_format($item->total_fixed_cost, 0, ',', '.') }}"
+                                                            required readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </section>
+                                </div>
                             @endif
 
                             {{-- Hasil --}}
