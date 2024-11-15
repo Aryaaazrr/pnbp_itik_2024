@@ -125,19 +125,21 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },
                         success: function(response) {
-                            Swal.fire(
-                                'Hapus Permanen!',
-                                'Data berhasil dihapus permanen.',
-                                'success'
-                            );
+                            Swal.fire({
+                                title: 'Hapus Permanen!',
+                                text: 'Data berhasil dihapurs permanen.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                            });
                             $('#data').load(location.href + ' #data');
                         },
                         error: function(xhr, status, error) {
-                            Swal.fire(
-                                'Oopss!',
-                                'Terjadi kesalahan saat menghapus data',
-                                'error'
-                            );
+                            Swal.fire({
+                                title: 'Pindahkan ke sampah!',
+                                text: 'Terjadi kesalahan saat menghapus data. Hubungi developer!',
+                                icon: 'error',
+                                confirmButtonColor: '#d33',
+                            });
                         }
                     });
                 } else if (result.isDenied) {
@@ -148,19 +150,21 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },
                         success: function(response) {
-                            Swal.fire(
-                                'Pindahkan ke sampah!',
-                                'Data berhasil dipindahkan ke sampah.',
-                                'success',
-                            );
+                            Swal.fire({
+                                title: 'Pindahkan ke sampah!',
+                                text: 'Data berhasil dipindahkan ke sampah.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                            });
                             $('#data').load(location.href + ' #data');
                         },
                         error: function(xhr, status, error) {
-                            Swal.fire(
-                                'Oopss!',
-                                'Terjadi kesalahan saat menghapus data',
-                                'error'
-                            );
+                            Swal.fire({
+                                title: 'Pindahkan ke sampah!',
+                                text: 'Terjadi kesalahan saat menghapus data. Hubungi developer!',
+                                icon: 'error',
+                                confirmButtonColor: '#d33',
+                            });
                         }
                     });
                 }

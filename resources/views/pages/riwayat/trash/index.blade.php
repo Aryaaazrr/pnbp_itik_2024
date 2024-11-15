@@ -22,10 +22,10 @@
                 </div>
 
                 <div id="data" class="mt-6 flow-root sm:mt-8">
-                    @if ($penetasan->count())
+                    @if ($analisis->count())
                         <div class="divide-y divide-gray-200 dark:divide-gray-700">
                             {{-- data looping --}}
-                            @foreach ($penetasan as $item)
+                            @foreach ($analisis as $item)
                                 <div class="flex flex-wrap items-center gap-y-4 py-6">
                                     <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                         <dt class="text-base font-medium text-gray-500 dark:text-gray-400">No :</dt>
@@ -61,13 +61,13 @@
                                         class="w-full grid sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4">
                                         <button type="button"
                                             class="w-full rounded-lg border border-orange-300 px-3 py-2 text-center text-sm font-medium text-orange-500 hover:bg-orange-400 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto"
-                                            onclick="confirmDelete({{ $item->id_penetasan }})">Pulihkan</button>
+                                            onclick="confirmDelete({{ $item->id_analisis }})">Pulihkan</button>
                                     </div>
                                 </div>
 
                                 <nav class="mt-6 flex items-center justify-center sm:mt-8"
                                     aria-label="Page navigation example">
-                                    {{ $penetasan->links('pagination::tailwind') }}
+                                    {{ $analisis->links('pagination::tailwind') }}
                                 </nav>
                             @endforeach
                         </div>
@@ -111,20 +111,22 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },
                         success: function(response) {
-                            Swal.fire(
-                                'Pulihkan data!',
-                                'Data berhasil dipulihkan.',
-                                'success'
-                            );
+                            Swal.fire({
+                                title: 'Pulihkan data!',
+                                text: 'Data berhasil dipulihkan.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                            });
                             $('#data').load(location.href + ' #data');
                             window.location.href = '/riwayat';
                         },
                         error: function(xhr, status, error) {
-                            Swal.fire(
-                                'Oopss!',
-                                'Terjadi kesalahan saat menghapus data',
-                                'error'
-                            );
+                            Swal.fire({
+                                title: 'Pindahkan ke sampah!',
+                                text: 'Terjadi kesalahan saat menghapus data. Hubungi developer!',
+                                icon: 'error',
+                                confirmButtonColor: '#d33',
+                            });
                         }
                     });
                 } else if (result.isDenied) {
@@ -135,19 +137,21 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },
                         success: function(response) {
-                            Swal.fire(
-                                'Hapus Permanen!',
-                                'Data berhasil dihapus permanen.',
-                                'success',
-                            );
+                            Swal.fire({
+                                title: 'Hapus Permanan!',
+                                text: 'Data berhasil dihapus permanen.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                            });
                             $('#data').load(location.href + ' #data');
                         },
                         error: function(xhr, status, error) {
-                            Swal.fire(
-                                'Oopss!',
-                                'Terjadi kesalahan saat menghapus data',
-                                'error'
-                            );
+                            Swal.fire({
+                                title: 'Pindahkan ke sampah!',
+                                text: 'Terjadi kesalahan saat menghapus data. Hubungi developer!',
+                                icon: 'error',
+                                confirmButtonColor: '#d33',
+                            });
                         }
                     });
                 }

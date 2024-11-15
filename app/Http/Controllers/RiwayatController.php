@@ -143,9 +143,9 @@ class RiwayatController extends Controller
      */
     public function edit()
     {
-        $penetasan = Analisis::onlyTrashed()->paginate(10);
+        $analisis = Analisis::onlyTrashed()->paginate(10);
 
-        return view('pages.riwayat.trash.index', ['penetasan' => $penetasan]);
+        return view('pages.riwayat.trash.index', ['analisis' => $analisis]);
     }
 
     /**
